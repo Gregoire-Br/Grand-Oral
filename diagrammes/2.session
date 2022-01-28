@@ -1,0 +1,13 @@
+window_sizes 1920 1017 375 1540 867 104
+
+diagrams
+  active  usecasediagram_ref 128002 // UseCase
+    1326 865 155 A2 96 58
+end
+show_stereotypes
+selected 
+  package_ref 129 // GrandOral
+open
+  usecaseview_ref 128130 // UseCaseView
+end
+end
