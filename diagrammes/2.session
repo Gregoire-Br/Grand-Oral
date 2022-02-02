@@ -1,13 +1,19 @@
-window_sizes 1920 1017 375 1540 867 104
+window_sizes 1600 837 375 1220 687 104
 
 diagrams
-  active  usecasediagram_ref 128002 // UseCase
-    1326 865 155 A2 96 58
+  usecasediagram_ref 128002 // UseCase
+    1326 865 112 A2 0 0
+  sequencediagram_ref 134530 // WorkflowValidationFiche
+    976 549 100 A4 0 0
+  active  sequencediagram_ref 134658 // WorkflowVerificationQRCode
+    1220 687 100 A4 0 0
 end
 show_stereotypes
-selected 
-  package_ref 129 // GrandOral
+selected class_ref 135170 // Etablissement
 open
-  usecaseview_ref 128130 // UseCaseView
+  class_ref 128386 // Secrétaire
+  class_ref 128514 // Jury
+  usecase_ref 128898 // Scanner un QRcode
+  class_ref 135170 // Etablissement
 end
 end
