@@ -1,30 +1,30 @@
 format 224
 
 classinstance 128002 class_ref 128002 // Candidat
-  name ""   xyz 59 4 2000 life_line_z 2000
+  name ""   xyz 76 4 2000 life_line_z 2000
 classinstance 128130 class_ref 128514 // Jury
-  name ""   xyz 250 4 2000 life_line_z 2000
+  name ""   xyz 244 4 2000 life_line_z 2000
 classinstance 128258 class_ref 135170 // Etablissement
-  name ""   xyz 386 4 2000 life_line_z 2000
+  name ""   xyz 400 4 2000 life_line_z 2000
 durationcanvas 128386 classinstance_ref 128002 // :Candidat
-  xyzwh 78 104 2010 11 40
+  xyzwh 95 99 2010 11 40
 end
 durationcanvas 128514 classinstance_ref 128130 // :Jury
-  xyzwh 258 106 2010 11 55
+  xyzwh 252 102 2010 11 61
 end
 durationcanvas 128770 classinstance_ref 128258 // :Etablissement
-  xyzwh 421 137 2010 11 25
+  xyzwh 435 148 2010 11 25
 end
 msg 128642 synchronous
   from durationcanvas_ref 128386
   to durationcanvas_ref 128514
-  yz 106 2015 explicitmsg "1: QRCode"
+  yz 102 2015 explicitmsg "1 : QRCode"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 147 92
+  label_xy 152 88
 msg 128898 synchronous
   from durationcanvas_ref 128514
   to durationcanvas_ref 128770
-  yz 137 2015 explicitmsg "2: Demande de validation"
+  yz 148 2015 explicitmsg "2 : demande de validation"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 285 123
+  label_xy 288 134
 end
