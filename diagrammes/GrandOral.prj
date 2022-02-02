@@ -70,6 +70,16 @@ format 224
       size A2
     end
 
+    sequencediagram 134530 "WorkflowValidationFiche"
+      sequencediagramsettings end
+      overlapping_bars size A4
+    end
+
+    sequencediagram 134658 "WorkflowValidationQRCode"
+      sequencediagramsettings end
+      overlapping_bars size A4
+    end
+
     class 128002 "Candidat"
       visibility package stereotype "actor"
       cpp_decl ""
@@ -82,7 +92,7 @@ format 224
       
     end
 
-    class 128130 "EnseignantsEncadrants"
+    class 128130 "Enseignants"
       visibility package stereotype "actor"
       cpp_decl ""
       java_decl ""
@@ -95,6 +105,30 @@ format 224
     end
 
     class 128258 "ProviseurAdjoint"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 128386 "Secrétaire"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 128514 "Jury"
       visibility package stereotype "actor"
       cpp_decl ""
       java_decl ""
@@ -170,18 +204,6 @@ format 224
 	  stereotype "include"
 	  on usecase_ref 128258 // S'authentifier
       end
-    end
-
-    class 128386 "Secrétaire"
-      visibility package stereotype "actor"
-      cpp_decl ""
-      java_decl ""
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
     end
 
     usecase 128258 "S'authentifier"
@@ -303,18 +325,6 @@ format 224
       end
     end
 
-    class 128514 "Jury"
-      visibility package stereotype "actor"
-      cpp_decl ""
-      java_decl ""
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-    end
-
     usecase 128770 "Lire une fiche"
       
       usecasediagramsettings end
@@ -364,6 +374,30 @@ format 224
       
       activitydiagramsettings
        end
+    end
+
+    class 135042 "Site"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 135170 "Etablissement"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
     end
   end
 end

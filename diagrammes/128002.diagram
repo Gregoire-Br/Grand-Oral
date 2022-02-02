@@ -2,50 +2,50 @@ format 224
 
 classcanvas 128002 class_ref 128002 // Candidat
   simpleclassdiagramsettings end
-  xyz 103.066 71.5373 2000
+  xyz 103.546 71.3573 2000
 end
-classcanvas 128130 class_ref 128130 // EnseignantsEncadrants
+classcanvas 128130 class_ref 128130 // Enseignants
   simpleclassdiagramsettings end
-  xyz 72.9769 184.029 2000
+  xyz 72.5269 184.679 2000
 end
 classcanvas 128258 class_ref 128258 // ProviseurAdjoint
   simpleclassdiagramsettings end
-  xyz 96.7519 313.616 2000
+  xyz 96.2419 313.656 2000
 end
 fragment 128386 "Grand Oral"
-  xyzwh 194.145 16.3775 2000 560 504
+  xyzwh 193.575 16.3475 2000 560 504
 end
 usecasecanvas 128514 usecase_ref 128002 // Renseigner sa fiche
-  xyzwh 267.76 81.24 3005 109 48 label_xy 272 95
+  xyzwh 267.11 80.64 3005 109 48 label_xy 272 95
 end
 usecasecanvas 128642 usecase_ref 128130 // Valider une fiche
-  xyzwh 274.76 248.56 3005 94 57 label_xy 279 267
+  xyzwh 274.2 248.16 3005 94 57 label_xy 279 267
 end
 classcanvas 128770 class_ref 128386 // Secrétaire
   simpleclassdiagramsettings end
-  xyz 96.6977 454.947 2000
+  xyz 96.4477 454.297 2000
 end
 usecasecanvas 129282 usecase_ref 128258 // S'authentifier
-  xyzwh 459.8 174.32 3005 93 47 label_xy 474 189
+  xyzwh 459.55 174.27 3005 93 47 label_xy 474 189
 end
 usecasecanvas 130178 usecase_ref 128386 // Imprimer les fiches
-  xyzwh 382.6 444.88 3005 107 59 label_xy 391 463
+  xyzwh 382.85 444.43 3005 107 59 label_xy 391 463
 end
 usecasecanvas 130690 usecase_ref 128514 // Génération du QRcode
-  xyzwh 249.4 363.32 3005 133 69 label_xy 260 390
+  xyzwh 249.65 363.27 3005 133 69 label_xy 260 390
 end
 usecasecanvas 131330 usecase_ref 128642 // Modifier sa fiche
-  xyzwh 455.12 27.12 3005 96 51 label_xy 462 45
+  xyzwh 454.82 27.32 3005 96 51 label_xy 462 45
 end
 classcanvas 132610 class_ref 128514 // Jury
   simpleclassdiagramsettings end
-  xyz 795.6 92.48 2000
+  xyz 795.25 92.41 2000
 end
 usecasecanvas 132738 usecase_ref 128770 // Lire une fiche
-  xyzwh 635.24 100.44 3005 89 50 label_xy 647 117
+  xyzwh 635.89 99.84 3005 89 50 label_xy 647 117
 end
 usecasecanvas 132994 usecase_ref 128898 // Scanner un QRcode
-  xyzwh 614.76 226.56 3005 115 51 label_xy 622 242
+  xyzwh 614.61 226.41 3005 115 51 label_xy 622 242
 end
 line 128898 ----
   from ref 128002 z 3006 to ref 128514
@@ -56,11 +56,10 @@ line 129154 ----
 simplerelationcanvas 129538 simplerelation_ref 128130
   decenter_begin 851
   decenter_end 310
-  from ref 128514 z 3006 to point 370.32 130.92
-  line 133506 z 3006 stereotype "<<include>>" xyz 379 151 3000 to ref 129282
+  from ref 128514 z 3006 stereotype "<<include>>" xyz 395 151 3000 to ref 129282
 end
 simplerelationcanvas 129666 simplerelation_ref 128258
-  decenter_end 551
+  decenter_end 550
   from ref 128642 z 3006 stereotype "<<include>>" xyz 363 214 3000 to ref 129282
 end
 line 130306 ----
