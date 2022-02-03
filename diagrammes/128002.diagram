@@ -35,7 +35,7 @@ usecasecanvas 129154 usecase_ref 128514 // Génération du QRcode
   xyzwh 192 264 3005 115 42 label_xy 193 277
 end
 usecasecanvas 129282 usecase_ref 128386 // Imprimer les fiches
-  xyzwh 345 319 3005 96 38 label_xy 347 329
+  xyzwh 335 331 3005 96 38 label_xy 337 341
 end
 usecasecanvas 129410 usecase_ref 128770 // Lire une fiche
   xyzwh 511 83 3005 80 35 label_xy 518 92
@@ -70,18 +70,18 @@ line 130690 ----
 simplerelationcanvas 130818 simplerelation_ref 136066
   from ref 129538 z 3006 stereotype "<<include>>" xyz 552 149 3000 to ref 129410
 end
-simplerelationcanvas 131074 simplerelation_ref 136322
-  from ref 129154 z 3006 stereotype "<<include>>" xyz 192 244 3000 to ref 129026
-end
 line 131330 ----
   from ref 128514 z 3006 to ref 129282
 simplerelationcanvas 131458 simplerelation_ref 136450
-  from ref 129282 z 3006 stereotype "<<include>>" xyz 413 291 3000 to ref 131202
+  from ref 129282 z 3006 stereotype "<<include>>" xyz 409 297 3000 to ref 131202
 end
 simplerelationcanvas 131586 simplerelation_ref 136578
   from ref 129410 z 3006 stereotype "<<include>>" xyz 447 153 3000 to ref 131202
 end
 simplerelationcanvas 131714 simplerelation_ref 136706
-  from ref 128898 z 3006 stereotype "<<extend>>" xyz 311 235 3000 to ref 129282
+  from ref 128898 z 3006 stereotype "<<extend>>" xyz 306 241 3000 to ref 129282
+end
+simplerelationcanvas 131842 simplerelation_ref 143234
+  from ref 129282 z 3006 stereotype "<<include>>" xyz 280.5 319 3000 to ref 129154
 end
 end
