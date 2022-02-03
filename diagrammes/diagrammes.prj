@@ -1,6 +1,6 @@
 format 224
 "diagrammes"
-  revision 2
+  revision 4
   modified_by 2 "mfleuriot"
 
 
@@ -44,7 +44,7 @@ format 224
 
   mark_for_import
   
-  usecaseview 128130 "UseCaseView"
+  usecaseview 128130 "Général"
     
     usecasediagramsettings end
     
@@ -176,6 +176,12 @@ format 224
 	-_->
 	  on usecase_ref 128386 // Imprimer les fiches
       end
+
+      simplerelation 135810
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
     end
 
     usecase 128130 "Valider une fiche"
@@ -204,6 +210,12 @@ format 224
 	  stereotype "include"
 	  on usecase_ref 128258 // S'authentifier
       end
+
+      simplerelation 135938
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
     end
 
     usecase 128258 "S'authentifier"
@@ -227,6 +239,11 @@ format 224
       
       activitydiagramsettings
        end
+      simplerelation 136706
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128386 // Imprimer les fiches
+      end
     end
 
     usecase 128386 "Imprimer les fiches"
@@ -260,6 +277,12 @@ format 224
 	-_->
 	  stereotype "extend"
 	  on usecase_ref 128514 // Génération du QRcode
+      end
+
+      simplerelation 136450
+	-_->
+	  stereotype "include"
+	  on usecase_ref 135426 // Générer la fiche
       end
     end
 
@@ -295,6 +318,17 @@ format 224
 	  stereotype "extend"
 	  on usecase_ref 128130 // Valider une fiche
       end
+
+      simplerelation 136194
+	-_->
+	  on usecase_ref 128130 // Valider une fiche
+      end
+
+      simplerelation 136322
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128130 // Valider une fiche
+      end
     end
 
     usecase 128642 "Modifier sa fiche"
@@ -319,6 +353,12 @@ format 224
       activitydiagramsettings
        end
       simplerelation 128770
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128002 // Renseigner sa fiche
+      end
+
+      simplerelation 135682
 	-_->
 	  stereotype "extend"
 	  on usecase_ref 128002 // Renseigner sa fiche
@@ -351,6 +391,12 @@ format 224
 	  stereotype "include"
 	  on usecase_ref 128898 // Scanner un QRcode
       end
+
+      simplerelation 136578
+	-_->
+	  stereotype "include"
+	  on usecase_ref 135426 // Générer la fiche
+      end
     end
 
     usecase 128898 "Scanner un QRcode"
@@ -374,6 +420,11 @@ format 224
       
       activitydiagramsettings
        end
+      simplerelation 136066
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128770 // Lire une fiche
+      end
     end
 
     class 135042 "Site"
@@ -398,6 +449,29 @@ format 224
       explicit_switch_type ""
       mysql_decl ""
       
+    end
+
+    usecase 135426 "Générer la fiche"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
     end
   end
 end
