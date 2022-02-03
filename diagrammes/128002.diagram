@@ -1,0 +1,87 @@
+format 224
+
+classcanvas 128002 class_ref 128002 // Candidat
+  simpleclassdiagramsettings end
+  xyz 44 49 2000
+end
+fragment 128130 "Grand Oral"
+  xyzwh 129 12 2005 492 380
+end
+classcanvas 128258 class_ref 128130 // Enseignants
+  simpleclassdiagramsettings end
+  xyz 28 131 2000
+end
+classcanvas 128386 class_ref 128258 // ProviseurAdjoint
+  simpleclassdiagramsettings end
+  xyz 27 221 2010
+end
+classcanvas 128514 class_ref 128386 // Secrétaire
+  simpleclassdiagramsettings end
+  xyz 41 317 2010
+end
+usecasecanvas 128642 usecase_ref 128002 // Renseigner sa fiche
+  xyzwh 167 60 3005 103 40 label_xy 169 72
+end
+usecasecanvas 128770 usecase_ref 128642 // Modifier sa fiche
+  xyzwh 294 26 3005 84 37 label_xy 295 36
+end
+usecasecanvas 128898 usecase_ref 128258 // S'authentifier
+  xyzwh 301 117 3005 69 34 label_xy 303 125
+end
+usecasecanvas 129026 usecase_ref 128130 // Valider une fiche
+  xyzwh 206 194 3005 86 35 label_xy 207 204
+end
+usecasecanvas 129154 usecase_ref 128514 // Génération du QRcode
+  xyzwh 192 264 3005 115 42 label_xy 193 277
+end
+usecasecanvas 129282 usecase_ref 128386 // Imprimer les fiches
+  xyzwh 345 319 3005 96 38 label_xy 347 329
+end
+usecasecanvas 129410 usecase_ref 128770 // Lire une fiche
+  xyzwh 511 83 3005 80 35 label_xy 518 92
+end
+usecasecanvas 129538 usecase_ref 128898 // Scanner un QRcode
+  xyzwh 499 182 3005 106 36 label_xy 501 189
+end
+classcanvas 129666 class_ref 128514 // Jury
+  simpleclassdiagramsettings end
+  xyz 670 74 2000
+end
+usecasecanvas 131202 usecase_ref 135426 // Générer la fiche
+  xyzwh 406 223 3005 83 41 label_xy 408 236
+end
+line 129794 ----
+  from ref 128002 z 3006 to ref 128642
+line 129922 ----
+  from ref 128258 z 3006 to ref 129026
+line 130050 ----
+  from ref 128386 z 3006 to ref 129026
+simplerelationcanvas 130178 simplerelation_ref 135682
+  from ref 128770 z 3006 stereotype "<<extend>>" xyz 234 41 3000 to ref 128642
+end
+simplerelationcanvas 130306 simplerelation_ref 135810
+  from ref 128642 z 3006 stereotype "<<include>>" xyz 238 113 3000 to ref 128898
+end
+simplerelationcanvas 130434 simplerelation_ref 135938
+  from ref 129026 z 3006 stereotype "<<include>>" xyz 230 166 3000 to ref 128898
+end
+line 130690 ----
+  from ref 129410 z 3006 to ref 129666
+simplerelationcanvas 130818 simplerelation_ref 136066
+  from ref 129538 z 3006 stereotype "<<include>>" xyz 552 149 3000 to ref 129410
+end
+simplerelationcanvas 131074 simplerelation_ref 136322
+  from ref 129154 z 3006 stereotype "<<include>>" xyz 192 244 3000 to ref 129026
+end
+line 131330 ----
+  from ref 128514 z 3006 to ref 129282
+simplerelationcanvas 131458 simplerelation_ref 136450
+  from ref 129282 z 3006 stereotype "<<include>>" xyz 413 291 3000 to ref 131202
+end
+simplerelationcanvas 131586 simplerelation_ref 136578
+  from ref 129410 z 3006 stereotype "<<include>>" xyz 447 153 3000 to ref 131202
+end
+simplerelationcanvas 131714 simplerelation_ref 136706
+  from ref 128898 z 3006 stereotype "<<extend>>" xyz 311 235 3000 to ref 129282
+end
+end
