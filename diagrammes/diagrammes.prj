@@ -1,6 +1,6 @@
 format 224
 "diagrammes"
-  revision 4
+  revision 5
   modified_by 2 "mfleuriot"
 
 
@@ -283,6 +283,12 @@ format 224
 	-_->
 	  stereotype "include"
 	  on usecase_ref 135426 // Générer la fiche
+      end
+
+      simplerelation 143234
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128514 // Génération du QRcode
       end
     end
 
