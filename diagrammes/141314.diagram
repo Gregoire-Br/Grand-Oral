@@ -1,0 +1,116 @@
+format 224
+
+fragment 128002 "Grand Oral"
+  xyzwh 93 27 2000 648 751
+end
+classcanvas 128130 class_ref 128002 // Candidat
+  simpleclassdiagramsettings end
+  xyz 24 77 2005
+end
+usecasecanvas 128258 usecase_ref 128002 // Renseigner sa fiche
+  xyzwh 120 93 3005 107 33 label_xy 125 100
+end
+classcanvas 128514 class_ref 128130 // Enseignants
+  simpleclassdiagramsettings end
+  xyz 19 284 2005
+end
+classcanvas 128642 class_ref 128258 // ProviseurAdjoint
+  simpleclassdiagramsettings end
+  xyz 1 510 2005
+end
+classcanvas 128770 class_ref 128514 // Jury
+  simpleclassdiagramsettings end
+  xyz 773 55 2000
+end
+usecasecanvas 128898 usecase_ref 128130 // Valider une fiche
+  xyzwh 229 300 3005 103 39 label_xy 238 308
+end
+usecasecanvas 129154 usecase_ref 128130 // Valider une fiche
+  xyzwh 269 526 3011 103 33 label_xy 279 535
+end
+usecasecanvas 130434 usecase_ref 128258 // S'authentifier
+  xyzwh 275 31 3011 71 33 label_xy 277 39
+end
+usecasecanvas 131714 usecase_ref 128258 // S'authentifier
+  xyzwh 132 195 3005 73 35 label_xy 136 205
+end
+usecasecanvas 131970 usecase_ref 128258 // S'authentifier
+  xyzwh 138 430 3005 71 33 label_xy 141 437
+end
+usecasecanvas 132226 usecase_ref 141954 // Envoie un mail aux enseignants
+  xyzwh 304 85 3005 87 59 max_width 10 label_xy 316 91
+end
+usecasecanvas 132610 usecase_ref 142082 // Envoyer un message au candidat
+  xyzwh 111 320 3011 79 59 max_width 12 label_xy 119 327
+end
+usecasecanvas 132994 usecase_ref 142210 // Envoyer un message aux enseignants
+  xyzwh 132 545 3017 79 85 max_width 10 label_xy 142 557
+end
+usecasecanvas 133378 usecase_ref 128514 // Génération de la fiche avec QR code
+  xyzwh 360 428 3005 81 77 max_width 10 label_xy 372 439
+end
+usecasecanvas 133634 usecase_ref 128770 // Consulter une fiche
+  xyzwh 619 64 3005 103 47 label_xy 623 80
+end
+usecasecanvas 133890 usecase_ref 128898 // Scanner un QRcode
+  xyzwh 571 153 3005 111 51 label_xy 576 172
+end
+usecasecanvas 134146 usecase_ref 142338 // Envoie un mail au proviseur adjoints
+  xyzwh 327 237 3005 99 51 max_width 15 label_xy 340 242
+end
+classcanvas 134402 class_ref 128386 // Secrétaire
+  simpleclassdiagramsettings end
+  xyz 16 707 2005
+end
+usecasecanvas 134530 usecase_ref 128386 // Imprimer les fiches
+  xyzwh 139 718 3005 99 49 label_xy 143 735
+end
+usecasecanvas 134786 usecase_ref 128258 // S'authentifier
+  xyzwh 213 647 3010 75 37 label_xy 218 659
+end
+line 128386 ----
+  from ref 128130 z 3006 to ref 128258
+line 129026 ----
+  from ref 128514 z 3006 to ref 128898
+line 129282 ----
+  from ref 128642 z 3012 to ref 129154
+simplerelationcanvas 131458 simplerelation_ref 150402
+  from ref 128258 z 3012 stereotype "<<include>>" xyz 191 64 3000 to ref 130434
+end
+simplerelationcanvas 131842 simplerelation_ref 150530
+  from ref 128898 z 3006 stereotype "<<include>>" xyz 209 240.5 3000 to ref 131714
+end
+simplerelationcanvas 132098 simplerelation_ref 150658
+  from ref 129154 z 3012 stereotype "<<include>>" xyz 232.5 471 3012 to ref 131970
+end
+simplerelationcanvas 132354 simplerelation_ref 150786
+  from ref 132226 z 3006 stereotype "<<extend>>" xyz 236.5 110.5 3000 to ref 128258
+end
+line 132738 ----
+  from ref 128514 z 3012 to ref 132610
+simplerelationcanvas 132866 simplerelation_ref 150914
+  from ref 132610 z 3012 stereotype "<<include>>" xyz 101 271 3000 to ref 131714
+end
+line 133122 ----
+  from ref 128642 z 3018 to ref 132994
+simplerelationcanvas 133250 simplerelation_ref 151042
+  decenter_begin 493
+  from ref 132994 z 3018 stereotype "<<include>>" xyz 119.5 485 3018 to ref 131970
+end
+simplerelationcanvas 133506 simplerelation_ref 151170
+  from ref 133378 z 3012 stereotype "<<extend>>" xyz 349 512 3000 to ref 129154
+end
+line 133762 ----
+  from ref 133634 z 3006 to ref 128770
+simplerelationcanvas 134018 simplerelation_ref 151298
+  from ref 133890 z 3006 stereotype "<<include>>" xyz 592 125 3000 to ref 133634
+end
+simplerelationcanvas 134274 simplerelation_ref 151426
+  from ref 134146 z 3006 stereotype "<<extend>>" xyz 323 291.5 3000 to ref 128898
+end
+line 134658 ----
+  from ref 134402 z 3006 to ref 134530
+simplerelationcanvas 134914 simplerelation_ref 151554
+  from ref 134530 z 3011 stereotype "<<include>>" xyz 164 691 3000 to ref 134786
+end
+end

@@ -1,6 +1,6 @@
 format 224
 "diagrammes"
-  revision 2
+  revision 6
   modified_by 2 "mfleuriot"
 
 
@@ -44,7 +44,7 @@ format 224
 
   mark_for_import
   
-  usecaseview 128130 "UseCaseView"
+  usecaseview 128130 "Général"
     
     usecasediagramsettings end
     
@@ -65,9 +65,9 @@ format 224
     
     activitydiagramsettings
      end
-    usecasediagram 128002 "UseCase"
+    usecasediagram 141314 "UseCase"
       usecasediagramsettings draw_all_relations no end
-      size A2
+      size A4
     end
 
     sequencediagram 134530 "WorkflowValidationFiche"
@@ -76,6 +76,11 @@ format 224
     end
 
     sequencediagram 134658 "WorkflowVerificationQRCode"
+      sequencediagramsettings end
+      overlapping_bars size A4
+    end
+
+    sequencediagram 141186 "WorkflowAuthentification"
       sequencediagramsettings end
       overlapping_bars size A4
     end
@@ -140,6 +145,18 @@ format 224
       
     end
 
+    class 141698 "UtilisateurGénéral"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
     usecase 128002 "Renseigner sa fiche"
       
       usecasediagramsettings end
@@ -176,6 +193,24 @@ format 224
 	-_->
 	  on usecase_ref 128386 // Imprimer les fiches
       end
+
+      simplerelation 135810
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
+
+      simplerelation 149762
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 141954 // Envoie un mail aux enseignants
+      end
+
+      simplerelation 150402
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
     end
 
     usecase 128130 "Valider une fiche"
@@ -204,6 +239,30 @@ format 224
 	  stereotype "include"
 	  on usecase_ref 128258 // S'authentifier
       end
+
+      simplerelation 135938
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
+
+      simplerelation 149890
+	-_->
+	  stereotype "include"
+	  on usecase_ref 141954 // Envoie un mail aux enseignants
+      end
+
+      simplerelation 150530
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
+
+      simplerelation 150658
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
     end
 
     usecase 128258 "S'authentifier"
@@ -227,6 +286,11 @@ format 224
       
       activitydiagramsettings
        end
+      simplerelation 136706
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128386 // Imprimer les fiches
+      end
     end
 
     usecase 128386 "Imprimer les fiches"
@@ -259,11 +323,35 @@ format 224
       simplerelation 128514
 	-_->
 	  stereotype "extend"
-	  on usecase_ref 128514 // Génération du QRcode
+	  on usecase_ref 128514 // Génération de la fiche avec QR code
+      end
+
+      simplerelation 136450
+	-_->
+	  stereotype "include"
+	  on usecase_ref 135426 // Générer la fiche
+      end
+
+      simplerelation 143234
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128514 // Génération de la fiche avec QR code
+      end
+
+      simplerelation 150274
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
+
+      simplerelation 151554
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
       end
     end
 
-    usecase 128514 "Génération du QRcode"
+    usecase 128514 "Génération de la fiche avec QR code"
       
       usecasediagramsettings end
       
@@ -291,6 +379,23 @@ format 224
       end
 
       simplerelation 129154
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128130 // Valider une fiche
+      end
+
+      simplerelation 136194
+	-_->
+	  on usecase_ref 128130 // Valider une fiche
+      end
+
+      simplerelation 136322
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128130 // Valider une fiche
+      end
+
+      simplerelation 151170
 	-_->
 	  stereotype "extend"
 	  on usecase_ref 128130 // Valider une fiche
@@ -323,9 +428,15 @@ format 224
 	  stereotype "extend"
 	  on usecase_ref 128002 // Renseigner sa fiche
       end
+
+      simplerelation 135682
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128002 // Renseigner sa fiche
+      end
     end
 
-    usecase 128770 "Lire une fiche"
+    usecase 128770 "Consulter une fiche"
       
       usecasediagramsettings end
       
@@ -351,6 +462,12 @@ format 224
 	  stereotype "include"
 	  on usecase_ref 128898 // Scanner un QRcode
       end
+
+      simplerelation 136578
+	-_->
+	  stereotype "include"
+	  on usecase_ref 135426 // Générer la fiche
+      end
     end
 
     usecase 128898 "Scanner un QRcode"
@@ -374,6 +491,17 @@ format 224
       
       activitydiagramsettings
        end
+      simplerelation 136066
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128770 // Consulter une fiche
+      end
+
+      simplerelation 151298
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128770 // Consulter une fiche
+      end
     end
 
     class 135042 "Site"
@@ -398,6 +526,165 @@ format 224
       explicit_switch_type ""
       mysql_decl ""
       
+    end
+
+    usecase 135426 "Générer la fiche"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+
+    usecase 141954 "Envoie un mail aux enseignants"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 150018
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128130 // Valider une fiche
+      end
+
+      simplerelation 150146
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128002 // Renseigner sa fiche
+      end
+
+      simplerelation 150786
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128002 // Renseigner sa fiche
+      end
+    end
+
+    class 141826 "BDD"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    usecase 142082 "Envoyer un message au candidat"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 150914
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
+    end
+
+    usecase 142210 "Envoyer un message aux enseignants"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 151042
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
+    end
+
+    usecase 142338 "Envoie un mail au proviseur adjoints"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 151426
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128130 // Valider une fiche
+      end
     end
   end
 end
