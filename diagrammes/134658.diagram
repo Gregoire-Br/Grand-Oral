@@ -10,11 +10,17 @@ durationcanvas 128386 classinstance_ref 128002 // :Candidat
   xyzwh 95 99 2010 11 40
 end
 durationcanvas 128514 classinstance_ref 128130 // :Jury
-  xyzwh 252 102 2010 11 61
+  xyzwh 252 101 2010 11 79
 end
 durationcanvas 128770 classinstance_ref 128258 // :Etablissement
-  xyzwh 435 148 2010 11 25
+  xyzwh 435 115 2010 11 67
 end
+msg 128003 return
+  from durationcanvas_ref 128770
+  to durationcanvas_ref 128514
+  yz 155 2015 explicitmsg "3.1. validation"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 316 141
 msg 128642 synchronous
   from durationcanvas_ref 128386
   to durationcanvas_ref 128514
@@ -24,7 +30,7 @@ msg 128642 synchronous
 msg 128898 synchronous
   from durationcanvas_ref 128514
   to durationcanvas_ref 128770
-  yz 148 2015 explicitmsg "2 : demande de validation"
+  yz 115 2015 explicitmsg "2 : demande de validation"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 288 134
+  label_xy 288 101
 end

@@ -10,7 +10,7 @@ durationcanvas 128642 classinstance_ref 128386 // :UtilisateurGénéral
   xyzwh 107 93 2010 11 247
 end
 durationcanvas 128770 classinstance_ref 128514 // :Site
-  xyzwh 424 90 2010 11 25
+  xyzwh 424 91 2010 11 33
 end
 durationcanvas 129282 classinstance_ref 129154 // :BDD
   xyzwh 619 98 2010 11 236
@@ -18,38 +18,46 @@ durationcanvas 129282 classinstance_ref 129154 // :BDD
     xyzwh 625 106 2020 11 56
   end
   overlappingdurationcanvas 130434
-    xyzwh 625 198 2020 11 27
+    xyzwh 625 233 2020 11 33
   end
   overlappingdurationcanvas 131074
-    xyzwh 625 277 2020 11 26
+    xyzwh 625 168 2020 11 56
+    overlappingdurationcanvas 128515
+      xyzwh 631 185 2030 11 25
+    end
   end
 end
 durationcanvas 130050 classinstance_ref 128514 // :Site
   xyzwh 424 136 2010 11 26
 end
 durationcanvas 130690 classinstance_ref 128514 // :Site
-  xyzwh 424 209 2010 11 30
+  xyzwh 424 209 2010 11 89
 end
 durationcanvas 131330 classinstance_ref 128514 // :Site
-  xyzwh 424 292 2010 11 25
+  xyzwh 424 178 2010 11 134
 end
+reflexivemsg 128643 synchronous
+  to durationcanvas_ref 128515
+  yz 185 2035 explicitmsg "Vérification mot de passe"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 667 184
 msg 128898 synchronous
   from durationcanvas_ref 128642
   to durationcanvas_ref 128770
-  yz 93 2015 explicitmsg "Authentification"
+  yz 94 2015 explicitmsg "Authentification; entrée identifiant et mot de passe"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 216 77
+  label_xy 150 78
 msg 129410 synchronous
   from durationcanvas_ref 128770
   to durationcanvas_ref 129282
-  yz 98 2020 explicitmsg "Requête SQL"
+  yz 103 2020 explicitmsg "Requête SQL"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 503 85
+  label_xy 503 90
 reflexivemsg 129922 synchronous
   to durationcanvas_ref 129794
   yz 106 2025 explicitmsg "Utilisateur non inscrit"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 630 86
+  label_xy 659 106
 msg 130178 return
   from durationcanvas_ref 129794
   to durationcanvas_ref 130050
@@ -64,36 +72,36 @@ msg 130306 return
   label_xy 238 129
 reflexivemsg 130562 synchronous
   to durationcanvas_ref 130434
-  yz 198 2025 explicitmsg "Première connexion"
+  yz 233 2025 explicitmsg "Première connexion"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 631 186
+  label_xy 662 231
 msg 130818 return
   from durationcanvas_ref 130434
   to durationcanvas_ref 130690
-  yz 214 2030 explicitmsg "Première connexion"
+  yz 251 2030 explicitmsg "Première connexion"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 483 200
+  label_xy 483 237
 msg 130946 return
   from durationcanvas_ref 130690
   to durationcanvas_ref 128642
-  yz 220 2015 explicitmsg "Demande de changement du mot de passe"
+  yz 287 2015 explicitmsg "Demande de changement du mot de passe"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 169 206
+  label_xy 169 273
 reflexivemsg 131202 synchronous
   to durationcanvas_ref 131074
-  yz 277 2025 explicitmsg "Utilisateur trouvé"
+  yz 168 2025 explicitmsg "Utilisateur trouvé"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 634 263
+  label_xy 655 166
 msg 131458 return
   from durationcanvas_ref 131074
   to durationcanvas_ref 131330
-  yz 292 2030 explicitmsg "Utilisateur trouvé"
+  yz 204 2030 explicitmsg "Utilisateur trouvé"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 490 278
+  label_xy 490 190
 msg 131586 return
   from durationcanvas_ref 131330
   to durationcanvas_ref 128642
-  yz 298 2015 explicitmsg "Autorisation d'accès"
+  yz 228 2015 explicitmsg "Autorisation d'accès"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 222 284
+  label_xy 224 207
 end
