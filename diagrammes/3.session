@@ -1,0 +1,21 @@
+window_sizes 1920 1027 450 1465 968 0
+
+diagrams
+  sequencediagram_ref 134530 // WorkflowValidationFiche
+    1172 701 167 A4 0 0
+  usecasediagram_ref 141314 // UseCase
+    1465 968 160 A4 441 0
+  active  sequencediagram_ref 134658 // WorkflowVerificationQRCode
+    1465 968 200 A4 0 0
+  sequencediagram_ref 141186 // WorkflowAuthentification
+    1465 968 160 A4 0 0
+  sequencediagram_ref 134659 // WorkflowValidation2
+    128 118 160 A4 0 0
+end
+show_stereotypes
+selected sequencediagram_ref 134658 // WorkflowVerificationQRCode
+open
+  class_ref 141826 // BDD
+  classview_ref 128131 // Conception
+end
+end

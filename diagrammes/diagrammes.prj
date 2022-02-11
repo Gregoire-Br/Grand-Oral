@@ -1,6 +1,6 @@
 format 224
 "diagrammes"
-  revision 7
+  revision 11
   modified_by 3 "gbrosset"
 
 
@@ -36,14 +36,16 @@ format 224
   
   class_color yellow duration_color transparent continuation_color gray note_color blue fragment_color transparent subject_color transparent usecase_color yellow package_color transparent component_color green artifact_color green deploymentnode_color gray state_color yellow stateaction_color transparent activity_color transparent activityregion_color transparent activitypartition_color transparent activityaction_color transparent parameterpin_color white generalization_color black 
   dpi 96
-  font_size 8
-  diagram_format A4
+  font_size 13
+  diagram_format 40000x40000
 
   image_root_dir ""
 
 
   mark_for_import
   
+  ncouples 1
+  key "html dir" value "C:\\Users\\gbrosset\\Documents\\seqvalid/"
   usecaseview 128130 "Général"
     
     usecasediagramsettings end
@@ -107,6 +109,13 @@ format 224
       explicit_switch_type ""
       mysql_decl ""
       
+      classrelation 128003 // <generalisation>
+	relation 128003 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 128003 // <generalisation>
+	  b parent class_ref 134659 // PersonnelEtab
+      end
     end
 
     class 128258 "ProviseurAdjoint"
@@ -119,6 +128,13 @@ format 224
       explicit_switch_type ""
       mysql_decl ""
       
+      classrelation 128131 // <generalisation>
+	relation 128131 ---|>
+	  a public
+	    php "${type}"
+	    classrelation_ref 128131 // <generalisation>
+	  b parent class_ref 134659 // PersonnelEtab
+      end
     end
 
     class 128386 "Secrétaire"
@@ -145,7 +161,7 @@ format 224
       
     end
 
-    class 141698 "UtilisateurGénéral"
+    class 141698 "UtilGénéral"
       visibility package stereotype "actor"
       cpp_decl ""
       java_decl ""
@@ -191,7 +207,7 @@ format 224
 
       simplerelation 128898
 	-_->
-	  on usecase_ref 128386 // Imprimer les fiches
+	  on usecase_ref 128386 // Imprimer une fiche en PDF
       end
 
       simplerelation 135810
@@ -207,6 +223,12 @@ format 224
       end
 
       simplerelation 150402
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
+
+      simplerelation 135171
 	-_->
 	  stereotype "include"
 	  on usecase_ref 128258 // S'authentifier
@@ -263,6 +285,18 @@ format 224
 	  stereotype "include"
 	  on usecase_ref 128258 // S'authentifier
       end
+
+      simplerelation 128131
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
+
+      simplerelation 134915
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
     end
 
     usecase 128258 "S'authentifier"
@@ -289,11 +323,16 @@ format 224
       simplerelation 136706
 	-_->
 	  stereotype "extend"
-	  on usecase_ref 128386 // Imprimer les fiches
+	  on usecase_ref 128386 // Imprimer une fiche en PDF
+      end
+
+      simplerelation 134787
+	-_->
+	  on usecase_ref 128258 // S'authentifier
       end
     end
 
-    usecase 128386 "Imprimer les fiches"
+    usecase 128386 "Imprimer une fiche en PDF"
       
       usecasediagramsettings end
       
@@ -349,6 +388,12 @@ format 224
 	  stereotype "include"
 	  on usecase_ref 128258 // S'authentifier
       end
+
+      simplerelation 134659
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128002 // Renseigner sa fiche
+      end
     end
 
     usecase 128514 "Génération de la fiche avec QR code"
@@ -375,7 +420,7 @@ format 224
       simplerelation 128642
 	-_->
 	  stereotype "extend"
-	  on usecase_ref 128386 // Imprimer les fiches
+	  on usecase_ref 128386 // Imprimer une fiche en PDF
       end
 
       simplerelation 129154
@@ -467,6 +512,12 @@ format 224
 	-_->
 	  stereotype "include"
 	  on usecase_ref 135426 // Générer la fiche
+      end
+
+      simplerelation 135427
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
       end
     end
 
@@ -657,6 +708,12 @@ format 224
 	  stereotype "include"
 	  on usecase_ref 128258 // S'authentifier
       end
+
+      simplerelation 128003
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128258 // S'authentifier
+      end
     end
 
     usecase 142338 "Envoie un mail au proviseur adjoints"
@@ -685,6 +742,127 @@ format 224
 	  stereotype "extend"
 	  on usecase_ref 128130 // Valider une fiche
       end
+    end
+
+    sequencediagram 134659 "WorkflowValidation2"
+      sequencediagramsettings end
+      overlapping_bars size A4
+    end
+
+    usecasediagram 141443 "UseCase4"
+      usecasediagramsettings draw_all_relations no end
+      size 40000x40000
+    end
+
+    usecase 128003 "Envoyer la demande de validation"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 135043
+	-_->
+	  stereotype "extend"
+	  on usecase_ref 128130 // Valider une fiche
+      end
+
+      simplerelation 135299
+	-_->
+	  stereotype "include"
+	  on usecase_ref 128130 // Valider une fiche
+      end
+    end
+
+    class 134659 "PersonnelEtab"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+  end
+
+  classview 128131 "Conception"
+    
+    classdiagramsettings hide_attributes no hide_operations no hide_getset_operations no hide_ports no show_members_full_definition yes show_members_visibility yes show_members_stereotype yes show_members_context php_namespace show_members_multiplicity yes show_members_initialization yes show_attribute_modifiers yes member_max_width 0 package_name_in_tab yes drawing_language php show_context_mode php_namespace auto_label_position yes show_relation_modifiers yes show_relation_visibility yes show_infonote yes show_stereotype_properties yes end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    class 128131 "BDD"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl "${comment}${final}${abstract}class ${name}${extends}${implements} {
+${members}}
+"
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      attribute 128131 "credentials"
+	private explicit_type ""
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128259 "link"
+	private explicit_type "PDO"
+	cpp_decl ""
+	java_decl ""
+	php_decl "  ${comment}${visibility}${const}${static}${var}${name}${value};
+"
+	python_decl ""
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+    end
+
+    classdiagram 128131 "Diagramme"
+      classdiagramsettings member_max_width 0 end
+      size A4
     end
   end
 end

@@ -1,27 +1,27 @@
 format 224
 
 classinstance 128002 class_ref 128002 // Candidat
-  name ""   xyz 13.5 4.6 2000 life_line_z 2000
+  name ""   xyz 13.5 4.1 2000 life_line_z 2000
 classinstance 128130 class_ref 128130 // Enseignants
-  name ""   xyz 124.92 4.6 2000 life_line_z 2000
+  name ""   xyz 124.74 4.1 2000 life_line_z 2000
 classinstance 128258 class_ref 128258 // ProviseurAdjoint
-  name ""   xyz 268.08 4.6 2000 life_line_z 2000
+  name ""   xyz 268.96 4.1 2000 life_line_z 2000
 classinstance 128386 class_ref 135042 // Site
-  name ""   xyz 519.32 4.76 2000 life_line_z 2000
+  name ""   xyz 518.94 4.22 2000 life_line_z 2000
 classinstance 128514 class_ref 135170 // Etablissement
-  name ""   xyz 642.2 4.76 2000 life_line_z 2000
+  name ""   xyz 642.2 4.22 2000 life_line_z 2000
 durationcanvas 128642 classinstance_ref 128002 // :Candidat
-  xyzwh 45 87.16 2010 11 436
+  xyzwh 45 87.36 2010 11 436
 end
 durationcanvas 128770 classinstance_ref 128386 // :Site
-  xyzwh 536 80.68 2010 11 25
+  xyzwh 537 80.28 2010 11 25
 end
 durationcanvas 129026 classinstance_ref 128514 // :Etablissement
-  xyzwh 695 141.44 2010 11 392
+  xyzwh 695 141.24 2010 11 392
   overlappingdurationcanvas 129794
     xyzwh 701 294.4 2020 11 234
     overlappingdurationcanvas 130946
-      xyzwh 707 450.4 2030 11 72
+      xyzwh 707 449.9 2030 11 72
     end
   end
 end
@@ -29,16 +29,16 @@ durationcanvas 129282 classinstance_ref 128130 // :Enseignants
   xyzwh 168 192.2 2010 11 177
 end
 durationcanvas 129538 classinstance_ref 128386 // :Site
-  xyzwh 536 252.56 2010 11 25
+  xyzwh 537 252.76 2010 11 25
 end
 durationcanvas 130050 classinstance_ref 128258 // :ProviseurAdjoint
-  xyzwh 327 349.48 2010 11 127
+  xyzwh 327 349.08 2010 11 127
 end
 durationcanvas 130690 classinstance_ref 128386 // :Site
-  xyzwh 538 403.6 2010 11 25
+  xyzwh 537 403.1 2010 11 25
 end
 durationcanvas 131202 classinstance_ref 128002 // :Candidat
-  xyzwh 45 511.92 2010 11 25
+  xyzwh 45 511.82 2010 11 25
 end
 msg 128898 synchronous
   from durationcanvas_ref 128642
