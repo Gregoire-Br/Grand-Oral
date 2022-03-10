@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" type="text/css" href="style.css">
+   <title>Formulaire - Grand Oral</title>
+</head>
+<body>
+   <div class="container">
+       <header>
+           <h1 id='title'>Formulaire du Grand Oral</h1>
+       </header>
+
+       <form id='survey-form' method="post" action="">
+           <div class='form-input'>
+               <label for="lastname">Nom</label>
+               <input type='text' name="lastname" id="lastname" maxlength="100" placeholder='Entrer votre nom' class='form-input-size' required />
+           </div>
+           <div for="firstname" class='form-input'>
+            <label for="firstname">Prénom</label>
+            <input type='text' name="firstname" id="firstname" maxlength="100" placeholder='Entrer votre prénom' class='form-input-size' required />
+            </div>
+           <div class='form-input'>
+               <label for="ens1">Nom de l'enseignant n°1</label>
+               <input type='text' name="ens1" id="ens1" maxlength="100" placeholder='Nom enseignant' class='form-input-size' required />
+           </div>
+           <div class='form-input'>
+            <label for="ens2">Nom de l'enseignant n°2</label>
+            <input type='text' name="ens2" id="ens2" maxlength="100" placeholder='Nom enseignant' class='form-input-size' required />
+            </div>
+           
+           <div class='form-input'>
+            <label for="spec1">Spécialité n°1</label>
+               <select name="spec1" id="spec1" class='form-input-size' required>
+                   <option disabled selected value>Selectionner une spécialité</option>
+                    <option value="maths">mathématique</option>
+                    <option value="francais ">français </option>
+                    <option value="espagnol">espagnol</option>
+                    <option value="anglais">anglais</option>
+                    <option value="histoire">histoire</option>
+                    <option value="geo">géographie</option>
+                    <option value="chine">Chimie</option>
+                    <option value="japon">Latin</option>
+               </select>
+           </div>
+
+           <div class='form-input'>
+                <label for="spec2">Spécialité n°2</label>
+                <select name="spec2" id="spec2" class='form-input-size' required>
+                    <option disabled selected value>Selectionner une spécialité</option>
+                    <option value="maths">mathématique</option>
+                    <option value="francais ">français </option>
+                    <option value="espagnol">espagnol</option>
+                    <option value="anglais">anglais</option>
+                    <option value="histoire">histoire</option>
+                    <option value="geo">géographie</option>
+                    <option value="chine">Chimie</option>
+                    <option value="japon">Latin</option>
+                </select>
+            </div>
+
+           <div class='form-input'>
+               <label for="q1">Question 1</label>
+               <textarea type='text' id="q1" name="q1" maxlength="300" placeholder='Question 1 : ' required></textarea>
+           </div>
+
+           <div class='form-input'>
+                <label for="q2">Question 2</label>
+                <textarea type='text' id="q2" name="q2" maxlength="300" placeholder='Question 2 :' required></textarea>
+            </div>
+
+           <div class='form-input-button'>
+               <button type='submit' id='submit'>Envoyer</button>
+           </div>
+       </form>
+   </div>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+html{
+    font-size: 16px;
+}
+
+body{
+    background-color: #3da4e5;
+    margin: 0;
+    font-family: sans-serif;
+    color: black;
+}
+
+.container{
+  width: 100%;
+  margin: 3.2rem auto 0 auto;
+}
+
+@media(min-width: 576px){
+  .container{
+    max-width: 540px;
+  }
+}
+
+@media(min-width: 768px){
+  .container{
+    max-width: 720px
+  }
+}
+
+header{
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+h1{
+  font-weight: bold;
+}
+
+#survey-form{
+  background: #f3f3f3;
+  padding: 2.3rem 0.5rem;
+  border-radius: 0.3rem;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.267);
+ }
+ 
+ .form-input{
+    margin: 0 2.5rem 1.8rem 2rem;
+ }
+
+ input{
+   font-size: 15px;
+ }
+
+ .form-input-button{
+  margin: 0 2.5rem 1.8rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+ .form-input-size{
+    display: block;
+    width: 100%;
+    height: 2rem;
+    padding: 0.3rem 0.4rem;
+    border-radius: 0.2rem;
+    outline: 0;
+    border-style: none;
+    margin-top: 0.4rem;  
+ }
+
+ p{
+    font-size: 1.12rem;
+  }
+
+  label{
+    display: flex;
+    align-items: center;
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+  }
+
+  textarea{
+    width: 100%;
+    font-size: 17px;
+    min-height: 6rem;
+    resize: vertical;
+    padding: 0.5rem 0 0 0.5rem;
+  }
+
+  #submit{
+    width: 30%;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    background: #2488fa;
+    color: white;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.267);
+    
+  }
