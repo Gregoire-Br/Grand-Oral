@@ -1,5 +1,5 @@
 <?php
-    class BDD {
+    class GOBDD {
         private $bdd;
 
         function __construct(string $host, string $db, string $user, string $pswd) {
@@ -105,24 +105,53 @@
 		}
 
 		function formHistoryQuery(string $user) {
-			$stmt = $this->bdd->prepare("SELECT * FROM forms WHERE username = LOWER(:user)");
+			$stmt = $this->bdd->prepare("SELECT * FROM forms WHERE username = LOWER(:user);");
 			$stmt->bindParam(':user',LOWER($user),PDO::PARAM_STR);
-			$stmt->execute;
+			$stmt->execute();
 			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
 			return $rslt;
 		}
 
 		function formQuery($user) {
-			$stmt = $this->bdd->prepare("SELECT TOP 1 * from forms WHERE username = LOWER(:user) ORDER BY date DESC");
+			$stmt = $this->bdd->prepare("SELECT TOP 1 * from forms WHERE username = LOWER(:user) ORDER BY date DESC;");
 			$stmt->bindParam(':user',LOWER($user),PDO::PARAM_STR);
-			$stmt->execute;
+			$stmt->execute();
 			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
 			return $rslt;
 		}
 
+		/**
+		* @brief Modifie les données dans le formulaire actif d'un utilisateur (étudiant). Le formulaire actif est le formulaire le plus récent dans la base de données
+		* @param user - nom de l'utilisateur dans la base de données
+		* @param q1 - première question
+		* @param q2 - deuxième question
+		* @return - rowCount de stmt; 1 si succès, 0 si erreur, autre chose si grosse erreur
+		*/
+		function updateForm(string $user, string $q1, string $q2) {
+			$stmt = $this->bdd->prepare("UPDATE table SET q1=:q1, q2=:q2 WHERE (SELECT TOP 1 * from forms WHERE username = LOWER(:user) ORDER BY date DESC);");
+			$stmt->bindParam(':user',LOWER($user),PDO::PARAM_STR);
+			$stmt->bindParam(':q1',$q1,PDO::PARAM_STR);
+			$stmt->bindParam(':q2',$q2,PDO::PARAM_STR);
+			$stmt->execute();
+			return $stmt->rowCount();;
+		}
 
+		/**
+		* @brief Modifie les données d'un étudiant. Ces données étant fixes en théorie, elles sont séparées des données du formulaire
+		* @param user - nom de l'utilisateur dans la base de données
+		* @param spec1 - première spécialité
+		* @param spec2 - deuxième spécialité
+		* @return - rowCount de stmt; 1 si succès, 0 si erreur, autre chose si grosse erreur
+		*/
+		function updateStudent() {
+			$stmt = $this->bdd->prepare("UPDATE table SET spec1=:spec1, spec2=:spec2 WHERE (SELECT TOP 1 * from forms WHERE username = LOWER(:user) ORDER BY date DESC)");
+			$stmt->bindParam(':user',LOWER($user),PDO::PARAM_STR);
+			$stmt->bindParam(':spec1',$spec1,PDO::PARAM_STR);
+			$stmt->bindParam(':spec2',$spec2,PDO::PARAM_STR);
+			$stmt->execute();
+			return $stmt->rowCount();;
+		}
 
-	// func mise à jour formulaire :
-	// ira sur la page formulaire afin d'utiliser les valeurs POST directement
+		/*function swapForm() {}*/ // TODO: 
     }
 ?>
