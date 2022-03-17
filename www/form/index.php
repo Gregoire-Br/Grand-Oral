@@ -5,6 +5,7 @@ if (isset($_SESSION["session"])) {
 }
 
 include 'var/sql.php';
+include 'lib/GOBDD.php';
 
 error_reporting(E_ALL & ~E_NOTICE);
 
@@ -16,25 +17,14 @@ if ($_POST["submit"]) {
         $username = $_POST["username"];
         $password = $_POST["password"];
 
-        try {
-            $bdd = new PDO('mysql:host=' . $sql_ip . ';dbname=' . $sql_db . ';charset=utf8', $sql_login, $sql_password);
-            $requete = $bdd->prepare("SELECT * FROM users WHERE username = \"$username\" AND password = PASSWORD(\"$password\")");
-            $requete->execute();
-            $reponse = $requete->fetch(PDO::FETCH_ASSOC);
-
-            if ($reponse) {
-                $_SESSION["session"] = true;
-                $_SESSION["username"] = $reponse["username"];
-                $_SESSION["firstname"] = $reponse["firstname"];
-                $_SESSION["lastname"] = $reponse["lastname"];
-                $_SESSION["status"] = $reponse["status"];
-                $_SESSION["email"] = $reponse["email"];
-                header('Location: session.php');
-            } else {
-                $erreur = 'Identifiant ou mot de passe incorrect';
-            }
-        } catch (Exception $e) {
-            $erreur = "Connexion impossible : " . mb_convert_encoding($e->getMessage(), 'utf8', 'Windows-1252');
+        $bdd = new GOBDD($sql_ip, $sql_db, $sql_login, $sql_password);
+        if($bdd->checkCredentials($username, $password)) {
+            $res = $bdd->userQuery($username);
+            session_start();
+            $_SESSION["session"] = true;
+            $_SESSION["username"] = $res["username"];
+            $_SESSION["status"] = $res["status"];
+            header('Location: session.php');
         }
     }
 }
