@@ -21,7 +21,7 @@
 		/**
 		* @brief Cherche un utilisateur et retourne les informations sur lui
 		* @param user - Nom d'utilisateur à chercher
-		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : <ul><li>username: nom d'utilisateur</li><li>password: mot de passe hashé</li><li>firstname: prénom</li><li>lastname: nom de famille</li><li>status: grade de l'utilisateur; 0: étudiant; 1: enseignant; 2: proviseur adjoint; 3: secrétaire</li><li>email: adresse email</li><ul>
+		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : <ul><li>username: nom d'utilisateur</li><li>password: mot de passe hashé</li><li>firstname: prénom</li><li>lastname: nom de famille</li><li>status: grade de l'utilisateur; 0: étudiant; 1: enseignant; 2: proviseur adjoint; 3: secrétaire</li><li>email: adresse email</li></ul>
 		*/
 		function userQuery(string $user) {
 			$stmt = $this->bdd->prepare("SELECT * FROM users WHERE username = LOWER(:user)");
@@ -58,7 +58,7 @@
 		/**
 		* @brief Cherche un étudiant et retourne les informations sur lui
 		* @param user - Nom d'utilisateur de l'étudiant à chercher
-		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : <ul><li>username: nom d'utilisateur</li><li>ine: identifiant INE crypté</li><li>spec1: spécialité 1</li><li>spec2: spécialité 2</li><li>ens1: nom d'utilisateur de l'enseignant 1</li><li>ens2: nom d'utilisateur de l'enseignant 2</li><li>etabville: etablissement et ville; peut-être inutile</li><ul>
+		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : <ul><li>username: nom d'utilisateur</li><li>ine: identifiant INE crypté</li><li>spec1: spécialité 1</li><li>spec2: spécialité 2</li><li>ens1: nom d'utilisateur de l'enseignant 1</li><li>ens2: nom d'utilisateur de l'enseignant 2</li><li>etabville: etablissement et ville; peut-être inutile</li></ul>
 		*/
 		function studentQuery($user){
 			$stmt = $this->bdd->prepare("SELECT * FROM students WHERE username = LOWER(:user)");
@@ -81,7 +81,7 @@
 		* @rslt - 1 si il y a un (seul) compte correspondant; 0 si il n'y en a pas (ou si il y en a plus d'un; théoriquement impossible)
 		*/
 		function checkCredentials($user,$pswd) {
-			$user = userQuery($user);
+			$user = $this->userQuery($user);
 			$stmt = $this->bdd->prepare("SELECT * FROM users WHERE username = LOWER(:user) AND password=PASSWORD(:pswd)");
 			$stmt->bindParam(':user',strtolower($user),PDO::PARAM_STR);
 			$stmt->bindParam(':pswd',$pswd,PDO::PARAM_STR);
@@ -89,6 +89,7 @@
 			return ($stmt->rowCount() == 1 ? 1 : 0);
 		}
 
+		// TODO: doc, tests
 		function formHistoryQuery(string $user) {
 			$stmt = $this->bdd->prepare("SELECT * FROM forms WHERE username = LOWER(:user);");
 			$stmt->bindParam(':user',strtolower($user),PDO::PARAM_STR);
@@ -97,6 +98,11 @@
 			return $rslt;
 		}
 
+		/**
+		* @brief Cherche le formulaire le plus récent pour un utilisateur
+		* @param user - nom d'utilisateur
+		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : <ul><li>id: identifiant unique du formulaire</li><li>username: nom d'utilisateur</li><li>ine: identifiant INE crypté</li><li>spec1: spécialité 1</li><li>spec2: spécialité 2</li><li>ens1: nom d'utilisateur de l'enseignant 1</li><li>ens2: nom d'utilisateur de l'enseignant 2</li><li>etabville: etablissement et ville; peut-être inutile</li></ul>
+		*/
 		function formQuery($user) {
 			$stmt = $this->bdd->prepare("SELECT TOP 1 * from forms WHERE username = LOWER(:user) ORDER BY date DESC;");
 			$stmt->bindParam(':user',strtolower($user),PDO::PARAM_STR);
