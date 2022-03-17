@@ -6,36 +6,36 @@ if (isset($_SESSION["session"])) {
 
 include 'var/sql.php';
 
-header('Content-Type: text/html; charset=utf-8');
 error_reporting(E_ALL & ~E_NOTICE);
 
 $erreur = '';
 
 if ($_POST["submit"]) {
-    $username = strip_tags($_POST["username"]);
-    $password = strip_tags($_POST["password"]);
+    if ($_POST["username"] && $_POST["password"]) {
+        
+        $username = $_POST["username"];
+        $password = $_POST["password"];
 
-    try {
-        $bdd = new PDO('mysql:host=' . $sql_ip . ';dbname=' . $sql_db . ';charset=utf8', $sql_login, $sql_password);
-        $requete = $bdd->prepare("SELECT * FROM users WHERE username = \"$username\" AND password = PASSWORD(\"$password\")");
-        $requete->execute();
-        $reponse = $requete->fetch(PDO::FETCH_ASSOC);
+        try {
+            $bdd = new PDO('mysql:host=' . $sql_ip . ';dbname=' . $sql_db . ';charset=utf8', $sql_login, $sql_password);
+            $requete = $bdd->prepare("SELECT * FROM users WHERE username = \"$username\" AND password = PASSWORD(\"$password\")");
+            $requete->execute();
+            $reponse = $requete->fetch(PDO::FETCH_ASSOC);
 
-        if ($reponse) {
-            session_start();
-            $_SESSION["session"] = true;
-            $_SESSION["username"] = $reponse["username"];
-            $_SESSION["password"] = $reponse["password"];
-            $_SESSION["firstname"] = $reponse["firstname"];
-            $_SESSION["lastname"] = $reponse["lastname"];
-            $_SESSION["status"] = $reponse["status"];
-            $_SESSION["email"] = $reponse["email"];
-            header('Location: session.php');
-        } else {
-            $erreur = 'Identifiant ou mot de passe incorrect';
+            if ($reponse) {
+                $_SESSION["session"] = true;
+                $_SESSION["username"] = $reponse["username"];
+                $_SESSION["firstname"] = $reponse["firstname"];
+                $_SESSION["lastname"] = $reponse["lastname"];
+                $_SESSION["status"] = $reponse["status"];
+                $_SESSION["email"] = $reponse["email"];
+                header('Location: session.php');
+            } else {
+                $erreur = 'Identifiant ou mot de passe incorrect';
+            }
+        } catch (Exception $e) {
+            $erreur = "Connexion impossible : " . mb_convert_encoding($e->getMessage(), 'utf8', 'Windows-1252');
         }
-    } catch (Exception $e) {
-        $erreur = "Connexion impossible : " . mb_convert_encoding($e->getMessage(), 'utf8', 'Windows-1252');
     }
 }
 ?>
@@ -45,9 +45,8 @@ if ($_POST["submit"]) {
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/form/style/style.css">
     <link rel="icon" type="image/png" href="/form/img/favicon.png" />
     <title>Connexion</title>
@@ -59,27 +58,34 @@ if ($_POST["submit"]) {
             <div id="go-row" class="row justify-content-center align-items-center">
                 <div id="go-column" class="col-md-6">
                     <div id="go-box" class="col-md-24">
-                        <img id="logo" src="img/logo.png" class="mx-auto d-block">
-                        <form id="go-form" class="form" action="" method="post">
+                        <img id="logo" src="img/logo.png" class="img-fluid mx-auto d-block">
+
+                        <form id="go-form" class="form needs-validation" action="" method="post" novalidate>
 
                             <h3 class="text-center text-info">Connexion</h3>
 
                             <div class="form-group">
                                 <label for="username" class="text-info">Identifiant:</label><br>
-                                <input type="text" name="username" id="username" required class="form-control">
+                                <input type="text" name="username" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Identifiant requis
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="password" class="text-info">Mot de passe:</label><br>
-                                <input type="password" name="password" id="password" required class="form-control">
+                                <input type="password" name="password" class="form-control" required>
+                                <div class="invalid-feedback">
+                                    Mot de passe requis
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <p id="error"><?php echo $erreur; ?></p>
                             </div>
 
-                            <div class="form-group">
-                                <input type="submit" name="submit" class="btn btn-primary btn-md btn-block" value="Se connecter">
+                            <div class="d-grid gap-2 col-4 mx-auto">
+                                <button class="btn btn-primary" type="submit" name="submit" value="submit">Se connecter</button>
                             </div>
                         </form>
                     </div>
@@ -87,6 +93,8 @@ if ($_POST["submit"]) {
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" src="js/formvalidation.js"></script>
 </body>
 
 </html>

@@ -10,7 +10,7 @@ if (!isset($_SESSION["session"])) header("Location: /form/");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/form/style/style.css">
     <link rel="icon" type="image/png" href="/form/img/favicon.png" />
     <title>Formulaire - Grand Oral</title>
@@ -18,81 +18,104 @@ if (!isset($_SESSION["session"])) header("Location: /form/");
 
 <body>
     <div id="go">
-        <div class="container">
+        <div class="container-fluid">
             <div id="go-row" class="row justify-content-center align-items-center">
                 <div id="go-column" class="col-md-6">
                     <div id="go-box" class="col-md-24">
-                        <img id="logo" src="img/logo.png" class="mx-auto d-block">
-                        <form id="go-form" class="form" action="" method="post">
+                        <img id="logo" src="img/logo.png" class="img-fluid mx-auto d-block">
+
+                        <form id="go-form" class="form needs-validation" action="" method="post" novalidate>
 
                             <h3 class="text-center text-info">Formulaire</h3>
 
-                            <div class='form-group'>
+                            <div class="form-group">
                                 <label for="lastname" class="text-info">Nom :</label>
-                                <input type='text' name="lastname" id="lastname" maxlength="100" placeholder='Entrez votre nom' class='form-control' required />
+                                <input type="text" name="lastname" maxlength="100" placeholder="Entrez votre nom" class="form-control" value="<?php echo $_SESSION["lastname"]?>" required />
+                                <div class="invalid-feedback">
+                                    Nom de famille requis
+                                </div>
                             </div>
 
-                            <div class='form-group'>
+                            <div class="form-group">
                                 <label for="firstname" class="text-info">Prénom :</label>
-                                <input type='text' name="firstname" id="firstname" maxlength="100" placeholder='Entrez votre prénom' class='form-control' required />
+                                <input type="text" name="firstname" maxlength="100" placeholder="Entrez votre prénom" class="form-control" value="<?php echo $_SESSION["firstname"]?>"required />
+                                <div class="invalid-feedback">
+                                    Prénom requis
+                                </div>
                             </div>
 
                             <hr />
 
-                            <div class='form-group'>
+                            <div class="form-group">
                                 <label for="ens1" class="text-info">Nom de l'enseignant n°1 :</label>
-                                <input type='text' name="ens1" id="ens1" maxlength="100" class='form-control' required />
+                                <input type="text" name="ens1" maxlength="100" class="form-control" required />
+                                <div class="invalid-feedback">
+                                    Nom de l'enseignant requis
+                                </div>
                             </div>
 
-                            <div class='form-group'>
+                            <div class="form-group">
                                 <label for="spec1" class="text-info">Spécialité n°1 :</label>
-                                <select name="spec1" id="spec1" class='form-control' required>
+                                <select name="spec1" class="form-control" required>
                                     <option disabled selected value>Selectionnez une spécialité</option>
-                                    <option value="maths">mathématique</option>
-                                    <option value="francais">français </option>
-                                    <option value="espagnol">espagnol</option>
-                                    <option value="anglais">anglais</option>
-                                    <option value="histoire">histoire</option>
-                                    <option value="geo">géographie</option>
-                                    <option value="chine">Chimie</option>
-                                    <option value="japon">Latin</option>
+                                    <option value="maths">Mathématiques</option>
+                                    <option value="francais ">Français </option>
+                                    <option value="espagnol">Espagnol</option>
+                                    <option value="anglais">Anglais</option>
+                                    <option value="hist-geo">Histoire-Géographie</option>
+                                    <option value="physique">Physique-Chimie</option>
+                                    <option value="svt">SVT</option>
                                 </select>
+                                <div class="invalid-feedback">
+                                    Spécialité requise
+                                </div>
                             </div>
 
-                            <div class='form-group'>
+                            <div class="form-group">
                                 <label for="q1" class="text-info">Question 1 :</label>
-                                <textarea type='text' id="q1" name="q1" maxlength="300" required class="form-control"></textarea>
+                                <textarea type="text" name="q1" maxlength="300" required class="form-control"></textarea>
+                                <div class="invalid-feedback">
+                                    Question requise
+                                </div>
                             </div>
 
                             <hr />
 
-                            <div class='form-group'>
+                            <div class="form-group">
                                 <label for="ens2" class="text-info">Nom de l'enseignant n°2 :</label>
-                                <input type='text' name="ens2" id="ens2" maxlength="100" class='form-control' required />
+                                <input type="text" name="ens2" maxlength="100" class="form-control" required />
+                                <div class="invalid-feedback">
+                                    Nom de l'enseignant requis
+                                </div>
                             </div>
 
-                            <div class='form-group'>
+                            <div class="form-group">
                                 <label for="spec2" class="text-info">Spécialité n°2 :</label>
-                                <select name="spec2" id="spec2" class='form-control' required>
+                                <select name="spec2" class="form-control" required>
                                     <option disabled selected value>Selectionnez une spécialité</option>
-                                    <option value="maths">mathématique</option>
-                                    <option value="francais ">français </option>
-                                    <option value="espagnol">espagnol</option>
-                                    <option value="anglais">anglais</option>
-                                    <option value="histoire">histoire</option>
-                                    <option value="geo">géographie</option>
-                                    <option value="chine">Chimie</option>
-                                    <option value="japon">Latin</option>
+                                    <option value="maths">Mathématiques</option>
+                                    <option value="francais ">Français </option>
+                                    <option value="espagnol">Espagnol</option>
+                                    <option value="anglais">Anglais</option>
+                                    <option value="hist-geo">Histoire-Géographie</option>
+                                    <option value="physique">Physique-Chimie</option>
+                                    <option value="svt">SVT</option>
                                 </select>
+                                <div class="invalid-feedback">
+                                    Spécialité requise
+                                </div>
                             </div>
 
-                            <div class='form-group'>
+                            <div class="form-group">
                                 <label for="q2" class="text-info">Question 2 :</label>
-                                <textarea type='text' id="q2" name="q2" maxlength="300" required class='form-control'></textarea>
+                                <textarea type="text" name="q2" maxlength="300" required class="form-control"></textarea>
+                                <div class="invalid-feedback">
+                                    Question requise
+                                </div>
                             </div>
 
-                            <div class='form-input-button'>
-                                <button type='submit' id='submit' class="btn btn-primary btn-md btn-block">Envoyer</button>
+                            <div class="d-grid gap-2 col-8 mx-auto">
+                                <button name="submit" value="submit" class="btn btn-primary">Envoyer</button>
                             </div>
                         </form>
                     </div>
@@ -100,6 +123,8 @@ if (!isset($_SESSION["session"])) header("Location: /form/");
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" src="js/formvalidation.js"></script>
 </body>
 
 </html>
