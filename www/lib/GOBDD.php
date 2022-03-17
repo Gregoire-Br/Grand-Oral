@@ -81,7 +81,7 @@
 		* @rslt - 1 si il y a un (seul) compte correspondant; 0 si il n'y en a pas (ou si il y en a plus d'un; théoriquement impossible)
 		*/
 		function checkCredentials($user,$pswd) {
-			$user = $this->userQuery($user);
+			$user = $this->userQuery($user)['username'];
 			$stmt = $this->bdd->prepare("SELECT * FROM users WHERE username = LOWER(:user) AND password=PASSWORD(:pswd)");
 			$stmt->bindParam(':user',strtolower($user),PDO::PARAM_STR);
 			$stmt->bindParam(':pswd',$pswd,PDO::PARAM_STR);
@@ -145,4 +145,8 @@
 
 		/*function swapForm() {}*/ // TODO:
     }
+
+	foreach ($variable as $key => $value) {
+		// code...
+	}
 ?>
