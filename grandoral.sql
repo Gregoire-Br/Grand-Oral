@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le :  ven. 18 mars 2022 à 08:33
+-- Généré le :  ven. 18 mars 2022 à 15:37
 -- Version du serveur :  5.7.17
--- Version de PHP :  5.6.30
+-- Version de PHP :  7.1.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -33,6 +33,7 @@ USE `grandoral`;
 CREATE TABLE `form` (
   `id` int(11) NOT NULL COMMENT 'Clé primaire',
   `username` varchar(20) NOT NULL COMMENT 'Nom d''utilisateur lié',
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Date de création/dernière modification. Le formulaire le plus récent pour un utilisateur est considéré actif',
   `q1` text NOT NULL COMMENT 'Question 1',
   `q2` text NOT NULL COMMENT 'Question 2',
   `e1valid` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Est-ce que l''enseignant 1 a validé?',
@@ -44,9 +45,9 @@ CREATE TABLE `form` (
 -- Déchargement des données de la table `form`
 --
 
-INSERT INTO `form` (`id`, `username`, `q1`, `q2`, `e1valid`, `e2valid`, `proValid`) VALUES
-(1, 'garfield', 'azerty', 'qwerty', 0, 0, 0),
-(2, 'garfield', 'dvorak', 'qwertz', 0, 0, 0);
+INSERT INTO `form` (`id`, `username`, `date`, `q1`, `q2`, `e1valid`, `e2valid`, `proValid`) VALUES
+(1, 'garfield', '2022-03-18 09:57:15', 'a', 'b', 0, 0, 0),
+(2, 'garfield', '2022-03-18 12:27:33', 'bonjour', 'bonne nuit', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -69,7 +70,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`username`, `ine`, `spec1`, `spec2`, `ens1`, `ens2`, `etabville`) VALUES
-('garfield', '123456789af', 'lasagnes', 'dormir', 'Jean', 'Claude', 'paris');
+('garfield', '123456789af', 'bonsoir', 'bonne soirée', 'Jean', 'Claude', 'paris');
 
 -- --------------------------------------------------------
 
@@ -79,7 +80,7 @@ INSERT INTO `students` (`username`, `ine`, `spec1`, `spec2`, `ens1`, `ens2`, `et
 
 CREATE TABLE `users` (
   `username` varchar(20) NOT NULL COMMENT 'Nom d''utilisateur, clé primaire, insensible à la casse',
-  `password` varchar(48) NOT NULL COMMENT 'Mot de passe à hasher',
+  `password` varchar(100) NOT NULL COMMENT 'Mot de passe à hasher',
   `lastLog` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `firstname` varchar(100) DEFAULT NULL COMMENT 'Pour la communication',
   `lastname` varchar(100) DEFAULT NULL COMMENT 'Pour la communication',
@@ -92,7 +93,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`username`, `password`, `lastLog`, `firstname`, `lastname`, `status`, `email`) VALUES
-('garfield', 'def456', '2022-03-18 07:23:28', 'gar', 'field', 0, 'gar@field.com');
+('garfield', '*5E2A54B667375CFB4D3A59D7482A6F1DDF9A31FD', '2022-03-18 08:25:17', 'gar', 'field', 0, 'gar@field.com');
 
 --
 -- Index pour les tables déchargées
@@ -125,7 +126,17 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `form`
 --
 ALTER TABLE `form`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire', AUTO_INCREMENT=3;COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Clé primaire', AUTO_INCREMENT=3;
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `students`
+--
+ALTER TABLE `students`
+  ADD CONSTRAINT `students_ibfk_1` FOREIGN KEY (`username`) REFERENCES `users` (`username`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
