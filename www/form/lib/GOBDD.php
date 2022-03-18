@@ -11,7 +11,7 @@
         function __construct(string $host, string $db, string $user, string $pswd) {
             try {
                 $this->bdd = new PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8',$user,$pswd);
-                //if ($this->bdd) echo "Connexion réussie";
+                if ($this->bdd) echo "Connexion réussie<br>";
             } catch (Exception $e) {
                 die('Erreur: ' . $e->getMessage());
                 if ($e) echo $e;
@@ -26,12 +26,12 @@
 		function userQuery(string $user) {
 			$lcuser = strtolower($user);
 			$stmt = $this->bdd->prepare("SELECT * FROM users WHERE username = LOWER(:user)");
-			/*if(!$stmt) {
-				echo "\nPDO::errorInfo():\n";
+			if(!$stmt && $this->debugToggle) {
+				echo "<br>userQuery - PDO::errorInfo():<br>";
 				echo $this->bdd->errorInfo();
-			}*/
+			}
 			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
-			if(!$stmt->execute()){
+			if(!$stmt->execute() && $this->debugToggle){
 				var_dump($stmt->errorInfo());
 			}
 			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
@@ -47,13 +47,15 @@
 		function changePassword($user, $pswd) {
 			$lcuser = strtolower($user);
 			$stmt = $this->bdd->prepare("UPDATE users SET password=PASSWORD(:pswd) WHERE username = LOWER(:user)");
-			/*if(!$stmt) {
-				echo "\nPDO::errorInfo():\n";
+			if(!$stmt && $this->debugToggle) {
+				echo "<br>changePassword - PDO::errorInfo():<br>";
 				echo $this->bdd->errorInfo();
-			}*/
+			}
 			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
 			$stmt->bindParam(':pswd',$pswd,PDO::PARAM_STR);
-			$stmt->execute();
+			if(!$stmt->execute() && $this->debugToggle){
+				var_dump($stmt->errorInfo());
+			}
 			return $stmt->rowCount();
 		}
 
@@ -65,12 +67,12 @@
 		function studentQuery($user){
 			$lcuser = strtolower($user);
 			$stmt = $this->bdd->prepare("SELECT * FROM students WHERE username = LOWER(:user)");
-			/*if(!$stmt) {
-				echo "\nPDO::errorInfo():\n";
+			if(!$stmt && $this->debugToggle) {
+				echo "<br>studentQuery - PDO::errorInfo():<br>";
 				echo $this->bdd->errorInfo();
-			}*/
+			}
 			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
-			if(!$stmt->execute()){
+			if(!$stmt->execute() && $this->debugToggle){
 				var_dump($stmt->errorInfo());
 			}
 			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
@@ -87,18 +89,30 @@
 			$lcuser = strtolower($user);
 			$user = $this->userQuery($user)['username'];
 			$stmt = $this->bdd->prepare("SELECT * FROM users WHERE username = LOWER(:user) AND password=PASSWORD(:pswd)");
+			if(!$stmt && $this->debugToggle) {
+				echo "<br>checkCredentials - PDO::errorInfo():<br>";
+				echo $this->bdd->errorInfo();
+			}
 			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
 			$stmt->bindParam(':pswd',$pswd,PDO::PARAM_STR);
-			$stmt->execute();
+			if(!$stmt->execute() && $this->debugToggle){
+				var_dump($stmt->errorInfo());
+			}
 			return ($stmt->rowCount() == 1 ? 1 : 0);
 		}
 
 		// TODO: doc, tests
 		function formHistoryQuery(string $user) {
 			$lcuser = strtolower($user);
-			$stmt = $this->bdd->prepare("SELECT * FROM forms WHERE username = LOWER(:user);");
+			$stmt = $this->bdd->prepare("SELECT * FROM form WHERE username = LOWER(:user);");
+			if(!$stmt && $this->debugToggle) {
+				echo "<br>formHistoryQuery - PDO::errorInfo():<br>";
+				echo $this->bdd->errorInfo();
+			}
 			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
-			$stmt->execute();
+			if(!$stmt->execute() && $this->debugToggle){
+				var_dump($stmt->errorInfo());
+			}
 			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
 			return $rslt;
 		}
@@ -109,9 +123,15 @@
 		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : <ul><li>id: identifiant unique du formulaire</li><li>username: nom d'utilisateur</li><li>q1: question 1</li><li>q2: question 2</li><li>e1valid: 1 si validé par enseignant 1, sinon 0</li><li>e1valid: 1 si validé par enseignant 1, sinon 0</li><li>proValid: 1 si validé par proviseur adjoint, sinon 0</li></ul>
 		*/
 		function formQuery($user) {
-			$stmt = $this->bdd->prepare("SELECT TOP 1 * from forms WHERE username = LOWER(:user) ORDER BY date DESC;");
+			$stmt = $this->bdd->prepare("SELECT * from form WHERE username = LOWER(:user) ORDER BY date DESC LIMIT 1;");
+			if(!$stmt && $this->debugToggle) {
+				echo "<br>formQuery - PDO::errorInfo():<br>";
+				echo $this->bdd->errorInfo();
+			}
 			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
-			$stmt->execute();
+			if(!$stmt->execute() && $this->debugToggle){
+				var_dump($stmt->errorInfo());
+			}
 			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
 			return $rslt;
 		}
@@ -124,11 +144,18 @@
 		* @return - rowCount de stmt; 1 si succès, 0 si erreur, autre chose si grosse erreur
 		*/
 		function updateForm(string $user, string $q1, string $q2) {
-			$stmt = $this->bdd->prepare("UPDATE table SET q1=:q1, q2=:q2 WHERE (SELECT TOP 1 * from forms WHERE username = LOWER(:user) ORDER BY date DESC);");
+			$lcuser = strtolower($user);
+			$stmt = $this->bdd->prepare("UPDATE form SET `q1`=:q1,`q2`=:q2 WHERE `username`=:user ORDER BY date DESC LIMIT 1");
+			if(!$stmt && $this->debugToggle) {
+				echo "<br>updateForm - PDO::errorInfo():<br>";
+				echo $this->bdd->errorInfo();
+			}
 			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
 			$stmt->bindParam(':q1',$q1,PDO::PARAM_STR);
 			$stmt->bindParam(':q2',$q2,PDO::PARAM_STR);
-			$stmt->execute();
+			if(!$stmt->execute() && $this->debugToggle){
+				var_dump($stmt->errorInfo());
+			}
 			return $stmt->rowCount();;
 		}
 
@@ -141,11 +168,20 @@
 		*/
 		function updateStudent($user,$spec1,$spec2) {
 			$lcuser = strtolower($user);
-			$stmt = $this->bdd->prepare("UPDATE table SET spec1=:spec1, spec2=:spec2 WHERE (SELECT TOP 1 * from forms WHERE username = LOWER(:user) ORDER BY date DESC)");
+			$stmt = $this->bdd->prepare("UPDATE students SET spec1=:spec1, spec2=:spec2 WHERE username=:user;");
+			
+			if(!$stmt && $this->debugToggle) {
+				echo "<br>updateStudent - PDO::errorInfo():<br>";
+				echo $this->bdd->errorInfo();
+			}
+			
 			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
 			$stmt->bindParam(':spec1',$spec1,PDO::PARAM_STR);
 			$stmt->bindParam(':spec2',$spec2,PDO::PARAM_STR);
-			$stmt->execute();
+			
+			if(!$stmt->execute() && $this->debugToggle){
+				var_dump($stmt->errorInfo());
+			}
 			return $stmt->rowCount();;
 		}
 
