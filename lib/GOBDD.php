@@ -123,6 +123,7 @@
 		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : <ul><li>id: identifiant unique du formulaire</li><li>username: nom d'utilisateur</li><li>q1: question 1</li><li>q2: question 2</li><li>e1valid: 1 si validé par enseignant 1, sinon 0</li><li>e1valid: 1 si validé par enseignant 1, sinon 0</li><li>proValid: 1 si validé par proviseur adjoint, sinon 0</li></ul>
 		*/
 		function formQuery($user) {
+			$lcuser = strtolower($user);
 			$stmt = $this->bdd->prepare("SELECT * from form WHERE username = LOWER(:user) ORDER BY date DESC LIMIT 1;");
 			if(!$stmt && $this->debugToggle) {
 				echo "<br>formQuery - PDO::errorInfo():<br>";
