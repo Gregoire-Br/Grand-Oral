@@ -147,8 +147,7 @@
 		*/
 		function updateForm(string $user, string $q1, string $q2) {
 			$lcuser = strtolower($user);
-			//$stmt = $this->bdd->prepare("UPDATE form SET `q1`=:q1,`q2`=:q2 WHERE `username`=:user ORDER BY date DESC LIMIT 1");
-			$stmt = $this->bdd->prepare("INSERT INTO form (`username`, `q1`, `q2`) VALUES (:user, :q1, :q2)");
+			$stmt = $this->bdd->prepare("UPDATE form SET `q1`=:q1,`q2`=:q2 WHERE `username`=:user ORDER BY date DESC LIMIT 1");
 			if(!$stmt && $this->debugToggle) {
 				echo "<br>updateForm - PDO::errorInfo():<br>";
 				echo $this->bdd->errorInfo();
