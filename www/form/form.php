@@ -1,6 +1,16 @@
 <?php
 session_start();
-if (!isset($_SESSION["session"])) header("Location: /form/");
+if (!isset($_SESSION["session"]) || $_SESSION["status"] != 0) header("Location: /form/");
+
+include 'var/sql.php';
+
+error_reporting(E_ALL & ~E_NOTICE);
+
+if ($_POST["submit"]) {
+    if ($_POST["ens1"] && $_POST["spec1"] && $_POST["q1"] && $_POST["ens2"] && $_POST["spec2"] && $_POST["q2"]) {
+        die($_SESSION["firstname"] . ' ' . $_SESSION["lastname"]);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,24 +37,6 @@ if (!isset($_SESSION["session"])) header("Location: /form/");
                         <form id="go-form" class="form needs-validation" action="" method="post" novalidate>
 
                             <h3 class="text-center text-info">Formulaire</h3>
-
-                            <div class="form-group">
-                                <label for="lastname" class="text-info">Nom :</label>
-                                <input type="text" name="lastname" maxlength="100" placeholder="Entrez votre nom" class="form-control" value="<?php echo $_SESSION["lastname"]?>" required />
-                                <div class="invalid-feedback">
-                                    Nom de famille requis
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="firstname" class="text-info">Prénom :</label>
-                                <input type="text" name="firstname" maxlength="100" placeholder="Entrez votre prénom" class="form-control" value="<?php echo $_SESSION["firstname"]?>"required />
-                                <div class="invalid-feedback">
-                                    Prénom requis
-                                </div>
-                            </div>
-
-                            <hr />
 
                             <div class="form-group">
                                 <label for="ens1" class="text-info">Nom de l'enseignant n°1 :</label>

@@ -16,11 +16,8 @@ if (!isset($_SESSION["session"])) header("Location: /form/");
 </head>
 
 <body>
-    <p>Nom d'utilisateur : <?php echo $_SESSION["username"] ?></p><br>
-    <p>Prénom : <?php echo $_SESSION["firstname"] ?></p><br>
-    <p>Nom de famille : <?php echo $_SESSION["lastname"] ?></p><br>
     <p>Statut : <?php echo $_SESSION["status"] ?></p><br>
-    <p>Mail : <?php echo $_SESSION["email"] ?></p><br>
+    <p>Username : <?php echo $_SESSION["username"] ?></p><br>
     <a href="form.php">Formulaire</a><br>
     <a href="disconnect.php">Se déconnecter</a>
 </body>

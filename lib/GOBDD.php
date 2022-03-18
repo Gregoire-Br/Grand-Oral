@@ -136,7 +136,7 @@
 		*/
 		function updateStudent($user,$spec1,$spec2) {
 			$stmt = $this->bdd->prepare("UPDATE table SET spec1=:spec1, spec2=:spec2 WHERE (SELECT TOP 1 * from forms WHERE username = LOWER(:user) ORDER BY date DESC)");
-			$stmt->bindParam(':user',strtolower($user),PDO::PARAM_STR);
+			$stmt->bindParam(':user',strtolower($this->user),PDO::PARAM_STR);
 			$stmt->bindParam(':spec1',$spec1,PDO::PARAM_STR);
 			$stmt->bindParam(':spec2',$spec2,PDO::PARAM_STR);
 			$stmt->execute();
