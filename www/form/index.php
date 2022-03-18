@@ -26,6 +26,9 @@ if ($_POST["submit"]) {
             $_SESSION["status"] = $res["status"];
             header('Location: session.php');
         }
+        else{
+            $erreur = 'Identifiant ou mot de passe incorrect';
+        }
     }
 }
 ?>
