@@ -22,6 +22,12 @@ if ($_POST["submit"]) {
               $bdd->changePassword($_SESSION["username"], $new);
               header("Location: /form/disconnect.php");
             }
+            else{
+                $erreur = 'Le nouveau mot de passe n\'est pas le meme que celui de confirmation, veuillez réessayer';
+            }
+        }
+        else{
+            $erreur = 'Mot de passe actuel incorrect';
         }
     }
 }
