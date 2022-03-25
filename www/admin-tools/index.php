@@ -49,7 +49,7 @@
 						<td>
 							<b>M.DUPOND : Validé</b><br>
 							<b>M.HADDOCK : Validé</b><br>
-							M.DUPONT : à valider
+							Proviseur : à valider
 						</td>
 		  				<td>
 							<button type="button" class="btn btn-success">Y</button>
@@ -67,7 +67,7 @@
 						  <td>
 							  <b>M.DUPOND : Validé</b><br>
 							  <b>M.HADDOCK : Validé</b><br>
-							  M.DUPONT : à valider
+							  Proviseur : à valider
 						  </td>
 						  <td>
 							  <button type="button" class="btn btn-success">Y</button>
@@ -85,7 +85,7 @@
 						  <td>
 							  <b>M.DUPOND : Validé</b><br>
 							  <b>M.HADDOCK : Validé</b><br>
-							  M.DUPONT : à valider
+							  Proviseur : à valider
 						  </td>
 						  <td>
 							  <button type="button" class="btn btn-success">Y</button>
@@ -109,7 +109,7 @@
 		  				</tr>
 		  				<tr class="act act-good bg-success text-white">
 		  					<td>21/10/2022, 10h32</td>
-		  					<td><b>M.DUPONT</b> a validé la fiche de <b>Jean</b></td>
+		  					<td><b>Proviseur</b> a validé la fiche de <b>Jean</b></td>
 		  				</tr>
 		  				<tr class="act act-neut">
 		  					<td>21/10/2022, 10h30</td>
@@ -140,7 +140,7 @@
 							<td>
 								<b>M.DUPOND : Validé</b><br>
 								<b>M.HADDOCK : Validé</b><br>
-								M.DUPONT : à valider
+								Proviseur : à valider
 							</td>
 						</tr>
 						<tr class="list-form">
@@ -154,7 +154,7 @@
 							<td>
 								<b>M.DUPOND : Validé</b><br>
 								<b>M.HADDOCK : Validé</b><br>
-								M.DUPONT : à valider
+								Proviseur : à valider
 							</td>
 						</tr>
 						<tr class="list-form">
@@ -168,7 +168,7 @@
 							<td>
 								<b>M.DUPOND : Validé</b><br>
 								<b>M.HADDOCK : Validé</b><br>
-								M.DUPONT : à valider
+								Proviseur : à valider
 							</td>
 						</tr>
 					</tbody>
