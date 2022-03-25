@@ -13,7 +13,7 @@ $erreur = '';
 
 if ($_POST["submit"]) {
     if ($_POST["username"] && $_POST["password"]) {
-        
+
         $username = $_POST["username"];
         $password = $_POST["password"];
 
@@ -26,6 +26,9 @@ if ($_POST["submit"]) {
             $_SESSION["status"] = $res["status"];
             header('Location: session.php');
         }
+        else{
+            $erreur = 'Identifiant ou mot de passe incorrect';
+        }
     }
 }
 ?>
@@ -36,9 +39,15 @@ if ($_POST["submit"]) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="/form/style/style.css">
-    <link rel="icon" type="image/png" href="/form/img/favicon.png" />
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="icon" type="image/png" href="/img/favicon.png" />
+
+    <script src="js/bootstrap.js"></script>
+    <script src="js/formvalidation.js"></script>
+    <script src="js/alertHandler.js"></script>
+
     <title>Connexion</title>
 </head>
 
@@ -84,7 +93,6 @@ if ($_POST["submit"]) {
         </div>
     </div>
 
-    <script type="text/javascript" src="js/formvalidation.js"></script>
 </body>
 
 </html>
