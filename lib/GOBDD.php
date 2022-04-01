@@ -1,7 +1,12 @@
 <?php
     class GOBDD {
         private $bdd;
-		private $debugToggle = 0;
+		private $debugToggle = 1;
+
+		/*define("ETUDIANT",0);
+		define("ENSEIGNANT",1);
+		define("PROVISEUR",2);
+		define("SECRETAIRE",3);*/
 
 		/**
 		* @param host - domaine du SGBD
@@ -9,7 +14,7 @@
 		* @param user - nom d'utilisateur; à stocker dans un fichier séparé et sécurisé
 		* @param pswd - mot de passe; à stocker dans un fichier séparé et sécurisé
 		*/
-        function __construct(string $host, string $db, string $user, string $pswd) {
+        function __construct(string $host, string $db, string $user, string $pswd, $debug = 0) {
             try {
                 $this->bdd = new PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8',$user,$pswd);
                 if ($this->bdd && $this->debugToggle) echo "Connexion réussie<br>";
@@ -17,7 +22,37 @@
                 die('Erreur: ' . $e->getMessage());
                 if ($e) echo $e;
             }
+			$this->$debugToggle = $debug;
         }
+
+		/**
+		* Generate a random string, using a cryptographically secure
+		* pseudorandom number generator (random_int)
+		*
+		* For PHP 7, random_int is a PHP core function
+		* For PHP 5.x, depends on https://github.com/paragonie/random_compat
+		*
+		* https://stackoverflow.com/a/31284266/12113891
+		*
+		* @param int $length      How many characters do we want?
+		* @param string $keyspace A string of all possible characters
+		*                         to select from
+		* @return string
+		*/
+		private function random_str(
+		    $length,
+		    $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		) {
+		    $str = '';
+		    $max = mb_strlen($keyspace, '8bit') - 1;
+		    if ($max < 1) {
+		        throw new Exception('$keyspace must be at least two characters long');
+		    }
+		    for ($i = 0; $i < $length; ++$i) {
+		        $str .= $keyspace[random_int(0, $max)];
+		    }
+		    return $str;
+		}
 
 		/**
 		* @brief Cherche un utilisateur et retourne les informations sur lui
@@ -188,6 +223,71 @@
 			return $stmt->rowCount();;
 		}
 
-		/*function swapForm() {}*/ // TODO:
+		// cassé
+		// function createUser($user,$status,$firstname,$lastname,$email) {
+		// 	echo "func start<br>debug: ".strval($this->debugToggle)."<br>";
+		// 	$lcuser = strtolower($user);
+		// 	echo "user :".$user."<br>";
+		// 	$usrStmt = $this->bdd->prepare("INSERT INTO users (username, status, password) VALUES (:user, :status, PASSWORD(:password)) ");
+		// 	var_dump($usrStmt);
+		// 	echo "<br>";
+		// 	/*if(!$usrStmt && $this->debugToggle) {
+		// 		echo "<br>userQuery - PDO::errorInfo():<br>";
+		// 		echo $this->bdd->errorInfo();
+		// 	}*/
+		//
+		// 	$password = "fuck"/*random_str(10)*/;
+		//
+		// 	$usrStmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
+		// 	$usrStmt->bindParam(':status',$status,PDO::PARAM_INT);
+		// 	/*$usrStmt->bindParam(':firstname',$firstname,PDO::PARAM_STR);
+		// 	$usrStmt->bindParam(':lastname',$lastname,PDO::PARAM_STR);
+		// 	$usrStmt->bindParam(':email',$email,PDO::PARAM_STR);*/
+		// 	$usrStmt->bindParam(':password',$password,PDO::PARAM_STR);
+		// 	var_dump($usrStmt);
+		// 	echo "<br>";
+		//
+		// 	$usrStmt->execute();
+		// 	var_dump($usrStmt->errorInfo());
+		//
+		// 	/*if(!$usrStmt->execute() && $this->debugToggle){
+		// 		var_dump($usrStmt->errorInfo());
+		// 	}*/
+		// 	var_dump($usrStmt);
+		// 	echo "<br>";
+		// 	#$sdtStmt = $this->bdd>prepare("INSERT INTO students (user) VALUES (:user);");
+		// 	return $usrStmt->rowCount();
+		// }
+
+		function createUser(string $username, int $status, string $email, string $firstname="", string $lastname="") {
+			$username = strtolower($username);
+			$password = "abc";
+
+			try {
+				$stmt = $this->bdd->prepare("INSERT INTO users (`username`, `password`, `firstname`, `lastname`, `email`,`status`) VALUES (:username,PASSWORD(:password),:firstname,:lastname,:email,:status)");
+				if(!$stmt){
+					echo "Erreur prepare(): <br>";
+					var_dump($this->bdd->errorInfo());
+				}
+			} catch(PDOException $e) {
+				die('Exception prepare(): ' . $e->getMessage()."<br>");
+                if ($e) echo $e;
+			}
+
+			if(!$stmt->bindParam(":username",$username)
+				|| !$stmt->bindParam(":password",$password)
+				|| !$stmt->bindParam(":firstname",$firstname)
+				|| !$stmt->bindParam(":lastname",$lastname)
+				|| !$stmt->bindParam(":email",$email)
+				|| !$stmt->bindParam(":status",$status)) {
+					echo "Erreur bindParam(): <br>";
+					var_dump($stmt->errorInfo());
+			}
+
+			if(!$stmt->execute()){
+				echo "Erreur execute(): <br>";
+				var_dump($stmt->errorInfo());
+			}
+		}
     }
 ?>
