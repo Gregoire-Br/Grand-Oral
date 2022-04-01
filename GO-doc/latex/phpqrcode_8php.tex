@@ -1,0 +1,215 @@
+\hypertarget{phpqrcode_8php}{}\doxysection{www/qrcode/lib/phpqrcode/phpqrcode.php File Reference}
+\label{phpqrcode_8php}\index{www/qrcode/lib/phpqrcode/phpqrcode.php@{www/qrcode/lib/phpqrcode/phpqrcode.php}}
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqrstr}{qrstr}}
+\item 
+class \mbox{\hyperlink{class_q_rtools}{QRtools}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a24d6b51d9ddaaefd084528b779b16ffb}{QR\+\_\+\+MODE\+\_\+\+NUL}} -\/1
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_abc8d5a6a5d9977177af9aced52703323}{QR\+\_\+\+MODE\+\_\+\+NUM}} 0
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a3525e0bd3a1dadffcdb3f1b9a973db8f}{QR\+\_\+\+MODE\+\_\+\+AN}} 1
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_aa3452182528d53c7b65c6802ad15b772}{QR\+\_\+\+MODE\+\_\+8}} 2
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a2b9cfae389f30855ddfa68fef6ffb5ee}{QR\+\_\+\+MODE\+\_\+\+KANJI}} 3
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_ab9c56e5432a5c63b792802d26cff5d9b}{QR\+\_\+\+MODE\+\_\+\+STRUCTURE}} 4
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_ae106d3baebd9c27c90b2abadb25df012}{QR\+\_\+\+ECLEVEL\+\_\+L}} 0
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_afa670ea7afad29461222face71c5ba1e}{QR\+\_\+\+ECLEVEL\+\_\+M}} 1
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_ab8794177ecfd3ccdc8a1677ea3e32bbe}{QR\+\_\+\+ECLEVEL\+\_\+Q}} 2
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a6c2b8366b7a5336d61db447be8884044}{QR\+\_\+\+ECLEVEL\+\_\+H}} 3
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a31802a9747faed0854c3740a9065df0f}{QR\+\_\+\+FORMAT\+\_\+\+TEXT}} 0
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_ac0680a77cbb0fb197076f71573e47868}{QR\+\_\+\+FORMAT\+\_\+\+PNG}} 1
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a2e289dc15e8d9d0c93bcb589e2e4fa7f}{QR\+\_\+\+CACHEABLE}} false
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a30bc15179f940c7cefe147c7c10d21d2}{QR\+\_\+\+CACHE\+\_\+\+DIR}} false
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a31f4c0eeeec4e117adbfb95bdc0b34cc}{QR\+\_\+\+LOG\+\_\+\+DIR}} false
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_af4ec4aec5be16e8785674055683659e6}{QR\+\_\+\+FIND\+\_\+\+BEST\+\_\+\+MASK}} true
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a4a3b50c407bbdf7ffa1197a666947bec}{QR\+\_\+\+FIND\+\_\+\+FROM\+\_\+\+RANDOM}} 2
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_ad558bfb85d8139a05d1d663579be938b}{QR\+\_\+\+DEFAULT\+\_\+\+MASK}} 2
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a45b4274e494e9533fab417bc0aa0eb2a}{QR\+\_\+\+PNG\+\_\+\+MAXIMUM\+\_\+\+SIZE}} 1024
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a3df227a9148948fa1ee539af90f8a26e}{QRSPEC\+\_\+\+VERSION\+\_\+\+MAX}} 40
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a587685a8aaa37d602445f9ba8500daa1}{QRSPEC\+\_\+\+WIDTH\+\_\+\+MAX}} 177
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a78bf006d34f500b0ba1ae3ba9e31bf0f}{QRCAP\+\_\+\+WIDTH}} 0
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_af5ff4b071ceeb3bdd651ed067ffc4bc8}{QRCAP\+\_\+\+WORDS}} 1
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a53c4f9dd4e426f7e95f618a1ffd7b158}{QRCAP\+\_\+\+REMINDER}} 2
+\item 
+const \mbox{\hyperlink{phpqrcode_8php_a80654ddca1dd96ea4774fcf6230dbf2f}{QRCAP\+\_\+\+EC}} 3
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{phpqrcode_8php_a30bc15179f940c7cefe147c7c10d21d2}\label{phpqrcode_8php_a30bc15179f940c7cefe147c7c10d21d2}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_CACHE\_DIR@{QR\_CACHE\_DIR}}
+\index{QR\_CACHE\_DIR@{QR\_CACHE\_DIR}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_CACHE\_DIR}{QR\_CACHE\_DIR}}
+{\footnotesize\ttfamily const QR\+\_\+\+CACHE\+\_\+\+DIR false}
+
+\mbox{\Hypertarget{phpqrcode_8php_a2e289dc15e8d9d0c93bcb589e2e4fa7f}\label{phpqrcode_8php_a2e289dc15e8d9d0c93bcb589e2e4fa7f}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_CACHEABLE@{QR\_CACHEABLE}}
+\index{QR\_CACHEABLE@{QR\_CACHEABLE}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_CACHEABLE}{QR\_CACHEABLE}}
+{\footnotesize\ttfamily const QR\+\_\+\+CACHEABLE false}
+
+\mbox{\Hypertarget{phpqrcode_8php_ad558bfb85d8139a05d1d663579be938b}\label{phpqrcode_8php_ad558bfb85d8139a05d1d663579be938b}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_DEFAULT\_MASK@{QR\_DEFAULT\_MASK}}
+\index{QR\_DEFAULT\_MASK@{QR\_DEFAULT\_MASK}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_DEFAULT\_MASK}{QR\_DEFAULT\_MASK}}
+{\footnotesize\ttfamily const QR\+\_\+\+DEFAULT\+\_\+\+MASK 2}
+
+\mbox{\Hypertarget{phpqrcode_8php_a6c2b8366b7a5336d61db447be8884044}\label{phpqrcode_8php_a6c2b8366b7a5336d61db447be8884044}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_ECLEVEL\_H@{QR\_ECLEVEL\_H}}
+\index{QR\_ECLEVEL\_H@{QR\_ECLEVEL\_H}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_ECLEVEL\_H}{QR\_ECLEVEL\_H}}
+{\footnotesize\ttfamily const QR\+\_\+\+ECLEVEL\+\_\+H 3}
+
+\mbox{\Hypertarget{phpqrcode_8php_ae106d3baebd9c27c90b2abadb25df012}\label{phpqrcode_8php_ae106d3baebd9c27c90b2abadb25df012}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_ECLEVEL\_L@{QR\_ECLEVEL\_L}}
+\index{QR\_ECLEVEL\_L@{QR\_ECLEVEL\_L}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_ECLEVEL\_L}{QR\_ECLEVEL\_L}}
+{\footnotesize\ttfamily const QR\+\_\+\+ECLEVEL\+\_\+L 0}
+
+\mbox{\Hypertarget{phpqrcode_8php_afa670ea7afad29461222face71c5ba1e}\label{phpqrcode_8php_afa670ea7afad29461222face71c5ba1e}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_ECLEVEL\_M@{QR\_ECLEVEL\_M}}
+\index{QR\_ECLEVEL\_M@{QR\_ECLEVEL\_M}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_ECLEVEL\_M}{QR\_ECLEVEL\_M}}
+{\footnotesize\ttfamily const QR\+\_\+\+ECLEVEL\+\_\+M 1}
+
+\mbox{\Hypertarget{phpqrcode_8php_ab8794177ecfd3ccdc8a1677ea3e32bbe}\label{phpqrcode_8php_ab8794177ecfd3ccdc8a1677ea3e32bbe}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_ECLEVEL\_Q@{QR\_ECLEVEL\_Q}}
+\index{QR\_ECLEVEL\_Q@{QR\_ECLEVEL\_Q}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_ECLEVEL\_Q}{QR\_ECLEVEL\_Q}}
+{\footnotesize\ttfamily const QR\+\_\+\+ECLEVEL\+\_\+Q 2}
+
+\mbox{\Hypertarget{phpqrcode_8php_af4ec4aec5be16e8785674055683659e6}\label{phpqrcode_8php_af4ec4aec5be16e8785674055683659e6}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_FIND\_BEST\_MASK@{QR\_FIND\_BEST\_MASK}}
+\index{QR\_FIND\_BEST\_MASK@{QR\_FIND\_BEST\_MASK}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_FIND\_BEST\_MASK}{QR\_FIND\_BEST\_MASK}}
+{\footnotesize\ttfamily const QR\+\_\+\+FIND\+\_\+\+BEST\+\_\+\+MASK true}
+
+\mbox{\Hypertarget{phpqrcode_8php_a4a3b50c407bbdf7ffa1197a666947bec}\label{phpqrcode_8php_a4a3b50c407bbdf7ffa1197a666947bec}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_FIND\_FROM\_RANDOM@{QR\_FIND\_FROM\_RANDOM}}
+\index{QR\_FIND\_FROM\_RANDOM@{QR\_FIND\_FROM\_RANDOM}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_FIND\_FROM\_RANDOM}{QR\_FIND\_FROM\_RANDOM}}
+{\footnotesize\ttfamily const QR\+\_\+\+FIND\+\_\+\+FROM\+\_\+\+RANDOM 2}
+
+\mbox{\Hypertarget{phpqrcode_8php_ac0680a77cbb0fb197076f71573e47868}\label{phpqrcode_8php_ac0680a77cbb0fb197076f71573e47868}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_FORMAT\_PNG@{QR\_FORMAT\_PNG}}
+\index{QR\_FORMAT\_PNG@{QR\_FORMAT\_PNG}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_FORMAT\_PNG}{QR\_FORMAT\_PNG}}
+{\footnotesize\ttfamily const QR\+\_\+\+FORMAT\+\_\+\+PNG 1}
+
+\mbox{\Hypertarget{phpqrcode_8php_a31802a9747faed0854c3740a9065df0f}\label{phpqrcode_8php_a31802a9747faed0854c3740a9065df0f}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_FORMAT\_TEXT@{QR\_FORMAT\_TEXT}}
+\index{QR\_FORMAT\_TEXT@{QR\_FORMAT\_TEXT}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_FORMAT\_TEXT}{QR\_FORMAT\_TEXT}}
+{\footnotesize\ttfamily const QR\+\_\+\+FORMAT\+\_\+\+TEXT 0}
+
+\mbox{\Hypertarget{phpqrcode_8php_a31f4c0eeeec4e117adbfb95bdc0b34cc}\label{phpqrcode_8php_a31f4c0eeeec4e117adbfb95bdc0b34cc}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_LOG\_DIR@{QR\_LOG\_DIR}}
+\index{QR\_LOG\_DIR@{QR\_LOG\_DIR}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_LOG\_DIR}{QR\_LOG\_DIR}}
+{\footnotesize\ttfamily const QR\+\_\+\+LOG\+\_\+\+DIR false}
+
+\mbox{\Hypertarget{phpqrcode_8php_aa3452182528d53c7b65c6802ad15b772}\label{phpqrcode_8php_aa3452182528d53c7b65c6802ad15b772}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_MODE\_8@{QR\_MODE\_8}}
+\index{QR\_MODE\_8@{QR\_MODE\_8}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_MODE\_8}{QR\_MODE\_8}}
+{\footnotesize\ttfamily const QR\+\_\+\+MODE\+\_\+8 2}
+
+\mbox{\Hypertarget{phpqrcode_8php_a3525e0bd3a1dadffcdb3f1b9a973db8f}\label{phpqrcode_8php_a3525e0bd3a1dadffcdb3f1b9a973db8f}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_MODE\_AN@{QR\_MODE\_AN}}
+\index{QR\_MODE\_AN@{QR\_MODE\_AN}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_MODE\_AN}{QR\_MODE\_AN}}
+{\footnotesize\ttfamily const QR\+\_\+\+MODE\+\_\+\+AN 1}
+
+\mbox{\Hypertarget{phpqrcode_8php_a2b9cfae389f30855ddfa68fef6ffb5ee}\label{phpqrcode_8php_a2b9cfae389f30855ddfa68fef6ffb5ee}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_MODE\_KANJI@{QR\_MODE\_KANJI}}
+\index{QR\_MODE\_KANJI@{QR\_MODE\_KANJI}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_MODE\_KANJI}{QR\_MODE\_KANJI}}
+{\footnotesize\ttfamily const QR\+\_\+\+MODE\+\_\+\+KANJI 3}
+
+\mbox{\Hypertarget{phpqrcode_8php_a24d6b51d9ddaaefd084528b779b16ffb}\label{phpqrcode_8php_a24d6b51d9ddaaefd084528b779b16ffb}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_MODE\_NUL@{QR\_MODE\_NUL}}
+\index{QR\_MODE\_NUL@{QR\_MODE\_NUL}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_MODE\_NUL}{QR\_MODE\_NUL}}
+{\footnotesize\ttfamily const QR\+\_\+\+MODE\+\_\+\+NUL -\/1}
+
+\mbox{\Hypertarget{phpqrcode_8php_abc8d5a6a5d9977177af9aced52703323}\label{phpqrcode_8php_abc8d5a6a5d9977177af9aced52703323}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_MODE\_NUM@{QR\_MODE\_NUM}}
+\index{QR\_MODE\_NUM@{QR\_MODE\_NUM}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_MODE\_NUM}{QR\_MODE\_NUM}}
+{\footnotesize\ttfamily const QR\+\_\+\+MODE\+\_\+\+NUM 0}
+
+\mbox{\Hypertarget{phpqrcode_8php_ab9c56e5432a5c63b792802d26cff5d9b}\label{phpqrcode_8php_ab9c56e5432a5c63b792802d26cff5d9b}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_MODE\_STRUCTURE@{QR\_MODE\_STRUCTURE}}
+\index{QR\_MODE\_STRUCTURE@{QR\_MODE\_STRUCTURE}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_MODE\_STRUCTURE}{QR\_MODE\_STRUCTURE}}
+{\footnotesize\ttfamily const QR\+\_\+\+MODE\+\_\+\+STRUCTURE 4}
+
+\mbox{\Hypertarget{phpqrcode_8php_a45b4274e494e9533fab417bc0aa0eb2a}\label{phpqrcode_8php_a45b4274e494e9533fab417bc0aa0eb2a}} 
+\index{phpqrcode.php@{phpqrcode.php}!QR\_PNG\_MAXIMUM\_SIZE@{QR\_PNG\_MAXIMUM\_SIZE}}
+\index{QR\_PNG\_MAXIMUM\_SIZE@{QR\_PNG\_MAXIMUM\_SIZE}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QR\_PNG\_MAXIMUM\_SIZE}{QR\_PNG\_MAXIMUM\_SIZE}}
+{\footnotesize\ttfamily const QR\+\_\+\+PNG\+\_\+\+MAXIMUM\+\_\+\+SIZE 1024}
+
+\mbox{\Hypertarget{phpqrcode_8php_a80654ddca1dd96ea4774fcf6230dbf2f}\label{phpqrcode_8php_a80654ddca1dd96ea4774fcf6230dbf2f}} 
+\index{phpqrcode.php@{phpqrcode.php}!QRCAP\_EC@{QRCAP\_EC}}
+\index{QRCAP\_EC@{QRCAP\_EC}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QRCAP\_EC}{QRCAP\_EC}}
+{\footnotesize\ttfamily const QRCAP\+\_\+\+EC 3}
+
+\mbox{\Hypertarget{phpqrcode_8php_a53c4f9dd4e426f7e95f618a1ffd7b158}\label{phpqrcode_8php_a53c4f9dd4e426f7e95f618a1ffd7b158}} 
+\index{phpqrcode.php@{phpqrcode.php}!QRCAP\_REMINDER@{QRCAP\_REMINDER}}
+\index{QRCAP\_REMINDER@{QRCAP\_REMINDER}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QRCAP\_REMINDER}{QRCAP\_REMINDER}}
+{\footnotesize\ttfamily const QRCAP\+\_\+\+REMINDER 2}
+
+\mbox{\Hypertarget{phpqrcode_8php_a78bf006d34f500b0ba1ae3ba9e31bf0f}\label{phpqrcode_8php_a78bf006d34f500b0ba1ae3ba9e31bf0f}} 
+\index{phpqrcode.php@{phpqrcode.php}!QRCAP\_WIDTH@{QRCAP\_WIDTH}}
+\index{QRCAP\_WIDTH@{QRCAP\_WIDTH}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QRCAP\_WIDTH}{QRCAP\_WIDTH}}
+{\footnotesize\ttfamily const QRCAP\+\_\+\+WIDTH 0}
+
+\mbox{\Hypertarget{phpqrcode_8php_af5ff4b071ceeb3bdd651ed067ffc4bc8}\label{phpqrcode_8php_af5ff4b071ceeb3bdd651ed067ffc4bc8}} 
+\index{phpqrcode.php@{phpqrcode.php}!QRCAP\_WORDS@{QRCAP\_WORDS}}
+\index{QRCAP\_WORDS@{QRCAP\_WORDS}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QRCAP\_WORDS}{QRCAP\_WORDS}}
+{\footnotesize\ttfamily const QRCAP\+\_\+\+WORDS 1}
+
+\mbox{\Hypertarget{phpqrcode_8php_a3df227a9148948fa1ee539af90f8a26e}\label{phpqrcode_8php_a3df227a9148948fa1ee539af90f8a26e}} 
+\index{phpqrcode.php@{phpqrcode.php}!QRSPEC\_VERSION\_MAX@{QRSPEC\_VERSION\_MAX}}
+\index{QRSPEC\_VERSION\_MAX@{QRSPEC\_VERSION\_MAX}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QRSPEC\_VERSION\_MAX}{QRSPEC\_VERSION\_MAX}}
+{\footnotesize\ttfamily const QRSPEC\+\_\+\+VERSION\+\_\+\+MAX 40}
+
+\mbox{\Hypertarget{phpqrcode_8php_a587685a8aaa37d602445f9ba8500daa1}\label{phpqrcode_8php_a587685a8aaa37d602445f9ba8500daa1}} 
+\index{phpqrcode.php@{phpqrcode.php}!QRSPEC\_WIDTH\_MAX@{QRSPEC\_WIDTH\_MAX}}
+\index{QRSPEC\_WIDTH\_MAX@{QRSPEC\_WIDTH\_MAX}!phpqrcode.php@{phpqrcode.php}}
+\doxysubsubsection{\texorpdfstring{QRSPEC\_WIDTH\_MAX}{QRSPEC\_WIDTH\_MAX}}
+{\footnotesize\ttfamily const QRSPEC\+\_\+\+WIDTH\+\_\+\+MAX 177}
+
