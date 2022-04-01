@@ -1,3 +1,20 @@
+<?php
+session_start();
+if (!isset($_SESSION["session"]) || $_SESSION["status"] != 0) header("Location: /admin-tools/");
+
+include 'var/sql.php';
+include 'lib/GOBDD.php';
+
+$bdd = new GOBDD($sql_ip, $sql_db, $sql_login, $sql_password);
+
+error_reporting(E_ALL & ~E_NOTICE);
+
+
+$studentinfo = $bdd->studentQuery($_SESSION["username"]);
+$forminfo = $bdd->formQuery($_SESSION["username"]);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 	<head>
