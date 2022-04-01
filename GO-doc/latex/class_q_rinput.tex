@@ -1,0 +1,274 @@
+\hypertarget{class_q_rinput}{}\doxysection{QRinput Class Reference}
+\label{class_q_rinput}\index{QRinput@{QRinput}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_q_rinput_a2351f3e3ad5a02db547f8ee889c3decd}{\+\_\+\+\_\+construct}} (\$version=0, \$level=\mbox{\hyperlink{qrconst_8php_ae106d3baebd9c27c90b2abadb25df012}{QR\+\_\+\+ECLEVEL\+\_\+L}})
+\item 
+\mbox{\hyperlink{class_q_rinput_afa8e7a3a646144eab50188b7a805a389}{get\+Version}} ()
+\item 
+\mbox{\hyperlink{class_q_rinput_a6a2f870d59df617e76c79a9996646832}{set\+Version}} (\$version)
+\item 
+\mbox{\hyperlink{class_q_rinput_a6e49359a6d54ec766176ad52095fe8fb}{get\+Error\+Correction\+Level}} ()
+\item 
+\mbox{\hyperlink{class_q_rinput_a0d2d8094a1d5f38f40d0c7c92a8e4e55}{set\+Error\+Correction\+Level}} (\$level)
+\item 
+\mbox{\hyperlink{class_q_rinput_aa58f7c083dab2a76d10666e48488f48d}{append\+Entry}} (\mbox{\hyperlink{class_q_rinput_item}{QRinput\+Item}} \$entry)
+\item 
+\mbox{\hyperlink{class_q_rinput_a7998c9ddbbe047ddfb49701bcab2f201}{append}} (\$mode, \$size, \$data)
+\item 
+\mbox{\hyperlink{class_q_rinput_a5135cf4451a31fd114891eda812925c5}{insert\+Structured\+Append\+Header}} (\$size, \$index, \$parity)
+\item 
+\mbox{\hyperlink{class_q_rinput_a3226eaa1f9eb7678361c4b57e33de7b9}{calc\+Parity}} ()
+\item 
+\mbox{\hyperlink{class_q_rinput_a2f00f20d82e030bbd7c1dc0edd1993a2}{estimate\+Bits\+Mode\+Kanji}} (\$size)
+\item 
+\mbox{\hyperlink{class_q_rinput_a4c0d6f07d39ba33e72c4b50a962b2915}{estimate\+Bit\+Stream\+Size}} (\$version)
+\item 
+\mbox{\hyperlink{class_q_rinput_a5ba363f173fa4d97b248095da0e560b4}{estimate\+Version}} ()
+\item 
+\mbox{\hyperlink{class_q_rinput_af32e641c34e1043162b5f290cac64c88}{create\+Bit\+Stream}} ()
+\item 
+\mbox{\hyperlink{class_q_rinput_a5c0ff30b7602ddfb3cca2d111064af4b}{convert\+Data}} ()
+\item 
+\mbox{\hyperlink{class_q_rinput_a78d33b81045b29e5f7632965a7194b47}{append\+Padding\+Bit}} (\&\$bstream)
+\item 
+\mbox{\hyperlink{class_q_rinput_abfe700763d59c433cf7e319b9e1d0085}{merge\+Bit\+Stream}} ()
+\item 
+\mbox{\hyperlink{class_q_rinput_a431c3808327e69458e57e17f371fdb55}{get\+Bit\+Stream}} ()
+\item 
+\mbox{\hyperlink{class_q_rinput_abcfabd8a5fbceee737a6c7078bf7f6a1}{get\+Byte\+Stream}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_q_rinput_a57451029723cde8347098dea7eabb8db}{check\+Mode\+Num}} (\$size, \$data)
+\item 
+static \mbox{\hyperlink{class_q_rinput_aa42b996fbff281fa01d5a202a38ce43f}{estimate\+Bits\+Mode\+Num}} (\$size)
+\item 
+static \mbox{\hyperlink{class_q_rinput_a1b6c565bec384d2fb500147dc20fed3a}{look\+An\+Table}} (\$c)
+\item 
+static \mbox{\hyperlink{class_q_rinput_add3eed60efd4da1dfcfb1fc4217a95f0}{check\+Mode\+An}} (\$size, \$data)
+\item 
+static \mbox{\hyperlink{class_q_rinput_aaa071259baa5ac76a84c573467f27a25}{estimate\+Bits\+Mode\+An}} (\$size)
+\item 
+static \mbox{\hyperlink{class_q_rinput_a308300a85bc46506ec5a734bde289317}{estimate\+Bits\+Mode8}} (\$size)
+\item 
+static \mbox{\hyperlink{class_q_rinput_a38f007ce0abd312f8697953b6c456105}{check\+Mode\+Kanji}} (\$size, \$data)
+\item 
+static \mbox{\hyperlink{class_q_rinput_a45e1994f56dd5f3183e08d475e9757c0}{check}} (\$mode, \$size, \$data)
+\item 
+static \mbox{\hyperlink{class_q_rinput_a369d51897f4471e4edf4dfa2b2bf22aa}{length\+Of\+Code}} (\$mode, \$version, \$bits)
+\end{DoxyCompactItemize}
+\doxysubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_q_rinput_a737abdef83dabb219182c1e88887c6c3}{\$items}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{class_q_rinput_ab60a6875b03625230e309bc73343f153}{\$an\+Table}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_q_rinput_a2351f3e3ad5a02db547f8ee889c3decd}\label{class_q_rinput_a2351f3e3ad5a02db547f8ee889c3decd}} 
+\index{QRinput@{QRinput}!\_\_construct@{\_\_construct}}
+\index{\_\_construct@{\_\_construct}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{\_\_construct()}{\_\_construct()}}
+{\footnotesize\ttfamily \+\_\+\+\_\+construct (\begin{DoxyParamCaption}\item[{}]{\$version = {\ttfamily 0},  }\item[{}]{\$level = {\ttfamily \mbox{\hyperlink{qrconst_8php_ae106d3baebd9c27c90b2abadb25df012}{QR\+\_\+\+ECLEVEL\+\_\+L}}} }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_q_rinput_a7998c9ddbbe047ddfb49701bcab2f201}\label{class_q_rinput_a7998c9ddbbe047ddfb49701bcab2f201}} 
+\index{QRinput@{QRinput}!append@{append}}
+\index{append@{append}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}}
+{\footnotesize\ttfamily append (\begin{DoxyParamCaption}\item[{}]{\$mode,  }\item[{}]{\$size,  }\item[{}]{\$data }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_aa58f7c083dab2a76d10666e48488f48d}\label{class_q_rinput_aa58f7c083dab2a76d10666e48488f48d}} 
+\index{QRinput@{QRinput}!appendEntry@{appendEntry}}
+\index{appendEntry@{appendEntry}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{appendEntry()}{appendEntry()}}
+{\footnotesize\ttfamily append\+Entry (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_q_rinput_item}{QRinput\+Item}}}]{\$entry }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_a78d33b81045b29e5f7632965a7194b47}\label{class_q_rinput_a78d33b81045b29e5f7632965a7194b47}} 
+\index{QRinput@{QRinput}!appendPaddingBit@{appendPaddingBit}}
+\index{appendPaddingBit@{appendPaddingBit}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{appendPaddingBit()}{appendPaddingBit()}}
+{\footnotesize\ttfamily append\+Padding\+Bit (\begin{DoxyParamCaption}\item[{\&}]{\$bstream }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_a3226eaa1f9eb7678361c4b57e33de7b9}\label{class_q_rinput_a3226eaa1f9eb7678361c4b57e33de7b9}} 
+\index{QRinput@{QRinput}!calcParity@{calcParity}}
+\index{calcParity@{calcParity}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{calcParity()}{calcParity()}}
+{\footnotesize\ttfamily calc\+Parity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_a45e1994f56dd5f3183e08d475e9757c0}\label{class_q_rinput_a45e1994f56dd5f3183e08d475e9757c0}} 
+\index{QRinput@{QRinput}!check@{check}}
+\index{check@{check}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{check()}{check()}}
+{\footnotesize\ttfamily static check (\begin{DoxyParamCaption}\item[{}]{\$mode,  }\item[{}]{\$size,  }\item[{}]{\$data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_q_rinput_add3eed60efd4da1dfcfb1fc4217a95f0}\label{class_q_rinput_add3eed60efd4da1dfcfb1fc4217a95f0}} 
+\index{QRinput@{QRinput}!checkModeAn@{checkModeAn}}
+\index{checkModeAn@{checkModeAn}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{checkModeAn()}{checkModeAn()}}
+{\footnotesize\ttfamily static check\+Mode\+An (\begin{DoxyParamCaption}\item[{}]{\$size,  }\item[{}]{\$data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_q_rinput_a38f007ce0abd312f8697953b6c456105}\label{class_q_rinput_a38f007ce0abd312f8697953b6c456105}} 
+\index{QRinput@{QRinput}!checkModeKanji@{checkModeKanji}}
+\index{checkModeKanji@{checkModeKanji}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{checkModeKanji()}{checkModeKanji()}}
+{\footnotesize\ttfamily static check\+Mode\+Kanji (\begin{DoxyParamCaption}\item[{}]{\$size,  }\item[{}]{\$data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_q_rinput_a57451029723cde8347098dea7eabb8db}\label{class_q_rinput_a57451029723cde8347098dea7eabb8db}} 
+\index{QRinput@{QRinput}!checkModeNum@{checkModeNum}}
+\index{checkModeNum@{checkModeNum}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{checkModeNum()}{checkModeNum()}}
+{\footnotesize\ttfamily static check\+Mode\+Num (\begin{DoxyParamCaption}\item[{}]{\$size,  }\item[{}]{\$data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_q_rinput_a5c0ff30b7602ddfb3cca2d111064af4b}\label{class_q_rinput_a5c0ff30b7602ddfb3cca2d111064af4b}} 
+\index{QRinput@{QRinput}!convertData@{convertData}}
+\index{convertData@{convertData}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{convertData()}{convertData()}}
+{\footnotesize\ttfamily convert\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_af32e641c34e1043162b5f290cac64c88}\label{class_q_rinput_af32e641c34e1043162b5f290cac64c88}} 
+\index{QRinput@{QRinput}!createBitStream@{createBitStream}}
+\index{createBitStream@{createBitStream}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{createBitStream()}{createBitStream()}}
+{\footnotesize\ttfamily create\+Bit\+Stream (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_a308300a85bc46506ec5a734bde289317}\label{class_q_rinput_a308300a85bc46506ec5a734bde289317}} 
+\index{QRinput@{QRinput}!estimateBitsMode8@{estimateBitsMode8}}
+\index{estimateBitsMode8@{estimateBitsMode8}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{estimateBitsMode8()}{estimateBitsMode8()}}
+{\footnotesize\ttfamily static estimate\+Bits\+Mode8 (\begin{DoxyParamCaption}\item[{}]{\$size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_q_rinput_aaa071259baa5ac76a84c573467f27a25}\label{class_q_rinput_aaa071259baa5ac76a84c573467f27a25}} 
+\index{QRinput@{QRinput}!estimateBitsModeAn@{estimateBitsModeAn}}
+\index{estimateBitsModeAn@{estimateBitsModeAn}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{estimateBitsModeAn()}{estimateBitsModeAn()}}
+{\footnotesize\ttfamily static estimate\+Bits\+Mode\+An (\begin{DoxyParamCaption}\item[{}]{\$size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_q_rinput_a2f00f20d82e030bbd7c1dc0edd1993a2}\label{class_q_rinput_a2f00f20d82e030bbd7c1dc0edd1993a2}} 
+\index{QRinput@{QRinput}!estimateBitsModeKanji@{estimateBitsModeKanji}}
+\index{estimateBitsModeKanji@{estimateBitsModeKanji}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{estimateBitsModeKanji()}{estimateBitsModeKanji()}}
+{\footnotesize\ttfamily estimate\+Bits\+Mode\+Kanji (\begin{DoxyParamCaption}\item[{}]{\$size }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_aa42b996fbff281fa01d5a202a38ce43f}\label{class_q_rinput_aa42b996fbff281fa01d5a202a38ce43f}} 
+\index{QRinput@{QRinput}!estimateBitsModeNum@{estimateBitsModeNum}}
+\index{estimateBitsModeNum@{estimateBitsModeNum}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{estimateBitsModeNum()}{estimateBitsModeNum()}}
+{\footnotesize\ttfamily static estimate\+Bits\+Mode\+Num (\begin{DoxyParamCaption}\item[{}]{\$size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_q_rinput_a4c0d6f07d39ba33e72c4b50a962b2915}\label{class_q_rinput_a4c0d6f07d39ba33e72c4b50a962b2915}} 
+\index{QRinput@{QRinput}!estimateBitStreamSize@{estimateBitStreamSize}}
+\index{estimateBitStreamSize@{estimateBitStreamSize}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{estimateBitStreamSize()}{estimateBitStreamSize()}}
+{\footnotesize\ttfamily estimate\+Bit\+Stream\+Size (\begin{DoxyParamCaption}\item[{}]{\$version }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_a5ba363f173fa4d97b248095da0e560b4}\label{class_q_rinput_a5ba363f173fa4d97b248095da0e560b4}} 
+\index{QRinput@{QRinput}!estimateVersion@{estimateVersion}}
+\index{estimateVersion@{estimateVersion}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{estimateVersion()}{estimateVersion()}}
+{\footnotesize\ttfamily estimate\+Version (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_a431c3808327e69458e57e17f371fdb55}\label{class_q_rinput_a431c3808327e69458e57e17f371fdb55}} 
+\index{QRinput@{QRinput}!getBitStream@{getBitStream}}
+\index{getBitStream@{getBitStream}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{getBitStream()}{getBitStream()}}
+{\footnotesize\ttfamily get\+Bit\+Stream (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_abcfabd8a5fbceee737a6c7078bf7f6a1}\label{class_q_rinput_abcfabd8a5fbceee737a6c7078bf7f6a1}} 
+\index{QRinput@{QRinput}!getByteStream@{getByteStream}}
+\index{getByteStream@{getByteStream}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{getByteStream()}{getByteStream()}}
+{\footnotesize\ttfamily get\+Byte\+Stream (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_a6e49359a6d54ec766176ad52095fe8fb}\label{class_q_rinput_a6e49359a6d54ec766176ad52095fe8fb}} 
+\index{QRinput@{QRinput}!getErrorCorrectionLevel@{getErrorCorrectionLevel}}
+\index{getErrorCorrectionLevel@{getErrorCorrectionLevel}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{getErrorCorrectionLevel()}{getErrorCorrectionLevel()}}
+{\footnotesize\ttfamily get\+Error\+Correction\+Level (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_afa8e7a3a646144eab50188b7a805a389}\label{class_q_rinput_afa8e7a3a646144eab50188b7a805a389}} 
+\index{QRinput@{QRinput}!getVersion@{getVersion}}
+\index{getVersion@{getVersion}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{getVersion()}{getVersion()}}
+{\footnotesize\ttfamily get\+Version (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_a5135cf4451a31fd114891eda812925c5}\label{class_q_rinput_a5135cf4451a31fd114891eda812925c5}} 
+\index{QRinput@{QRinput}!insertStructuredAppendHeader@{insertStructuredAppendHeader}}
+\index{insertStructuredAppendHeader@{insertStructuredAppendHeader}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{insertStructuredAppendHeader()}{insertStructuredAppendHeader()}}
+{\footnotesize\ttfamily insert\+Structured\+Append\+Header (\begin{DoxyParamCaption}\item[{}]{\$size,  }\item[{}]{\$index,  }\item[{}]{\$parity }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_a369d51897f4471e4edf4dfa2b2bf22aa}\label{class_q_rinput_a369d51897f4471e4edf4dfa2b2bf22aa}} 
+\index{QRinput@{QRinput}!lengthOfCode@{lengthOfCode}}
+\index{lengthOfCode@{lengthOfCode}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{lengthOfCode()}{lengthOfCode()}}
+{\footnotesize\ttfamily static length\+Of\+Code (\begin{DoxyParamCaption}\item[{}]{\$mode,  }\item[{}]{\$version,  }\item[{}]{\$bits }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_q_rinput_a1b6c565bec384d2fb500147dc20fed3a}\label{class_q_rinput_a1b6c565bec384d2fb500147dc20fed3a}} 
+\index{QRinput@{QRinput}!lookAnTable@{lookAnTable}}
+\index{lookAnTable@{lookAnTable}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{lookAnTable()}{lookAnTable()}}
+{\footnotesize\ttfamily static look\+An\+Table (\begin{DoxyParamCaption}\item[{}]{\$c }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\mbox{\Hypertarget{class_q_rinput_abfe700763d59c433cf7e319b9e1d0085}\label{class_q_rinput_abfe700763d59c433cf7e319b9e1d0085}} 
+\index{QRinput@{QRinput}!mergeBitStream@{mergeBitStream}}
+\index{mergeBitStream@{mergeBitStream}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{mergeBitStream()}{mergeBitStream()}}
+{\footnotesize\ttfamily merge\+Bit\+Stream (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_a0d2d8094a1d5f38f40d0c7c92a8e4e55}\label{class_q_rinput_a0d2d8094a1d5f38f40d0c7c92a8e4e55}} 
+\index{QRinput@{QRinput}!setErrorCorrectionLevel@{setErrorCorrectionLevel}}
+\index{setErrorCorrectionLevel@{setErrorCorrectionLevel}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{setErrorCorrectionLevel()}{setErrorCorrectionLevel()}}
+{\footnotesize\ttfamily set\+Error\+Correction\+Level (\begin{DoxyParamCaption}\item[{}]{\$level }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{class_q_rinput_a6a2f870d59df617e76c79a9996646832}\label{class_q_rinput_a6a2f870d59df617e76c79a9996646832}} 
+\index{QRinput@{QRinput}!setVersion@{setVersion}}
+\index{setVersion@{setVersion}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{setVersion()}{setVersion()}}
+{\footnotesize\ttfamily set\+Version (\begin{DoxyParamCaption}\item[{}]{\$version }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Field Documentation}
+\mbox{\Hypertarget{class_q_rinput_ab60a6875b03625230e309bc73343f153}\label{class_q_rinput_ab60a6875b03625230e309bc73343f153}} 
+\index{QRinput@{QRinput}!\$anTable@{\$anTable}}
+\index{\$anTable@{\$anTable}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{\$anTable}{$anTable}}
+{\footnotesize\ttfamily \$an\+Table\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= array(}
+\DoxyCodeLine{            -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1,}
+\DoxyCodeLine{            -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1,}
+\DoxyCodeLine{            36, -\/1, -\/1, -\/1, 37, 38, -\/1, -\/1, -\/1, -\/1, 39, 40, -\/1, 41, 42, 43,}
+\DoxyCodeLine{             0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 44, -\/1, -\/1, -\/1, -\/1, -\/1,}
+\DoxyCodeLine{            -\/1, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,}
+\DoxyCodeLine{            25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, -\/1, -\/1, -\/1, -\/1, -\/1,}
+\DoxyCodeLine{            -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1,}
+\DoxyCodeLine{            -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1, -\/1}
+\DoxyCodeLine{        )}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_q_rinput_a737abdef83dabb219182c1e88887c6c3}\label{class_q_rinput_a737abdef83dabb219182c1e88887c6c3}} 
+\index{QRinput@{QRinput}!\$items@{\$items}}
+\index{\$items@{\$items}!QRinput@{QRinput}}
+\doxysubsubsection{\texorpdfstring{\$items}{$items}}
+{\footnotesize\ttfamily \$items}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+www/qrcode/lib/phpqrcode/\mbox{\hyperlink{qrinput_8php}{qrinput.\+php}}\end{DoxyCompactItemize}
