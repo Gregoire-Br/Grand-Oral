@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["session"]) || $_SESSION["status"] != 0) header("Location: /form/");
+if (!isset($_SESSION["session"]) && $_SESSION["status"] != 0) header("Location: /form/");
 
 include 'var/sql.php';
 include 'lib/GOBDD.php';
@@ -17,6 +17,7 @@ if ($_POST["submit"]) {
     }
 }
 
+$userinfo = $bdd->userQuery($_SESSION["username"]);
 $studentinfo = $bdd->studentQuery($_SESSION["username"]);
 $forminfo = $bdd->formQuery($_SESSION["username"]);
 
@@ -34,15 +35,37 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
     <link rel="stylesheet" href="style/style.css">
     <link rel="icon" type="image/png" href="/img/favicon.png" />
 
-    <script src="js/bootstrap.js"></script>
-    <script src="js/formvalidation.js"></script>
-    <script src="js/alertHandler.js"></script>
-
     <title>Formulaire - Grand Oral</title>
 </head>
 
 <body>
     <div id="alertPlaceholder" class="position-fixed bottom-0 end-0 p-3"></div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top">
+            <a class="navbar-brand" href="#">
+            <img src="img/icon.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+            Bonjour <?php echo $userinfo["firstname"]; ?>
+            </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="form.php">Formulaire</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li>
+                    <a class="nav-link" href="password.php">Changer de mot de passe</a>
+                </li>
+                <li>
+                    <a href="disconnect.php" class="btn btn-danger">Se déconnecter</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <div id="go">
         <div class="container-fluid">
             <div id="go-row" class="row justify-content-center align-items-center">
@@ -56,7 +79,7 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
 
                             <div class="form-group">
                                 <label for="ens1" class="text-info">Nom de l'enseignant n°1 :</label>
-                                <input type="text" name="ens1" maxlength="100" class="form-control" value="<?php echo $studentinfo["ens1"]?>" required />
+                                <input type="text" name="ens1" maxlength="100" class="form-control" value="<?php echo $studentinfo["ens1"] ?>" required />
                                 <div class="invalid-feedback">
                                     Nom de l'enseignant requis
                                 </div>
@@ -65,14 +88,14 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
                             <div class="form-group">
                                 <label for="spec1" class="text-info">Spécialité n°1 :</label>
                                 <select name="spec1" class="form-control" required>
-                                    <option disabled <?php if($studentinfo["spec1"] == "") echo "selected"?>  value>Selectionnez une spécialité</option>
-                                    <option <?php if($studentinfo["spec1"] == "math") echo "selected"?> value="math">Mathématiques</option>
-                                    <option <?php if($studentinfo["spec1"] == "francais") echo "selected"?> value="francais">Français </option>
-                                    <option <?php if($studentinfo["spec1"] == "espagnol") echo "selected"?> value="espagnol">Espagnol</option>
-                                    <option <?php if($studentinfo["spec1"] == "anglais") echo "selected"?> value="anglais">Anglais</option>
-                                    <option <?php if($studentinfo["spec1"] == "histoiregeo") echo "selected"?> value="histoiregeo">Histoire-Géographie</option>
-                                    <option <?php if($studentinfo["spec1"] == "physique") echo "selected"?> value="physique">Physique-Chimie</option>
-                                    <option <?php if($studentinfo["spec1"] == "svt") echo "selected"?> value="svt">SVT</option>
+                                    <option disabled <?php if ($studentinfo["spec1"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
+                                    <option <?php if ($studentinfo["spec1"] == "math") echo "selected" ?> value="math">Mathématiques</option>
+                                    <option <?php if ($studentinfo["spec1"] == "francais") echo "selected" ?> value="francais">Français </option>
+                                    <option <?php if ($studentinfo["spec1"] == "espagnol") echo "selected" ?> value="espagnol">Espagnol</option>
+                                    <option <?php if ($studentinfo["spec1"] == "anglais") echo "selected" ?> value="anglais">Anglais</option>
+                                    <option <?php if ($studentinfo["spec1"] == "histoiregeo") echo "selected" ?> value="histoiregeo">Histoire-Géographie</option>
+                                    <option <?php if ($studentinfo["spec1"] == "physique") echo "selected" ?> value="physique">Physique-Chimie</option>
+                                    <option <?php if ($studentinfo["spec1"] == "svt") echo "selected" ?> value="svt">SVT</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Spécialité requise
@@ -81,7 +104,7 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
 
                             <div class="form-group">
                                 <label for="q1" class="text-info">Question 1 :</label>
-                                <textarea type="text" name="q1" maxlength="300" required class="form-control"><?php echo $forminfo["q1"]?></textarea>
+                                <textarea type="text" name="q1" maxlength="300" required class="form-control"><?php echo $forminfo["q1"] ?></textarea>
                                 <div class="invalid-feedback">
                                     Question requise
                                 </div>
@@ -91,7 +114,7 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
 
                             <div class="form-group">
                                 <label for="ens2" class="text-info">Nom de l'enseignant n°2 :</label>
-                                <input type="text" name="ens2" maxlength="100" class="form-control" value="<?php echo $studentinfo["ens2"]?>" required />
+                                <input type="text" name="ens2" maxlength="100" class="form-control" value="<?php echo $studentinfo["ens2"] ?>" required />
                                 <div class="invalid-feedback">
                                     Nom de l'enseignant requis
                                 </div>
@@ -100,14 +123,14 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
                             <div class="form-group">
                                 <label for="spec2" class="text-info">Spécialité n°2 :</label>
                                 <select name="spec2" class="form-control" required>
-                                <option disabled <?php if($studentinfo["spec2"] == "") echo "selected"?>  value>Selectionnez une spécialité</option>
-                                    <option <?php if($studentinfo["spec2"] == "math") echo "selected"?> value="math">Mathématiques</option>
-                                    <option <?php if($studentinfo["spec2"] == "francais") echo "selected"?> value="francais">Français </option>
-                                    <option <?php if($studentinfo["spec2"] == "espagnol") echo "selected"?> value="espagnol">Espagnol</option>
-                                    <option <?php if($studentinfo["spec2"] == "anglais") echo "selected"?> value="anglais">Anglais</option>
-                                    <option <?php if($studentinfo["spec2"] == "histoiregeo") echo "selected"?> value="histoiregeo">Histoire-Géographie</option>
-                                    <option <?php if($studentinfo["spec2"] == "physique") echo "selected"?> value="physique">Physique-Chimie</option>
-                                    <option <?php if($studentinfo["spec2"] == "svt") echo "selected"?> value="svt">SVT</option>
+                                    <option disabled <?php if ($studentinfo["spec2"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
+                                    <option <?php if ($studentinfo["spec2"] == "math") echo "selected" ?> value="math">Mathématiques</option>
+                                    <option <?php if ($studentinfo["spec2"] == "francais") echo "selected" ?> value="francais">Français </option>
+                                    <option <?php if ($studentinfo["spec2"] == "espagnol") echo "selected" ?> value="espagnol">Espagnol</option>
+                                    <option <?php if ($studentinfo["spec2"] == "anglais") echo "selected" ?> value="anglais">Anglais</option>
+                                    <option <?php if ($studentinfo["spec2"] == "histoiregeo") echo "selected" ?> value="histoiregeo">Histoire-Géographie</option>
+                                    <option <?php if ($studentinfo["spec2"] == "physique") echo "selected" ?> value="physique">Physique-Chimie</option>
+                                    <option <?php if ($studentinfo["spec2"] == "svt") echo "selected" ?> value="svt">SVT</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Spécialité requise
@@ -116,14 +139,14 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
 
                             <div class="form-group">
                                 <label for="q2" class="text-info">Question 2 :</label>
-                                <textarea type="text" name="q2" maxlength="300" required class="form-control"><?php echo $forminfo["q2"]?></textarea>
+                                <textarea type="text" name="q2" maxlength="300" required class="form-control"><?php echo $forminfo["q2"] ?></textarea>
                                 <div class="invalid-feedback">
                                     Question requise
                                 </div>
                             </div>
 
                             <div class="d-grid gap-2 col-8 mx-auto">
-                                <button name="submit" value="submit" class="btn btn-primary">Envoyer</button>
+                                <button name="submit" value="submit" class="btn btn-primary" id="sendbtn">Envoyer</button>
                             </div>
                         </form>
                     </div>
@@ -131,6 +154,9 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="js/formvalidation.js"></script>
+    <script src="js/alertHandler.js"></script>
 </body>
 
 </html>
