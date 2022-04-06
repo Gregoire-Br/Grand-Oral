@@ -189,11 +189,20 @@
 		}
 
 		function allUsers() {
+<<<<<<< HEAD
 			$stmt = $this->bdd->prepare("SELECT * FROM USERS;");
 			if(!$stmt->execute() && $this->debugToggle){
 				var_dump($stmt->errorInfo());
 			}
 			return $stmt->rowCount();;
+=======
+			$stmt = $this->bdd->prepare("SELECT * FROM users;");
+			if(!$stmt->execute() && $this->debugToggle){
+				var_dump($stmt->errorInfo());
+			}
+			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
+			return $rslt;
+>>>>>>> master
 		}
 
 		/*function swapForm() {}*/ // TODO:
