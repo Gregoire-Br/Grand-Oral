@@ -188,6 +188,15 @@
 			return $stmt->rowCount();;
 		}
 
+		function allUsers() {
+			$stmt = $this->bdd->prepare("SELECT * FROM users;");
+			if(!$stmt->execute() && $this->debugToggle){
+				var_dump($stmt->errorInfo());
+			}
+			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
+			return $rslt;
+		}
+
 		/*function swapForm() {}*/ // TODO:
     }
 ?>
