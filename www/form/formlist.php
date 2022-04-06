@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 	<head>
-		
 		<title>Liste des formulaires</title>
 	</head>
 	<body>
