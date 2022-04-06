@@ -50,21 +50,42 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
             </div>
 
             <div class="form-group">
-                <label for="spec1" class="text-info">Spécialité n°1 :</label>
-                <select name="spec1" class="form-control" required>
-                    <option disabled <?php if ($studentinfo["spec1"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
-                    <option <?php if ($studentinfo["spec1"] == "math") echo "selected" ?> value="math">Mathématiques</option>
-                    <option <?php if ($studentinfo["spec1"] == "francais") echo "selected" ?> value="francais">Français </option>
-                    <option <?php if ($studentinfo["spec1"] == "espagnol") echo "selected" ?> value="espagnol">Espagnol</option>
-                    <option <?php if ($studentinfo["spec1"] == "anglais") echo "selected" ?> value="anglais">Anglais</option>
-                    <option <?php if ($studentinfo["spec1"] == "histoiregeo") echo "selected" ?> value="histoiregeo">Histoire-Géographie</option>
-                    <option <?php if ($studentinfo["spec1"] == "physique") echo "selected" ?> value="physique">Physique-Chimie</option>
-                    <option <?php if ($studentinfo["spec1"] == "svt") echo "selected" ?> value="svt">SVT</option>
-                </select>
+                <div class="row">
+                    <div class="col">
+                        <label for="spec1" class="text-info">Spécialité n°1 :</label>
+                    </div>
+                    <div class="col">
+                        <label for="spec1" class="text-info">Spécialité secondaire :</label>
+                    </div>
+                </div>
+                <div class="row ps-2 pe-2">
+                    <select name="spec1a" class="form-control col" required>
+                        <option disabled <?php if ($studentinfo["spec1"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
+                        <option <?php if ($studentinfo["spec1a"] == "math") echo "selected" ?> value="math">Mathématiques</option>
+                        <option <?php if ($studentinfo["spec1a"] == "francais") echo "selected" ?> value="francais">Français </option>
+                        <option <?php if ($studentinfo["spec1a"] == "espagnol") echo "selected" ?> value="espagnol">Espagnol</option>
+                        <option <?php if ($studentinfo["spec1a"] == "anglais") echo "selected" ?> value="anglais">Anglais</option>
+                        <option <?php if ($studentinfo["spec1a"] == "histoiregeo") echo "selected" ?> value="histoiregeo">Histoire-Géographie</option>
+                        <option <?php if ($studentinfo["spec1a"] == "physique") echo "selected" ?> value="physique">Physique-Chimie</option>
+                        <option <?php if ($studentinfo["spec1a"] == "svt") echo "selected" ?> value="svt">SVT</option>
+                    </select>
+                    <select name="spec1b" class="form-control col">
+                        <option <?php if ($studentinfo["spec1b"] == "") echo "selected" ?> value="">Aucun(e)</option>
+                        <option <?php if ($studentinfo["spec1b"] == "math") echo "selected" ?> value="math">Mathématiques</option>
+                        <option <?php if ($studentinfo["spec1b"] == "francais") echo "selected" ?> value="francais">Français </option>
+                        <option <?php if ($studentinfo["spec1b"] == "espagnol") echo "selected" ?> value="espagnol">Espagnol</option>
+                        <option <?php if ($studentinfo["spec1b"] == "anglais") echo "selected" ?> value="anglais">Anglais</option>
+                        <option <?php if ($studentinfo["spec1b"] == "histoiregeo") echo "selected" ?> value="histoiregeo">Histoire-Géographie</option>
+                        <option <?php if ($studentinfo["spec1b"] == "physique") echo "selected" ?> value="physique">Physique-Chimie</option>
+                        <option <?php if ($studentinfo["spec1b"] == "svt") echo "selected" ?> value="svt">SVT</option>
+                    </select>
+                </div>
+
                 <div class="invalid-feedback">
                     Spécialité requise
                 </div>
             </div>
+
 
             <div class="form-group">
                 <label for="q1" class="text-info">Question 1 :</label>
@@ -85,17 +106,37 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
             </div>
 
             <div class="form-group">
-                <label for="spec2" class="text-info">Spécialité n°2 :</label>
-                <select name="spec2" class="form-control" required>
-                    <option disabled <?php if ($studentinfo["spec2"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
-                    <option <?php if ($studentinfo["spec2"] == "math") echo "selected" ?> value="math">Mathématiques</option>
-                    <option <?php if ($studentinfo["spec2"] == "francais") echo "selected" ?> value="francais">Français </option>
-                    <option <?php if ($studentinfo["spec2"] == "espagnol") echo "selected" ?> value="espagnol">Espagnol</option>
-                    <option <?php if ($studentinfo["spec2"] == "anglais") echo "selected" ?> value="anglais">Anglais</option>
-                    <option <?php if ($studentinfo["spec2"] == "histoiregeo") echo "selected" ?> value="histoiregeo">Histoire-Géographie</option>
-                    <option <?php if ($studentinfo["spec2"] == "physique") echo "selected" ?> value="physique">Physique-Chimie</option>
-                    <option <?php if ($studentinfo["spec2"] == "svt") echo "selected" ?> value="svt">SVT</option>
-                </select>
+                <div class="row">
+                    <div class="col">
+                        <label for="spec1" class="text-info">Spécialité n°2 :</label>
+                    </div>
+                    <div class="col">
+                        <label for="spec1" class="text-info">Spécialité secondaire :</label>
+                    </div>
+                </div>
+                <div class="row ps-2 pe-2">
+                    <select name="spec2a" class="form-control col" required>
+                        <option disabled <?php if ($studentinfo["spec1"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
+                        <option <?php if ($studentinfo["spec2a"] == "math") echo "selected" ?> value="math">Mathématiques</option>
+                        <option <?php if ($studentinfo["spec2a"] == "francais") echo "selected" ?> value="francais">Français </option>
+                        <option <?php if ($studentinfo["spec2a"] == "espagnol") echo "selected" ?> value="espagnol">Espagnol</option>
+                        <option <?php if ($studentinfo["spec2a"] == "anglais") echo "selected" ?> value="anglais">Anglais</option>
+                        <option <?php if ($studentinfo["spec2a"] == "histoiregeo") echo "selected" ?> value="histoiregeo">Histoire-Géographie</option>
+                        <option <?php if ($studentinfo["spec2a"] == "physique") echo "selected" ?> value="physique">Physique-Chimie</option>
+                        <option <?php if ($studentinfo["spec2a"] == "svt") echo "selected" ?> value="svt">SVT</option>
+                    </select>
+                    <select name="spec2b" class="form-control col">
+                        <option <?php if ($studentinfo["spec2b"] == "") echo "selected" ?> value="">Aucun(e)</option>
+                        <option <?php if ($studentinfo["spec2b"] == "math") echo "selected" ?> value="math">Mathématiques</option>
+                        <option <?php if ($studentinfo["spec2b"] == "francais") echo "selected" ?> value="francais">Français </option>
+                        <option <?php if ($studentinfo["spec2b"] == "espagnol") echo "selected" ?> value="espagnol">Espagnol</option>
+                        <option <?php if ($studentinfo["spec2b"] == "anglais") echo "selected" ?> value="anglais">Anglais</option>
+                        <option <?php if ($studentinfo["spec2b"] == "histoiregeo") echo "selected" ?> value="histoiregeo">Histoire-Géographie</option>
+                        <option <?php if ($studentinfo["spec2b"] == "physique") echo "selected" ?> value="physique">Physique-Chimie</option>
+                        <option <?php if ($studentinfo["spec2b"] == "svt") echo "selected" ?> value="svt">SVT</option>
+                    </select>
+                </div>
+
                 <div class="invalid-feedback">
                     Spécialité requise
                 </div>
