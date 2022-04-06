@@ -6,22 +6,21 @@
     padding: 20px;
   }
 
-  #go .container-fluid #go-row #go-column #go-box {
-    margin-top: 55px;
+  .container-fluid{
+    margin-top: 75px;
     padding: 20px;
-    max-width: 1000px;
+    max-width: 900px;
     height: auto;
     border-radius: 10px;
     background-color: #f3f3f3;
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.267);
   }
 
-  #go .container #go-row #go-column #go-box {
-    margin-top: 55px;
+  .container{
+    margin-top: 75px;
     padding: 20px;
-    max-width: 1000px;
+    max-width: 700px;
     height: auto;
-    border: 1px solid #9C9C9C;
     border-radius: 10px;
     background-color: #f3f3f3;
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.267);

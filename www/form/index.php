@@ -18,15 +18,15 @@ if ($_POST["submit"]) {
         $password = $_POST["password"];
 
         $bdd = new GOBDD($sql_ip, $sql_db, $sql_login, $sql_password);
-        if($bdd->checkCredentials($username, $password)) {
+        if ($bdd->checkCredentials($username, $password)) {
             $res = $bdd->userQuery($username);
             session_start();
             $_SESSION["session"] = true;
             $_SESSION["username"] = $res["username"];
             $_SESSION["status"] = $res["status"];
+
             header('Location: session.php');
-        }
-        else{
+        } else {
             $erreur = 'Identifiant ou mot de passe incorrect';
         }
     }
@@ -36,61 +36,44 @@ if ($_POST["submit"]) {
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="style/style.css">
-    <link rel="icon" type="image/png" href="/img/favicon.png" />
-
-    <title>Connexion</title>
-</head>
+<?php include "var/header.html" ?>
+<title>Connexion</title>
 
 <body>
-    <div id="go">
-        <div class="container">
-            <div id="go-row" class="row justify-content-center align-items-center">
-                <div id="go-column" class="col-md-6">
-                    <div id="go-box" class="col-md-24">
-                        <img id="logo" src="img/logo.png" class="img-fluid mx-auto d-block">
+    <div class="container">
+        <img id="logo" src="img/logo.png" class="img-fluid mx-auto d-block">
 
-                        <form id="go-form" class="form needs-validation" action="" method="post" novalidate>
+        <form id="go-form" class="form needs-validation" action="" method="post" novalidate>
 
-                            <h3 class="text-center text-info">Connexion</h3>
+            <h3 class="text-center text-info user-select-none">Connexion</h3>
 
-                            <div class="form-group">
-                                <label for="username" class="text-info">Identifiant:</label><br>
-                                <input type="text" name="username" class="form-control" required>
-                                <div class="invalid-feedback">
-                                    Identifiant requis
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="password" class="text-info">Mot de passe:</label><br>
-                                <input type="password" name="password" class="form-control" required>
-                                <div class="invalid-feedback">
-                                    Mot de passe requis
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <p id="error"><?php echo $erreur; ?></p>
-                            </div>
-
-                            <div class="d-grid gap-2 col-4 mx-auto">
-                                <button class="btn btn-primary" type="submit" name="submit" value="submit">Se connecter</button>
-                            </div>
-                        </form>
-                    </div>
+            <div class="form-group">
+                <label for="username" class="text-info user-select-none">Identifiant:</label><br>
+                <input type="text" name="username" class="form-control" required>
+                <div class="invalid-feedback">
+                    Identifiant requis
                 </div>
             </div>
-        </div>
+
+            <div class="form-group">
+                <label for="password" class="text-info user-select-none">Mot de passe:</label><br>
+                <input type="password" name="password" class="form-control" required>
+                <div class="invalid-feedback">
+                    Mot de passe requis
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p id="error"><?php echo $erreur; ?></p>
+            </div>
+
+            <div class="d-grid gap-2 col-4 mx-auto">
+                <button class="btn btn-primary" type="submit" name="submit" value="submit">Se connecter</button>
+            </div>
+        </form>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="js/formvalidation.js"></script>
-    <script src="js/alertHandler.js"></script>
+
+    <?php include "var/js.html" ?>
 </body>
 
 </html>
