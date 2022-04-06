@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom fixed-top ps-2 pe-2">
+    <a class="navbar-brand user-select-none">
+        <img src="img/icon.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
+        Bonjour <?php echo $_SESSION["firstname"]; ?>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <?php if ($_SESSION["status"] == 0) echo '<a class="nav-link" href="form.php">Formulaire</a>'; ?>
+            <?php if ($_SESSION["status"] == 2) echo '<a class="nav-link" href="profile.php">Création d\'utilisateurs</a>'; ?>
+        </div>
+        <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="password.php">Changer de mot de passe</a>
+            <a class="btn btn-danger" href="disconnect.php">Se déconnecter</a>
+        </div>
+    </div>
+</nav>

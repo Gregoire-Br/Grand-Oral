@@ -1,0 +1,97 @@
+\hypertarget{merge_8php}{}\doxysection{www/qrcode/lib/phpqrcode/tools/merge.php File Reference}
+\label{merge_8php}\index{www/qrcode/lib/phpqrcode/tools/merge.php@{www/qrcode/lib/phpqrcode/tools/merge.php}}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{merge_8php_a2b9a0b4d98e1e23a5460e3639fdae91b}{\$\+QR\+\_\+\+BASEDIR}} = dirname(\+\_\+\+\_\+\+FILE\+\_\+\+\_\+).DIRECTORY\+\_\+\+SEPARATOR.\textquotesingle{}..\textquotesingle{}.DIRECTORY\+\_\+\+SEPARATOR
+\item 
+\mbox{\hyperlink{merge_8php_ae417e541a5565832b8f420a2a802677e}{\$\+QR\+\_\+\+TOOLSDIR}} = dirname(\+\_\+\+\_\+\+FILE\+\_\+\+\_\+).DIRECTORY\+\_\+\+SEPARATOR
+\item 
+\mbox{\hyperlink{merge_8php_ad936d9f60325793d1fb7bc155bb36607}{\$output\+File}} = \$QR\+\_\+\+BASEDIR.\textquotesingle{}phpqrcode.\+php\textquotesingle{}
+\item 
+\mbox{\hyperlink{merge_8php_ae2e98845ed3d2254c1482c0c3b6f9ff3}{\$file\+List}}
+\item 
+\mbox{\hyperlink{merge_8php_af243fbc21177be2a85033a3596457d23}{\$header\+File}} = \$QR\+\_\+\+TOOLSDIR.\textquotesingle{}merged\+\_\+header.\+php\textquotesingle{}
+\item 
+\mbox{\hyperlink{merge_8php_a89ce9781b8ddbd4548b0bd11b2a11b30}{\$version\+File}} = \$QR\+\_\+\+BASEDIR.\textquotesingle{}VERSION\textquotesingle{}
+\item 
+\mbox{\hyperlink{merge_8php_af6f6877b476d46f61a45ef886ba846ee}{\$output\+Code}} = \textquotesingle{}\textquotesingle{}
+\item 
+foreach(\$file\+List as \$file\+Name) \mbox{\hyperlink{merge_8php_add07f28510a1b3cd596591c021697fe4}{\$version\+Data\+Ex}} = explode(\char`\"{}\textbackslash{}n\char`\"{}, file\+\_\+get\+\_\+contents(\$version\+File))
+\item 
+\mbox{\hyperlink{merge_8php_a5e82fe2dc648d283b082d2f7cb25c506}{\$output\+Contents}} = file\+\_\+get\+\_\+contents(\$header\+File)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{merge_8php_ae2e98845ed3d2254c1482c0c3b6f9ff3}\label{merge_8php_ae2e98845ed3d2254c1482c0c3b6f9ff3}} 
+\index{merge.php@{merge.php}!\$fileList@{\$fileList}}
+\index{\$fileList@{\$fileList}!merge.php@{merge.php}}
+\doxysubsubsection{\texorpdfstring{\$fileList}{$fileList}}
+{\footnotesize\ttfamily \$file\+List}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= array(}
+\DoxyCodeLine{        \mbox{\hyperlink{merge_8php_a2b9a0b4d98e1e23a5460e3639fdae91b}{\$QR\_BASEDIR}}.\textcolor{stringliteral}{'qrconst.php'},}
+\DoxyCodeLine{        \mbox{\hyperlink{merge_8php_ae417e541a5565832b8f420a2a802677e}{\$QR\_TOOLSDIR}}.\textcolor{stringliteral}{'merged\_config.php'},}
+\DoxyCodeLine{        \mbox{\hyperlink{merge_8php_a2b9a0b4d98e1e23a5460e3639fdae91b}{\$QR\_BASEDIR}}.\textcolor{stringliteral}{'qrtools.php'},}
+\DoxyCodeLine{        \mbox{\hyperlink{merge_8php_a2b9a0b4d98e1e23a5460e3639fdae91b}{\$QR\_BASEDIR}}.\textcolor{stringliteral}{'qrspec.php'},}
+\DoxyCodeLine{        \mbox{\hyperlink{merge_8php_a2b9a0b4d98e1e23a5460e3639fdae91b}{\$QR\_BASEDIR}}.\textcolor{stringliteral}{'qrimage.php'},}
+\DoxyCodeLine{        \mbox{\hyperlink{merge_8php_a2b9a0b4d98e1e23a5460e3639fdae91b}{\$QR\_BASEDIR}}.\textcolor{stringliteral}{'qrinput.php'},}
+\DoxyCodeLine{        \mbox{\hyperlink{merge_8php_a2b9a0b4d98e1e23a5460e3639fdae91b}{\$QR\_BASEDIR}}.\textcolor{stringliteral}{'qrbitstream.php'},}
+\DoxyCodeLine{        \mbox{\hyperlink{merge_8php_a2b9a0b4d98e1e23a5460e3639fdae91b}{\$QR\_BASEDIR}}.\textcolor{stringliteral}{'qrsplit.php'},}
+\DoxyCodeLine{        \mbox{\hyperlink{merge_8php_a2b9a0b4d98e1e23a5460e3639fdae91b}{\$QR\_BASEDIR}}.\textcolor{stringliteral}{'qrrscode.php'},}
+\DoxyCodeLine{        \mbox{\hyperlink{merge_8php_a2b9a0b4d98e1e23a5460e3639fdae91b}{\$QR\_BASEDIR}}.\textcolor{stringliteral}{'qrmask.php'},}
+\DoxyCodeLine{        \mbox{\hyperlink{merge_8php_a2b9a0b4d98e1e23a5460e3639fdae91b}{\$QR\_BASEDIR}}.\textcolor{stringliteral}{'qrencode.php'}}
+\DoxyCodeLine{    )}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{merge_8php_af243fbc21177be2a85033a3596457d23}\label{merge_8php_af243fbc21177be2a85033a3596457d23}} 
+\index{merge.php@{merge.php}!\$headerFile@{\$headerFile}}
+\index{\$headerFile@{\$headerFile}!merge.php@{merge.php}}
+\doxysubsubsection{\texorpdfstring{\$headerFile}{$headerFile}}
+{\footnotesize\ttfamily \$header\+File = \$QR\+\_\+\+TOOLSDIR.\textquotesingle{}merged\+\_\+header.\+php\textquotesingle{}}
+
+\mbox{\Hypertarget{merge_8php_af6f6877b476d46f61a45ef886ba846ee}\label{merge_8php_af6f6877b476d46f61a45ef886ba846ee}} 
+\index{merge.php@{merge.php}!\$outputCode@{\$outputCode}}
+\index{\$outputCode@{\$outputCode}!merge.php@{merge.php}}
+\doxysubsubsection{\texorpdfstring{\$outputCode}{$outputCode}}
+{\footnotesize\ttfamily \$output\+Code = \textquotesingle{}\textquotesingle{}}
+
+\mbox{\Hypertarget{merge_8php_a5e82fe2dc648d283b082d2f7cb25c506}\label{merge_8php_a5e82fe2dc648d283b082d2f7cb25c506}} 
+\index{merge.php@{merge.php}!\$outputContents@{\$outputContents}}
+\index{\$outputContents@{\$outputContents}!merge.php@{merge.php}}
+\doxysubsubsection{\texorpdfstring{\$outputContents}{$outputContents}}
+{\footnotesize\ttfamily \$output\+Contents = file\+\_\+get\+\_\+contents(\$header\+File)}
+
+\mbox{\Hypertarget{merge_8php_ad936d9f60325793d1fb7bc155bb36607}\label{merge_8php_ad936d9f60325793d1fb7bc155bb36607}} 
+\index{merge.php@{merge.php}!\$outputFile@{\$outputFile}}
+\index{\$outputFile@{\$outputFile}!merge.php@{merge.php}}
+\doxysubsubsection{\texorpdfstring{\$outputFile}{$outputFile}}
+{\footnotesize\ttfamily \$output\+File = \$QR\+\_\+\+BASEDIR.\textquotesingle{}phpqrcode.\+php\textquotesingle{}}
+
+\mbox{\Hypertarget{merge_8php_a2b9a0b4d98e1e23a5460e3639fdae91b}\label{merge_8php_a2b9a0b4d98e1e23a5460e3639fdae91b}} 
+\index{merge.php@{merge.php}!\$QR\_BASEDIR@{\$QR\_BASEDIR}}
+\index{\$QR\_BASEDIR@{\$QR\_BASEDIR}!merge.php@{merge.php}}
+\doxysubsubsection{\texorpdfstring{\$QR\_BASEDIR}{$QR\_BASEDIR}}
+{\footnotesize\ttfamily \$QR\+\_\+\+BASEDIR = dirname(\+\_\+\+\_\+\+FILE\+\_\+\+\_\+).DIRECTORY\+\_\+\+SEPARATOR.\textquotesingle{}..\textquotesingle{}.DIRECTORY\+\_\+\+SEPARATOR}
+
+\mbox{\Hypertarget{merge_8php_ae417e541a5565832b8f420a2a802677e}\label{merge_8php_ae417e541a5565832b8f420a2a802677e}} 
+\index{merge.php@{merge.php}!\$QR\_TOOLSDIR@{\$QR\_TOOLSDIR}}
+\index{\$QR\_TOOLSDIR@{\$QR\_TOOLSDIR}!merge.php@{merge.php}}
+\doxysubsubsection{\texorpdfstring{\$QR\_TOOLSDIR}{$QR\_TOOLSDIR}}
+{\footnotesize\ttfamily \$QR\+\_\+\+TOOLSDIR = dirname(\+\_\+\+\_\+\+FILE\+\_\+\+\_\+).DIRECTORY\+\_\+\+SEPARATOR}
+
+\mbox{\Hypertarget{merge_8php_add07f28510a1b3cd596591c021697fe4}\label{merge_8php_add07f28510a1b3cd596591c021697fe4}} 
+\index{merge.php@{merge.php}!\$versionDataEx@{\$versionDataEx}}
+\index{\$versionDataEx@{\$versionDataEx}!merge.php@{merge.php}}
+\doxysubsubsection{\texorpdfstring{\$versionDataEx}{$versionDataEx}}
+{\footnotesize\ttfamily foreach ( \$file\+List as \$file\+Name) \$version\+Data\+Ex = explode(\char`\"{}\textbackslash{}n\char`\"{}, file\+\_\+get\+\_\+contents(\$version\+File))}
+
+\mbox{\Hypertarget{merge_8php_a89ce9781b8ddbd4548b0bd11b2a11b30}\label{merge_8php_a89ce9781b8ddbd4548b0bd11b2a11b30}} 
+\index{merge.php@{merge.php}!\$versionFile@{\$versionFile}}
+\index{\$versionFile@{\$versionFile}!merge.php@{merge.php}}
+\doxysubsubsection{\texorpdfstring{\$versionFile}{$versionFile}}
+{\footnotesize\ttfamily \$version\+File = \$QR\+\_\+\+BASEDIR.\textquotesingle{}VERSION\textquotesingle{}}
+
