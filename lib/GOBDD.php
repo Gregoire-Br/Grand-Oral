@@ -188,6 +188,14 @@
 			return $stmt->rowCount();;
 		}
 
+		function allUsers() {
+			$stmt = $this->bdd->prepare("SELECT * FROM USERS;");
+			if(!$stmt->execute() && $this->debugToggle){
+				var_dump($stmt->errorInfo());
+			}
+			return $stmt->rowCount();;
+		}
+
 		/*function swapForm() {}*/ // TODO:
     }
 ?>
