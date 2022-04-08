@@ -94,7 +94,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 				END;
 			} } else {
 			echo <<<END
-			END;?>
+			END;}?>
 
 		<h4>Activités des fiches</h4>
 		<table class="table table-hover table-sm table-striped">
