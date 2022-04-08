@@ -1,9 +1,11 @@
 <?php
 session_start();
-if (!isset($_SESSION["session"]) || $_SESSION["status"] != 2) header("Location: /form/");
+if (!isset($_SESSION["session"]) || $_SESSION["status"] != 2) header("Location: /www/");
 
 error_reporting(E_ALL & ~E_NOTICE);
 
+include 'var/sql.php';
+include 'lib/GOBDD.php';
 
 $erreur = '';
 ?>
@@ -55,6 +57,11 @@ $erreur = '';
       <p id="error"><?php echo $erreur ?></p>
     </div>
 
+    <?php
+        $bdd = new GOBDD($sql_ip, $sql_db, $sql_login, $sql_password);
+        $res = $bdd->allUsers();
+        ?>
+
     <div class="table-responsive-lg">
       <table id="myTable" class="table table-light table-striped">
         <tr>
@@ -65,20 +72,25 @@ $erreur = '';
           <th>Status</th>
         </tr>
 
+       
         <?php
-        $sql = "SELECT username, firstname, lastname, status, email from users";
-        $result = $conn->query($sql);
+            // On utilise la variable $r
+          foreach($res as $r){
+        ?>   
 
-        if ($result->num_rows > 0) {
-          while ($row = $result->fetch_assoc()) {
-            echo "<tr><td>" . $row["lastname"] . "</td><td>" . $row["firstname"] . "</td><td>" . $row["username"] . "</td><td>" . $row["email"] . "</td><td>" . $row["status"] . "</td></tr>";
-          }
-          echo "</table>";
-        } else {
-          echo "0 result";
-        }
-        $conn->close();
-        ?>
+        <!-- On affiche depuis la BDD : Nom, Prénom, Nom utilisateur, email, status-->
+       <tr>
+      <td><?= $r['lastname'] ?></td>
+      <td><?= $r['firstname'] ?></td>
+      <td><?= $r['username'] ?></td> 
+      <td><?= $r['email'] ?></td>
+      <td><?= $r['status'] ?></td>
+    </tr>
+
+    <?php
+  }
+  ?>
+
       </table>
     </div>
   </div>
