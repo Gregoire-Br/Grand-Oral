@@ -6,21 +6,23 @@
     padding: 20px;
   }
 
-  .container-fluid{
-    margin-top: 75px;
+  #go .container-fluid #go-row #go-column #go-box {
+    margin-top: 50px;
     padding: 20px;
-    max-width: 900px;
+    max-width: 1000px;
     height: auto;
+    border: 1px solid #9C9C9C;
     border-radius: 10px;
     background-color: #f3f3f3;
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.267);
   }
 
-  .container{
-    margin-top: 75px;
+  #go .container #go-row #go-column #go-box {
+    margin-top: 50px;
     padding: 20px;
-    max-width: 700px;
+    max-width: 1000px;
     height: auto;
+    border: 1px solid #9C9C9C;
     border-radius: 10px;
     background-color: #f3f3f3;
     box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.267);
@@ -34,8 +36,6 @@
 
   .btn{
     border-radius: 20px;
-  }
-
-  #sendbtn {
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.267);
     margin-top: 30px;
   }
