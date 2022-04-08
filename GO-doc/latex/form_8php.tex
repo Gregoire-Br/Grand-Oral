@@ -1,0 +1,40 @@
+\hypertarget{form_8php}{}\doxysection{www/form/form.php File Reference}
+\label{form_8php}\index{www/form/form.php@{www/form/form.php}}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{form_8php_a9ba6b694d22ae6134e8f5edf912fd259}{if}} (!isset( \$\+\_\+\+SESSION\mbox{[}\char`\"{}session\char`\"{}\mbox{]})$\vert$$\vert$\$\+\_\+\+SESSION\mbox{[}\char`\"{}status\char`\"{}\mbox{]} !=0) header(\char`\"{}Location
+\item 
+\mbox{\hyperlink{form_8php_a94f91e878bce0991e2cd595c5dd79b3f}{\$bdd}} = new \mbox{\hyperlink{class_g_o_b_d_d}{GOBDD}}(\$sql\+\_\+ip, \$sql\+\_\+db, \$sql\+\_\+login, \$sql\+\_\+password)
+\item 
+\mbox{\hyperlink{password_8php_a3cef14f09f92e2be1fedc5d1f6f0af4f}{if}}(\$\+\_\+\+POST\mbox{[}\char`\"{}submit\char`\"{}\mbox{]}) \mbox{\hyperlink{form_8php_ae705a865f7d12e0c0296b3358ec4745f}{\$studentinfo}} = \$bdd-\/$>$student\+Query(\$\+\_\+\+SESSION\mbox{[}\char`\"{}username\char`\"{}\mbox{]})
+\item 
+\mbox{\hyperlink{form_8php_a2d84121999ea67aa5488f141c0c2119c}{\$forminfo}} = \$bdd-\/$>$form\+Query(\$\+\_\+\+SESSION\mbox{[}\char`\"{}username\char`\"{}\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{form_8php_a94f91e878bce0991e2cd595c5dd79b3f}\label{form_8php_a94f91e878bce0991e2cd595c5dd79b3f}} 
+\index{form.php@{form.php}!\$bdd@{\$bdd}}
+\index{\$bdd@{\$bdd}!form.php@{form.php}}
+\doxysubsubsection{\texorpdfstring{\$bdd}{$bdd}}
+{\footnotesize\ttfamily \$bdd = new \mbox{\hyperlink{class_g_o_b_d_d}{GOBDD}}(\$sql\+\_\+ip, \$sql\+\_\+db, \$sql\+\_\+login, \$sql\+\_\+password)}
+
+\mbox{\Hypertarget{form_8php_a2d84121999ea67aa5488f141c0c2119c}\label{form_8php_a2d84121999ea67aa5488f141c0c2119c}} 
+\index{form.php@{form.php}!\$forminfo@{\$forminfo}}
+\index{\$forminfo@{\$forminfo}!form.php@{form.php}}
+\doxysubsubsection{\texorpdfstring{\$forminfo}{$forminfo}}
+{\footnotesize\ttfamily \$forminfo = \$bdd-\/$>$form\+Query(\$\+\_\+\+SESSION\mbox{[}\char`\"{}username\char`\"{}\mbox{]})}
+
+\mbox{\Hypertarget{form_8php_ae705a865f7d12e0c0296b3358ec4745f}\label{form_8php_ae705a865f7d12e0c0296b3358ec4745f}} 
+\index{form.php@{form.php}!\$studentinfo@{\$studentinfo}}
+\index{\$studentinfo@{\$studentinfo}!form.php@{form.php}}
+\doxysubsubsection{\texorpdfstring{\$studentinfo}{$studentinfo}}
+{\footnotesize\ttfamily \mbox{\hyperlink{password_8php_a3cef14f09f92e2be1fedc5d1f6f0af4f}{if}} ( \$\+\_\+\+POST\mbox{[}\char`\"{}submit\char`\"{}\mbox{]}) \$studentinfo = \$bdd-\/$>$student\+Query(\$\+\_\+\+SESSION\mbox{[}\char`\"{}username\char`\"{}\mbox{]})}
+
+\mbox{\Hypertarget{form_8php_a9ba6b694d22ae6134e8f5edf912fd259}\label{form_8php_a9ba6b694d22ae6134e8f5edf912fd259}} 
+\index{form.php@{form.php}!if@{if}}
+\index{if@{if}!form.php@{form.php}}
+\doxysubsubsection{\texorpdfstring{if}{if}}
+{\footnotesize\ttfamily if(!isset(\$\+\_\+\+SESSION\mbox{[}\char`\"{}session\char`\"{}\mbox{]})$\vert$$\vert$ \$\+\_\+\+SESSION\mbox{[}\char`\"{}status\char`\"{}\mbox{]} !=0) header(\char`\"{}Location (\begin{DoxyParamCaption}\item[{!isset(\$\+\_\+\+SESSION\mbox{[}\char`\"{}session\char`\"{}\mbox{]})$\vert$$\vert$ \$\+\_\+\+SESSION !}]{\mbox{[}\char`\"{}status\char`\"{}\mbox{]} = {\ttfamily 0} }\end{DoxyParamCaption})}
+
