@@ -22,7 +22,7 @@ $erreur = '';
   <div class="container-fluid">
 
     <div id="data">
-      <form action="includes/functions.php" method="post" class="needs-validation" novalidate>
+      <form action="" method="post" class="needs-validation" novalidate>
 
         <div class="form-group mb-3 d-flex ">
           <span class="input-group-text">Nom</span>

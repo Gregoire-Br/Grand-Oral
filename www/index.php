@@ -23,6 +23,8 @@ if ($_POST["submit"]) {
             session_start();
             $_SESSION["session"] = true;
             $_SESSION["username"] = $res["username"];
+            $_SESSION["firstname"] = $res["firstname"];
+            $_SESSION["lastname"] = $res["lastname"];
             $_SESSION["status"] = $res["status"];
 
             header('Location: session.php');
