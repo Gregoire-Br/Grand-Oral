@@ -1,7 +1,7 @@
 <?php
     class GOBDD {
         private $bdd;
-		private $debugToggle = 0;
+		private $debugToggle = 1;
 
 		/**
 		* @param host - domaine du SGBD
@@ -118,6 +118,7 @@
 			return $rslt;
 		}
 
+		// TODO: fix, fix doc
 		/**
 		* @brief Cherche le formulaire le plus récent pour un utilisateur
 		* @param user - nom d'utilisateur
@@ -125,15 +126,13 @@
 		*/
 		function formQuery($user) {
 			$lcuser = strtolower($user);
-			$stmt = $this->bdd->prepare("SELECT * from form WHERE username = LOWER(:user) ORDER BY date DESC LIMIT 1;");
+			$stmt = $this->bdd->prepare("SELECT * from form WHERE username = LOWER(:user) ORDER BY date DESC LIMIT 1");
 			if(!$stmt && $this->debugToggle) {
 				echo "<br>formQuery - PDO::errorInfo():<br>";
 				echo $this->bdd->errorInfo();
 			}
 			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
-			if(!$stmt->execute() && $this->debugToggle){
-				var_dump($stmt->errorInfo());
-			}
+			//var_dump($stmt->errorInfo());
 			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
 			return $rslt;
 		}
@@ -193,7 +192,7 @@
 			if(!$stmt->execute() && $this->debugToggle){
 				var_dump($stmt->errorInfo());
 			}
-			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
+			$rslt = $stmt->fetchAll(PDO::FETCH_DEFAULT);   // sort un array clé-valeur
 			return $rslt;
 		}
 
