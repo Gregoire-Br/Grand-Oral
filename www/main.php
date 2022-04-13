@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["session"])) header("Location: /form/");
+if (!isset($_SESSION["session"])) header("Location: /www/");
 
 include 'var/sql.php';
 include 'lib/GOBDD.php';
@@ -19,7 +19,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 	</head>
 	<body>
 		<?php if($_SESSION["status"] != 0) {
-			echo <<<END
+			
 				<h4>Fiches à valider</h4>
 				<table class="table table-hover table-sm table-striped">
 					<thead>
@@ -32,9 +32,9 @@ error_reporting(E_ALL & ~E_NOTICE);
 					</tr>
 					</thead>
 					<tbody>
-				END;
+				
 				foreach ($a as $key => $value) {
-					echo <<<END
+				
 						<tr class="list-form">
 						<th scope="row">Garfield</td>
 						<td>21/10/2022, 10h34</td>
@@ -93,8 +93,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 				</table>
 				END;
 			} } else {
-			echo <<<END
-			END;}?>
+		}?>
 
 		<h4>Activités des fiches</h4>
 		<table class="table table-hover table-sm table-striped">

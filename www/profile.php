@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["session"]) || $_SESSION["status"] != 2) header("Location: /form/");
+if (!isset($_SESSION["session"]) || $_SESSION["status"] != 2) header("Location: /www/");
 
 error_reporting(E_ALL & ~E_NOTICE);
 
