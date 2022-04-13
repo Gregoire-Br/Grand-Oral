@@ -58,6 +58,12 @@ $erreur = '';
       <p id="error"><?php echo $erreur ?></p>
     </div>
 
+    <?php
+        $bdd = new GOBDD($sql_ip, $sql_db, $sql_login, $sql_password);
+        $res = $bdd->allUsers();
+        ?>
+
+        
     <div class="table-responsive-lg">
       <table id="myTable" class="table table-light table-striped">
         <tr>
@@ -68,7 +74,6 @@ $erreur = '';
           <th>Status</th>
         </tr>
 
-         
         <?php
             // On utilise la variable $r
           foreach($res as $r){
