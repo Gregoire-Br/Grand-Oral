@@ -1,3 +1,5 @@
+
+<?php 	// ANCIENNE PAGE BOARD AVEC IFRAME ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 	<head>

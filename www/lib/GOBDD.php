@@ -1,201 +1,146 @@
 <?php
-    class GOBDD {
-        private $bdd;
-		private $debugToggle = 1;
+	class GOBDD {
+		private $bdd;
+		private $debug = 0;
 
 		/**
 		* @param host - domaine du SGBD
 		* @param db - nom de la base de données
 		* @param user - nom d'utilisateur; à stocker dans un fichier séparé et sécurisé
 		* @param pswd - mot de passe; à stocker dans un fichier séparé et sécurisé
+		* @param debug - 1 pour activer les fonctions de debug
 		*/
-        function __construct(string $host, string $db, string $user, string $pswd) {
-            try {
-                $this->bdd = new PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8',$user,$pswd);
-                if ($this->bdd && $this->debugToggle) echo "Connexion réussie<br>";
-            } catch (Exception $e) {
-                die('Erreur: ' . $e->getMessage());
-                if ($e) echo $e;
-            }
-        }
+		function __construct(string $host, string $db, string $user, string $pswd, $debug = 0) {
+			$this->debug = $debug;
+			try {
+				$this->bdd = new PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8',$user,$pswd);
+				if ($this->bdd && $this->debug) echo "Connexion réussie<br>";
+			} catch (Exception $e) {
+				die('Erreur: ' . $e->getMessage());
+				if ($e) echo $e;
+			}
+		}
 
-		/**
-		* @brief Cherche un utilisateur et retourne les informations sur lui
-		* @param user - Nom d'utilisateur à chercher
-		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : <ul><li>username: nom d'utilisateur</li><li>password: mot de passe hashé</li><li>firstname: prénom</li><li>lastname: nom de famille</li><li>status: grade de l'utilisateur; 0: étudiant; 1: enseignant; 2: proviseur adjoint; 3: secrétaire</li><li>email: adresse email</li></ul>
-		*/
+
+		protected function goQuery(string $rq, ...$params) {
+			try {
+				//trouve ts les mots commencant par ':'
+				$regex = "/:\w+/i";
+
+				$stmt = $this->bdd->prepare($rq);
+				if(!$stmt) {
+					throw new Exception("Erreur requête",1);
+				}
+
+				preg_match_all($regex,$rq,$matches);
+				//var_dump($matches);
+				for($i=0; $i<count($matches[0]); $i++) {
+					//echo $matches[0][$i];
+					if(!$stmt->bindParam($matches[0][$i], $params[$i])) {
+						if($debug) {
+							var_dump($stmt->errorInfo());
+							echo "<br>";
+							var_dump($stmt);
+							echo "<br>";
+						}
+						throw new Exception("Erreur bindParam",2);
+					}
+				}
+
+				if(!$stmt->execute() && $this->debug){
+					var_dump($stmt->errorInfo());
+					echo "<br>";
+				}
+
+				if(strtoupper(explode(' ',trim($rq))[0]) == "SELECT") {
+					echo "rq: SELECT<br>";
+					if($stmt->rowCount() > 2){
+						echo "rowCount() > 2<br>";
+						//var_dump($stmt->errorInfo());
+						//var_dump($stmt);
+						return $stmt->fetchAll(PDO::FETCH_DEFAULT);
+					} else {
+						echo "rowCount() <= 2<br>";
+						//var_dump($stmt->errorInfo());
+						//var_dump($stmt);
+						return $stmt->fetch(PDO::FETCH_ASSOC);
+					}
+				} else {
+					echo "rq: !SELECT<br>";
+					return $stmt->rowCount();
+				}
+			} catch(Exception $e) {
+				if($debug) {
+					var_dump($this->bdd);
+					echo "<br>";
+					var_dump($stmt);
+					echo "<br>";
+				}
+				echo "Exception dans le fichier ".$e->getFile()." ligne ".$e->getLine()." : ".$e->getMessage()."<br>";
+				if($e->getCode() == 1) {
+					var_dump($this->bdd->errorInfo());
+					echo "<br>";
+				} else {
+					var_dump($stmt->errorInfo());
+					echo "<br>";
+				}
+			}
+		}
+
 		function userQuery(string $user) {
-			$lcuser = strtolower($user);
-			$stmt = $this->bdd->prepare("SELECT * FROM users WHERE username = LOWER(:user)");
-			if(!$stmt && $this->debugToggle) {
-				echo "<br>userQuery - PDO::errorInfo():<br>";
-				echo $this->bdd->errorInfo();
-			}
-			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
-			if(!$stmt->execute() && $this->debugToggle){
-				var_dump($stmt->errorInfo());
-			}
-			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
-			return $rslt;
+			return $this->goQuery("SELECT * FROM users WHERE username=LOWER(:user)",$user);
 		}
 
-		/**
-		* @brief Change le mot de passe d'un utilisateur
-		* @param user - nom d'utilisateur
-		* @param pswd - nouveau mot de passe. Ne doit pas être hashé car cette méthode s'en chargera
-		* @return - rowCount de stmt; 1 si succès, 0 si erreur, autre chose si grosse erreur
-		*/
-		function changePassword($user, $pswd) {
-			$lcuser = strtolower($user);
-			$stmt = $this->bdd->prepare("UPDATE users SET password=PASSWORD(:pswd) WHERE username = LOWER(:user)");
-			if(!$stmt && $this->debugToggle) {
-				echo "<br>changePassword - PDO::errorInfo():<br>";
-				echo $this->bdd->errorInfo();
-			}
-			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
-			$stmt->bindParam(':pswd',$pswd,PDO::PARAM_STR);
-			if(!$stmt->execute() && $this->debugToggle){
-				var_dump($stmt->errorInfo());
-			}
-			return $stmt->rowCount();
+		function allUsers(){
+			return $this->goQuery("SELECT * FROM users");
 		}
 
-		/**
-		* @brief Cherche un étudiant et retourne les informations sur lui
-		* @param user - Nom d'utilisateur de l'étudiant à chercher
-		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : <ul><li>username: nom d'utilisateur</li><li>ine: identifiant INE crypté</li><li>spec1: spécialité 1</li><li>spec2: spécialité 2</li><li>ens1: nom d'utilisateur de l'enseignant 1</li><li>ens2: nom d'utilisateur de l'enseignant 2</li><li>etabville: etablissement et ville; peut-être inutile</li></ul>
-		*/
-		function studentQuery($user){
-			$lcuser = strtolower($user);
-			$stmt = $this->bdd->prepare("SELECT * FROM students WHERE username = LOWER(:user)");
-			if(!$stmt && $this->debugToggle) {
-				echo "<br>studentQuery - PDO::errorInfo():<br>";
-				echo $this->bdd->errorInfo();
-			}
-			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
-			if(!$stmt->execute() && $this->debugToggle){
-				var_dump($stmt->errorInfo());
-			}
-			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
-			return $rslt;
+		function formQuery(string $user) {
+			return $this->goQuery("SELECT * from form WHERE username = LOWER(:user) ORDER BY date DESC LIMIT 1",$user);
 		}
 
-		/**
-		* @brief Vérifie la validité d'une paire d'identifiants. Cherche si il existe un compte avec le même nom d'utilisateur et mot de passe
-		* @param user - nom d'utilisateur
-		* @param pswd - mot de passe
-		* @rslt - 1 si il y a un (seul) compte correspondant; 0 si il n'y en a pas (ou si il y en a plus d'un; théoriquement impossible)
-		*/
-		function checkCredentials($user,$pswd) {
-			$lcuser = strtolower($user);
-			$user = $this->userQuery($user)['username'];
-			$stmt = $this->bdd->prepare("SELECT * FROM users WHERE username = LOWER(:user) AND password=PASSWORD(:pswd)");
-			if(!$stmt && $this->debugToggle) {
-				echo "<br>checkCredentials - PDO::errorInfo():<br>";
-				echo $this->bdd->errorInfo();
-			}
-			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
-			$stmt->bindParam(':pswd',$pswd,PDO::PARAM_STR);
-			if(!$stmt->execute() && $this->debugToggle){
-				var_dump($stmt->errorInfo());
-			}
-			return ($stmt->rowCount() == 1 ? 1 : 0);
-		}
-
-		// TODO: doc, tests
 		function formHistoryQuery(string $user) {
-			$lcuser = strtolower($user);
-			$stmt = $this->bdd->prepare("SELECT * FROM form WHERE username = LOWER(:user);");
-			if(!$stmt && $this->debugToggle) {
-				echo "<br>formHistoryQuery - PDO::errorInfo():<br>";
-				echo $this->bdd->errorInfo();
-			}
-			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
-			if(!$stmt->execute() && $this->debugToggle){
-				var_dump($stmt->errorInfo());
-			}
-			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
-			return $rslt;
+			return $this->goQuery("SELECT * FROM form WHERE username = LOWER(:user)",$user);
 		}
 
-		// TODO: fix, fix doc
-		/**
-		* @brief Cherche le formulaire le plus récent pour un utilisateur
-		* @param user - nom d'utilisateur
-		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : <ul><li>id: identifiant unique du formulaire</li><li>username: nom d'utilisateur</li><li>q1: question 1</li><li>q2: question 2</li><li>e1valid: 1 si validé par enseignant 1, sinon 0</li><li>e1valid: 1 si validé par enseignant 1, sinon 0</li><li>proValid: 1 si validé par proviseur adjoint, sinon 0</li></ul>
-		*/
-		function formQuery($user) {
-			$lcuser = strtolower($user);
-			$stmt = $this->bdd->prepare("SELECT * from form WHERE username = LOWER(:user) ORDER BY date DESC LIMIT 1");
-			if(!$stmt && $this->debugToggle) {
-				echo "<br>formQuery - PDO::errorInfo():<br>";
-				echo $this->bdd->errorInfo();
-			}
-			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
-			//var_dump($stmt->errorInfo());
-			$rslt = $stmt->fetch(PDO::FETCH_ASSOC);   // sort un array clé-valeur
-			return $rslt;
+		function checkCredentials($user,$pswd) {
+			$rslt = $this->goQuery("SELECT * FROM users WHERE username = LOWER(:user) AND password=PASSWORD(:pswd)",$user,$pswd);
+			return ($rslt["username"] ? 1 : 0);
 		}
 
-		/**
-		* @brief Modifie les données dans le formulaire actif d'un utilisateur (étudiant). Le formulaire actif est le formulaire le plus récent dans la base de données
-		* @param user - nom de l'utilisateur dans la base de données
-		* @param q1 - première question
-		* @param q2 - deuxième question
-		* @return - rowCount de stmt; 1 si succès, 0 si erreur, autre chose si grosse erreur
-		*/
-		function updateForm(string $user, string $q1, string $q2) {
-			$lcuser = strtolower($user);
-			//$stmt = $this->bdd->prepare("UPDATE form SET `q1`=:q1,`q2`=:q2 WHERE `username`=:user ORDER BY date DESC LIMIT 1");
-			$stmt = $this->bdd->prepare("INSERT INTO form (`username`, `q1`, `q2`) VALUES (:user, :q1, :q2)");
-			if(!$stmt && $this->debugToggle) {
-				echo "<br>updateForm - PDO::errorInfo():<br>";
-				echo $this->bdd->errorInfo();
-			}
-			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
-			$stmt->bindParam(':q1',$q1,PDO::PARAM_STR);
-			$stmt->bindParam(':q2',$q2,PDO::PARAM_STR);
-			if(!$stmt->execute() && $this->debugToggle){
-				var_dump($stmt->errorInfo());
-			}
-			return $stmt->rowCount();;
+		function studentQuery($user) {
+			return $this->goQuery("SELECT * FROM students WHERE username = LOWER(:user)",$user);
 		}
 
-		/**
-		* @brief Modifie les données d'un étudiant. Ces données étant fixes en théorie, elles sont séparées des données du formulaire
-		* @param user - nom de l'utilisateur dans la base de données
-		* @param spec1 - première spécialité
-		* @param spec2 - deuxième spécialité
-		* @return - rowCount de stmt; 1 si succès, 0 si erreur, autre chose si grosse erreur
-		*/
-		function updateStudent($user,$spec1,$spec2) {
-			$lcuser = strtolower($user);
-			$stmt = $this->bdd->prepare("UPDATE students SET spec1=:spec1, spec2=:spec2 WHERE username=:user;");
-
-			if(!$stmt && $this->debugToggle) {
-				echo "<br>updateStudent - PDO::errorInfo():<br>";
-				echo $this->bdd->errorInfo();
-			}
-
-			$stmt->bindParam(':user',$lcuser,PDO::PARAM_STR);
-			$stmt->bindParam(':spec1',$spec1,PDO::PARAM_STR);
-			$stmt->bindParam(':spec2',$spec2,PDO::PARAM_STR);
-
-			if(!$stmt->execute() && $this->debugToggle){
-				var_dump($stmt->errorInfo());
-			}
-			return $stmt->rowCount();;
+		function relatedForms($user) {
+			// TODO: écrire la requête
+			return $this->goQuery("SELECT f.*, u.firstname, u.lastname FROM form f, students s, users u WHERE s.ens1 = :self OR s.ens2 = :self",$user,$user);
 		}
 
-		function allUsers() {
-			$stmt = $this->bdd->prepare("SELECT * FROM users;");
-			if(!$stmt->execute() && $this->debugToggle){
-				var_dump($stmt->errorInfo());
-			}
-			$rslt = $stmt->fetchAll(PDO::FETCH_DEFAULT);   // sort un array clé-valeur
-			return $rslt;
+		function createUser($user,$pswd,$firstname,$lastname,$status,$email) {
+			return $this->goQuery("INSERT INTO users (username,password,firstname,lastname,status,email) VALUES (LOWER(:user) , PASSWORD(:pswd) , :firstname , :lastname , :status , :email)",$user,$pswd,$firstname,$lastname,$status,$email);
+
 		}
 
-		/*function swapForm() {}*/ // TODO:
-    }
+		// à voir en considérant les changements dans la base de données à cause des questions à double spé
+		/*function createStudent($user,) {
+			//createUser doit être effectuée avant
+			if(!$this->userQuery($user)) {
+				return 0;
+			}
+			return $this->goQuery("INSERT INTO students (username)");
+		}*/
+
+		function updateForm($user,$q1,$q2) {
+			return $this->goQuery("INSERT INTO form (`username`, `q1`, `q2`) VALUES (LOWER(:user), :q1, :q2)",$user,$q1,$q2);
+		}
+
+		function changePassword($user,$pswd) {
+			return $this->goQuery("UPDATE users SET password=PASSWORD(:pswd) WHERE username = LOWER(:user)",$user,$pswd);
+		}
+
+		function scannedForm($ine) {
+			return $this->goQuery("SELECT f.* FROM form f, students s WHERE s.ine = :ine AND f.username = s.username ORDER BY f.date DESC LIMIT 1",$ine);
+		}
+	}
 ?>

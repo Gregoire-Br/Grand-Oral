@@ -8,7 +8,43 @@ include 'var/sql.php';
 include 'lib/GOBDD.php';
 
 
+
 $erreur = '';
+?>
+
+<?php
+        //Création d'une instance de la classe GOBDD
+        $bdd = new GOBDD($sql_ip, $sql_db, $sql_login, $sql_password);
+
+        //Appel méthode allUsers de la classe GOBDD
+        $res = $bdd->allUsers();
+        
+        //Récupération des valeurs rentrées dans la table si bouton = submit
+        if(isset($_POST["submit"])){
+          if (isset($_POST["lastname"]) && isset($_POST["firstname"]) && isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["status"])) {
+            echo "<script>window.onload = function() {alert('Le formulaire a bien été envoyé','success');};</script>";
+
+            //Crée un mdp random ( a revoir avec greg)
+            function random_password( $length = 8 ) {
+              $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&?";
+              $password = substr( str_shuffle( $chars ), 0, $length );
+              return $password;
+            }
+            
+            $lastname = $_POST["lastname"];
+            $firstname = $_POST["firstname"];
+            $user = $_POST["username"];
+            $email = $_POST["email"];
+            $status = $_POST["status"];
+            $pswd = random_password(8);
+            
+            //Appel méthode createUser pour envoyer les données dans la BDD
+            $creation = $bdd->createUser($user,$pswd,$firstname,$lastname,$status,$email);
+
+          }  else {
+            echo "Il y a une erreur dans le code";
+          }
+      }
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +61,9 @@ $erreur = '';
   <div class="container-fluid">
 
     <div id="data">
+
+    
+
       <form action="" method="post" class="needs-validation" novalidate>
 
         <div class="form-group mb-3 d-flex ">
@@ -52,18 +91,12 @@ $erreur = '';
             <option value="2">Proviseur</option>
           </select>
 
-          <button class="btn btn-primary" type="submit" name="submit">Ajouter</button>
+          <button class="btn btn-primary" type="submit" name="submit" value="submit">Ajouter</button>
         </div>
       </form>
       <p id="error"><?php echo $erreur ?></p>
     </div>
 
-    <?php
-        $bdd = new GOBDD($sql_ip, $sql_db, $sql_login, $sql_password);
-        $res = $bdd->allUsers();
-        ?>
-
-        
     <div class="table-responsive-lg">
       <table id="myTable" class="table table-light table-striped">
         <tr>

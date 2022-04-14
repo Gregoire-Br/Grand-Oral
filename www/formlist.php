@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--A GARDER PEUT ETRE POUR PLUS TARD-->
 <html lang="en" dir="ltr">
 	<head>
 		<title>Liste des formulaires</title>
