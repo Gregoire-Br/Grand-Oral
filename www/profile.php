@@ -15,7 +15,7 @@ $erreur = '';
 <html lang="en">
 
 <?php include "var/header.html" ?>
-<title>Profils</title>
+<title>Profiles</title>
 
 <body>
   <div id="alertPlaceholder" class="position-fixed bottom-0 end-0 p-3"></div>
