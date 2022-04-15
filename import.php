@@ -33,10 +33,8 @@ $erreur = '';
     </div>
 
 <form action="upload.php" method="post" enctype="multipart/form-data">
-    
-    </form>
-    
 
-					<?php include "var/js.html" ?>
+    </form>
+        <?php include "var/js.html" ?>
 	</body>
 </html>

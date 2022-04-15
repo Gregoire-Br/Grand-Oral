@@ -8,10 +8,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <?php if ($_SESSION["status"] == 0) echo '<a class="nav-link" href="form.php">Formulaire</a>'; ?>
-            <?php if ($_SESSION["status"] == 2) echo '<a class="nav-link" href="profile.php">Création d\'utilisateurs</a>'; ?>
-            <?php if ($_SESSION["status"] == 2) echo '<a class="nav-link" href="import.php">Import XML/CVS</a>'; ?>
             <?php if ($_SESSION["status"] > 0) echo '<a class="nav-link" href="board.php">Tableau de bord</a>'; ?>
+            <?php if ($_SESSION["status"] == 0) echo '<a class="nav-link" href="form.php">Formulaire</a>'; ?>
+
+			<?php if ($_SESSION["status"] == 2) echo '<a class="nav-link" href="profile.php">Utilisateurs</a>'; ?>
+            <?php if ($_SESSION["status"] == 2) echo '<a class="nav-link" href="import.php">Import</a>'; ?>
+			<?php if ($_SESSION["status"] > 0) echo '<a class="nav-link" href="board.php">Tableau de bord</a>'; ?>
         </div>
         <div class="navbar-nav ms-auto">
             <a class="nav-link" href="password.php">Changer de mot de passe</a>

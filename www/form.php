@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["session"]) || $_SESSION["status"] != 0) header("Location: /");
+if (!isset($_SESSION["session"]) || $_SESSION["status"] != 0) header("Location: /www/");
 
 include 'var/sql.php';
 include 'lib/GOBDD.php';
@@ -56,7 +56,7 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
                     </div>
                   <div class="col">
                         <label for="spec1" class="text-info">Spécialité secondaire :</label>
-                    </div> 
+                    </div>
                 </div>
                 <div class="row ps-2 pe-2">
                     <select name="spec1a" class="form-control col" required>
