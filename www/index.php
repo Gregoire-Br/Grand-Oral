@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION["session"])) {
-    header('Location: session.php');
+    header('Location: /session.php');
 }
 
 include 'var/sql.php';
@@ -26,7 +26,6 @@ if ($_POST["submit"]) {
             $_SESSION["firstname"] = $res["firstname"];
             $_SESSION["lastname"] = $res["lastname"];
             $_SESSION["status"] = $res["status"];
-
             header('Location: session.php');
         } else {
             $erreur = 'Identifiant ou mot de passe incorrect';

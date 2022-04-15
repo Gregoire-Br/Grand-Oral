@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["session"])) header("Location: /www/");
+if (!isset($_SESSION["session"])) header("Location: /");
 
 include 'var/sql.php';
 include 'lib/GOBDD.php';
