@@ -11,7 +11,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 $erreur = '';
 
-if ($_POST["submit"]) {
+if (isset($_POST["submit"])) {
     if ($_POST["username"] && $_POST["password"]) {
 
         $username = $_POST["username"];
