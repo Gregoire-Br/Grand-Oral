@@ -193,4 +193,6 @@
 
 		function validate($user,$stdt) {
 			// TODO: vérifier statut avant de valider
+		}
+	}
 ?>
