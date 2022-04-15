@@ -21,10 +21,6 @@
 			}
 		}
 
-<<<<<<< HEAD
-
-		protected function goQuery(string $rq, ...$params) {
-=======
 		/**
 		* @brief Prépare la requête $rq, lie les paramètres $params aux marqueurs, exécute et renvoie le résultat.
 		* @param rq - requête à effectuer. Les champs de paramètre doivent être remplis avec des marqueurs.
@@ -34,7 +30,6 @@
 		* Si la requête n'est pas SELECT, la méthode retournera le nombre de lignes affectées ou bool(false) dans le cas échéant.
 		*/
 		private function goQuery(string $rq, ...$params) {
->>>>>>> GOBDD
 			try {
 				//trouve ts les mots commencant par ':'
 				$regex = "/:\w+/i";
@@ -49,11 +44,7 @@
 				for($i=0; $i<count($matches[0]); $i++) {
 					//echo $matches[0][$i];
 					if(!$stmt->bindParam($matches[0][$i], $params[$i])) {
-<<<<<<< HEAD
 						if($this->debug) {
-=======
-						if($debug) {
->>>>>>> GOBDD
 							var_dump($stmt->errorInfo());
 							echo "<br>";
 							var_dump($stmt);
@@ -86,11 +77,7 @@
 					return $stmt->rowCount();
 				}
 			} catch(Exception $e) {
-<<<<<<< HEAD
 				if($this->debug) {
-=======
-				if($debug) {
->>>>>>> GOBDD
 					var_dump($this->bdd);
 					echo "<br>";
 					var_dump($stmt);
@@ -109,62 +96,6 @@
 
 		function userQuery(string $user) {
 			return $this->goQuery("SELECT * FROM users WHERE username=LOWER(:user)",$user);
-<<<<<<< HEAD
-		}
-
-		function allUsers(){
-			return $this->goQuery("SELECT * FROM users");
-		}
-
-		function formQuery(string $user) {
-			return $this->goQuery("SELECT * from form WHERE username = LOWER(:user) ORDER BY date DESC LIMIT 1",$user);
-		}
-
-		function formHistoryQuery(string $user) {
-			return $this->goQuery("SELECT * FROM form WHERE username = LOWER(:user)",$user);
-		}
-
-		function checkCredentials($user,$pswd) {
-			$rslt = $this->goQuery("SELECT * FROM users WHERE username = LOWER(:user) AND password=PASSWORD(:pswd)",$user,$pswd);
-			return ($rslt["username"] ? 1 : 0);
-		}
-
-		function studentQuery($user) {
-			return $this->goQuery("SELECT * FROM students WHERE username = LOWER(:user)",$user);
-		}
-
-		function relatedForms($user) {
-			// TODO: écrire la requête
-			return $this->goQuery("SELECT f.*, u.firstname, u.lastname FROM form f, students s, users u WHERE s.ens1 = :self OR s.ens2 = :self",$user,$user);
-		}
-
-		function createUser($user,$pswd,$firstname,$lastname,$status,$email) {
-			return $this->goQuery("INSERT INTO users (username,password,firstname,lastname,status,email) VALUES (LOWER(:user) , PASSWORD(:pswd) , :firstname , :lastname , :status , :email)",$user,$pswd,$firstname,$lastname,$status,$email);
-
-		}
-
-		// à voir en considérant les changements dans la base de données à cause des questions à double spé
-		/*function createStudent($user,) {
-			//createUser doit être effectuée avant
-			if(!$this->userQuery($user)) {
-				return 0;
-			}
-			return $this->goQuery("INSERT INTO students (username)");
-		}*/
-
-		function updateForm($user,$q1,$q2) {
-			return $this->goQuery("INSERT INTO form (`username`, `q1`, `q2`) VALUES (LOWER(:user), :q1, :q2)",$user,$q1,$q2);
-		}
-
-		function changePassword($user,$pswd) {
-			return $this->goQuery("UPDATE users SET password=PASSWORD(:pswd) WHERE username = LOWER(:user)",$user,$pswd);
-		}
-
-		function scannedForm($ine) {
-			return $this->goQuery("SELECT f.* FROM form f, students s WHERE s.ine = :ine AND f.username = s.username ORDER BY f.date DESC LIMIT 1",$ine);
-		}
-	}
-=======
 		}
 
 		function allUsers(){
@@ -262,5 +193,4 @@
 
 		function validate($user,$stdt) {
 			// TODO: vérifier statut avant de valider
->>>>>>> GOBDD
 ?>
