@@ -1,7 +1,13 @@
 <?php
+<<<<<<< HEAD
     class GOBDD {
         private $bdd;
 		private $debugToggle = 1;
+=======
+	class GOBDD {
+		private $bdd;
+		private $debugToggle = 0;
+>>>>>>> GOBDD
 
 		/**
 		* @param host - domaine du SGBD
@@ -9,6 +15,7 @@
 		* @param user - nom d'utilisateur; à stocker dans un fichier séparé et sécurisé
 		* @param pswd - mot de passe; à stocker dans un fichier séparé et sécurisé
 		*/
+<<<<<<< HEAD
         function __construct(string $host, string $db, string $user, string $pswd) {
             try {
                 $this->bdd = new PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8',$user,$pswd);
@@ -18,6 +25,17 @@
                 if ($e) echo $e;
             }
         }
+=======
+		function __construct(string $host, string $db, string $user, string $pswd) {
+			try {
+				$this->bdd = new PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8',$user,$pswd);
+				if ($this->bdd && $this->debugToggle) echo "Connexion réussie<br>";
+			} catch (Exception $e) {
+				die('Erreur: ' . $e->getMessage());
+				if ($e) echo $e;
+			}
+		}
+>>>>>>> GOBDD
 
 		/**
 		* @brief Cherche un utilisateur et retourne les informations sur lui
@@ -137,6 +155,11 @@
 			return $rslt;
 		}
 
+<<<<<<< HEAD
+=======
+
+		// TODO: Limiter le nombre de formulaires
+>>>>>>> GOBDD
 		/**
 		* @brief Modifie les données dans le formulaire actif d'un utilisateur (étudiant). Le formulaire actif est le formulaire le plus récent dans la base de données
 		* @param user - nom de l'utilisateur dans la base de données
@@ -196,6 +219,13 @@
 			return $rslt;
 		}
 
+<<<<<<< HEAD
 		/*function swapForm() {}*/ // TODO:
     }
+=======
+		function relatedForms($user){
+			$stmt = $this->bdd->prepare("SELECT * from form WHERE ");
+		}
+	}
+>>>>>>> GOBDD
 ?>
