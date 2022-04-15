@@ -60,20 +60,23 @@
 				}
 
 				if(strtoupper(explode(' ',trim($rq))[0]) == "SELECT") {
-					echo "rq: SELECT<br>";
 					if($stmt->rowCount() > 2){
-						echo "rowCount() > 2<br>";
-						//var_dump($stmt->errorInfo());
-						//var_dump($stmt);
+						if($this->debug) {
+							echo "rq: SELECT<br>rowCount() > 2<br>";
+							var_dump($stmt->errorInfo());
+							var_dump($stmt);
+						}
 						return $stmt->fetchAll(PDO::FETCH_DEFAULT);
 					} else {
-						echo "rowCount() <= 2<br>";
-						//var_dump($stmt->errorInfo());
-						//var_dump($stmt);
+						if($this->debug) {
+							echo "rq: SELECT<br>rowCount() <= 2<br>";
+							var_dump($stmt->errorInfo());
+							var_dump($stmt);
+						}
 						return $stmt->fetch(PDO::FETCH_ASSOC);
 					}
 				} else {
-					echo "rq: !SELECT<br>";
+					if($this->debug) echo "rq: !SELECT<br>";
 					return $stmt->rowCount();
 				}
 			} catch(Exception $e) {
