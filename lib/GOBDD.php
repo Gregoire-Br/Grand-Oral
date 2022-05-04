@@ -1,4 +1,8 @@
 <?php
+/**
+* @file GOBDD.php
+* @brief Fonctions liées à la base de données
+*/
 	class GOBDD {
 		private $bdd;
 		private $debug = 0;
@@ -65,8 +69,9 @@
 							echo "rq: SELECT<br>rowCount() > 2<br>";
 							var_dump($stmt->errorInfo());
 							var_dump($stmt);
+							echo "<br>";
 						}
-						return $stmt->fetchAll(PDO::FETCH_DEFAULT);
+						return $stmt->fetchAll(PDO::FETCH_BOTH);
 					} else {
 						if($this->debug) {
 							echo "rq: SELECT<br>rowCount() <= 2<br>";
@@ -194,8 +199,8 @@
 			return $this->goQuery("SELECT f.* FROM form f, students s WHERE s.ine = :ine AND f.username = s.username ORDER BY f.date DESC LIMIT 1",$ine);
 		}
 
-		function validate($user,$stdt) {
+		/*function validate($user,$stdt) {
 			// TODO: vérifier statut avant de valider
-		}
+		}*/
 	}
 ?>
