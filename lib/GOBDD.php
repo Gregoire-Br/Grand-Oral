@@ -205,7 +205,7 @@
 		}*/
 
 		function homonyms($user) {
-			return $this->goQuery("SELECT * FROM users WHERE username LIKE '".$user."%'");
+			return count($bdd->query("SELECT * FROM users WHERE username LIKE '".$user."%'"));
 		}
 	}
 ?>
