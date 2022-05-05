@@ -64,19 +64,20 @@
 				}
 
 				if(strtoupper(explode(' ',trim($rq))[0]) == "SELECT") {
-					if($stmt->rowCount() > 2){
+					if($stmt->rowCount() >= 2){
 						if($this->debug) {
-							echo "rq: SELECT<br>rowCount() > 2<br>";
+							echo "$rq<br>rq: SELECT<br>rowCount() >= 2<br>";
 							var_dump($stmt->errorInfo());
 							var_dump($stmt);
-							echo "<br>";
+							echo "<br><br>";
 						}
 						return $stmt->fetchAll(PDO::FETCH_BOTH);
 					} else {
 						if($this->debug) {
-							echo "rq: SELECT<br>rowCount() <= 2<br>";
+							echo "$rq<br>rq: SELECT<br>rowCount() < 2<br>";
 							var_dump($stmt->errorInfo());
 							var_dump($stmt);
+							echo "<br><br>";
 						}
 						return $stmt->fetch(PDO::FETCH_ASSOC);
 					}
@@ -202,5 +203,9 @@
 		/*function validate($user,$stdt) {
 			// TODO: vérifier statut avant de valider
 		}*/
+
+		function homonyms($user) {
+			return $this->goQuery("SELECT * FROM users WHERE username LIKE '".$user."%'");
+		}
 	}
 ?>

@@ -1,3 +1,4 @@
 /ignore/*
 .gitignore
 ut_GOBDD.php
+sql.php
