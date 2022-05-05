@@ -1,1 +1,3 @@
 /ignore/*
+.gitignore
+ut_GOBDD.php

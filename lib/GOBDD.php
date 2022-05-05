@@ -107,7 +107,7 @@
 		}
 
 		function formHistoryQuery(string $user) {
-			return $this->goQuery("SELECT * FROM form WHERE username = LOWER(:user)",$user);
+			return $this->goQuery("SELECT * FROM form WHERE username = LOWER(:user) ORDER BY date",$user);
 		}
 
 		/**
@@ -131,7 +131,7 @@
 		}
 
 		/**
-		* @brief Renvoi la liste des spécialités 
+		* @brief Renvoi la liste des spécialités
 		* @param Aucun
 		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : id, nom de spécialité
 		*/
@@ -148,17 +148,18 @@
 		}
 
 		/**
-		* @brief Cherche les formulaires les plus récents 
+		* @brief Cherche les formulaires les plus récents
 		*/
 		function allLastForms() {
 			// TODO: switch status
+
 			//return $this->goQuery("SELECT F.* FROM form F WHERE date=(SELECT MAX(date) FROM form WHERE username=F.username);");
 			return $this->goQuery("SELECT u.username, u.lastname, u.firstname, s.ens1, s.ens2, s.spec1, s.spec2, m.* FROM users u, students s, (SELECT * FROM form f WHERE date=(SELECT MAX(date) FROM form WHERE username=f.username)) m WHERE s.username=u.username AND m.username=u.username;");
 
 		}
 
 		/**
-		* @brief Renvoi la liste des classes à l'aide de la table students
+		* @brief Renvoie la liste des classes à l'aide de la table students
 		*/
 		function classesQuery() {
 			// TODO: switch status
@@ -197,16 +198,6 @@
 		}
 
 		/**
-		* @brief Efface l'utilisateur passé en paramètre de la table users et students s'il existe dans cette table
-		* @param user - nom d'utilisateur (insensible à la casse)
-		* @return - 1 si succès, 0 si erreur
-		*/
-		function deleteUser(string $user) {
-			$this->goQuery("DELETE FROM students WHERE username=:user",$user);
-			$this->goQuery("DELETE FROM students WHERE username=:user",$user);
-			return $this->goQuery("DELETE FROM users WHERE username=:user",$user);
-		}
-		/**
 		* @brief Modifie les champs email et status de l'utilisateur passé en paramètre de la table users
 		* @param user - nom d'utilisateur (insensible à la casse)
 		* @param email - email de l'utilisateur
@@ -218,14 +209,24 @@
 			return $this->goQuery("UPDATE users SET email=:email, status=:status WHERE username=:user",$email, $status, $user);
 		}
 
+		/**
+		* @brief Efface l'utilisateur passé en paramètre de la table users et students s'il existe dans cette table
+		* @param user - nom d'utilisateur (insensible à la casse)
+		* @return - 1 si succès, 0 si erreur
+		*/
+		function deleteUser(string $user) {
+			$this->goQuery("DELETE FROM students WHERE username=:user",$user);
+			return $this->goQuery("DELETE FROM users WHERE username=:user",$user);
+		}
+
 		// à voir en considérant les changements dans la base de données à cause des questions à double spé
-		/*function createStudent($user,) {
+		function createStudent($user,$ine,$spec1,$spec2) {
 			//createUser doit être effectuée avant
 			if(!$this->userQuery($user)) {
 				return 0;
 			}
 			return $this->goQuery("INSERT INTO students (username)");
-		}*/
+		}
 
 		/**
 		* @brief Modifie les données dans le formulaire actif d'un utilisateur (étudiant). Le formulaire actif est le formulaire le plus récent dans la base de données
@@ -236,21 +237,20 @@
 		*/
 		function updateForm($user,$ens1, $ens2, $q1, $q2, $spec1, $spec1b, $spec2, $spec2b) {
 
-			//Crée un ine aléatoire pour les tests (sera peupler à terme par la fonction import())
+			//Crée un ine aléatoire pour les tests (sera peuplé à terme par la fonction import())
 			function random_ine($length = 8)
 			{
 				$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&?";
 				$password = substr(str_shuffle($chars), 0, $length);
 				return $password;
 			}
-				
+
 			if ($this->studentQuery($user))
 			{
-
 				if ($this->goQuery("UPDATE students SET `ens1`=:ens1, `ens2`=:ens2, `spec1`=:spec1, `spec2`=:spec2 WHERE `username`=:user",$ens1,$ens2,$spec1,$spec2,$user)){
 					return $this->goQuery("INSERT INTO form (`username`, `q1`, `q2`,`spec1b`,`spec2b`) VALUES (LOWER(:user), :q1, :q2, :spec1b, :spec2b)",$user,$q1,$q2,$spec1b,$spec2b);
 				}
-				else return 0;				
+				else return 0;
 			}
 			else {
 				$ine=random_ine(8);
@@ -261,8 +261,6 @@
 			}
 		}
 
-
-
 		/**
 		* @brief Change le mot de passe d'un utilisateur
 		* @param user - nom d'utilisateur
@@ -270,7 +268,6 @@
 		* @return - rowCount de stmt; 1 si succès, 0 si erreur, autre chose si grosse erreur
 		*/
 		function changePassword($user,$pswd) {
-			
 			return $this->goQuery("UPDATE users SET password=PASSWORD(:pswd) WHERE username = LOWER(:user)",$pswd,$user);
 		}
 
