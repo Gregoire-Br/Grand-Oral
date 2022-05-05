@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION["session"]) || $_SESSION["status"] != 2) header("Location: /");
+if (!isset($_SESSION["session"]) || $_SESSION["status"] < 2) header("Location: /");
 
 error_reporting(E_ALL & ~E_NOTICE);
 
@@ -8,7 +8,7 @@ include 'var/sql.php';
 include 'lib/GOBDD.php';
 include 'lib/debug.php';
 
-$Debug = false;
+$Debug = true;
 
 
 $erreur = '';
@@ -57,9 +57,14 @@ if (isset($_POST["submit"])) {
 } else if (isset($_POST["btn-supp"])) {
   if ($bdd->deleteUser($_POST["btn-supp"])){
     echo "<script>window.onload = function() {alert('L'utilisateur a bien été supprimé !','success');};</script>";
-  }
-  else echo "<script>window.onload = function() {alert('Problème lors de la suppression !','failure');};</script>";
+  } else if (isset($_POST["Classe"])){
+      echo "Post Classe<br>";
+  
+    } else echo "<script>window.onload = function() {alert('Problème lors de la suppression !','failure');};</script>";
 } 
+
+$Classes = $bdd->classesQuery();  //Pour peupler le champ select du formulaire
+
 ?>
 
 <!DOCTYPE html>
@@ -74,60 +79,38 @@ if (isset($_POST["submit"])) {
 
   <?php include "var/navbar.html" ?>
 
-  <div id="data" class="container-fluid">
-      <form action="" method="post" class="needs-validation" novalidate>
-
-        <div class="form-group mb-3 d-flex ">
-          <span class="input-group-text">Nom</span>
-          <input type="text" class="form-control" id="last" name="lastname" required>
-
-          <span class="input-group-text ">Prénom</span>
-          <input type="text" class="form-control" id="first" name="firstname" required>
-        </div>
-
-        <div class="rightUserData mb-3 d-flex">
-          <span class="input-group-text">Nom utilisateur</span>
-          <input type="text" class="form-control" id="username" name="username" required>
-
-          <span class="input-group-text">E-mail</span>
-          <input type="text" class="form-control" id="email" name="email" required>
-        </div>
-
-        <div class="statsUserData d-flex ">
-          <select class="form-control" id="status" name="status" required>
-            <option disabled selected value>Tous les utilisateurs</option>
-            <option value="0">Élève</option>
-            <option value="1">Enseignant</option>
-            <option value="3">Secrétaire</option>
-            <option value="2">Proviseur</option>
-          </select>
-
-          <button class="btn btn-primary" type="submit" name="submit" value="submit">Ajouter</button>
-          <button class="btn btn-warning" type="submit" name="submit" value="modif">Modifier</button>
-        </div>
-      </form>
-      <p id="error"><?php echo $erreur ?></p>
-  </div>
 
   <div class="container-fluid pb-5">
     <div class="table-responsive-lg">
-      <p class="text-center"><b>UTILISATEURS DE L'APPLICATION GRAND ORAL</b></p>
+      <p class="text-center"><b>TRAITEMENT EN LOTS</b></p>
     </div>
+    <form action="" method="post" class="needs-validation" novalidate>
+      <div class="statsUserData d-flex p-3">
+      <?php // debugPrintVariable(Classes); ?>
+        <select name="classes" class="form-control col" required>
+            <option disabled selected value="">Selectionnez la classe</option>
+            <?php 
+            foreach ($Classes as $clss) {  
+                echo '<option name="Classe" value="'.$clss["Classe"].'">'.$clss["Classe"].'</option>';
+            }?>
+        </select>
+      </div>
+      <button class="btn btn-danger float-end" type="submit" name="delete"value="submit">Supprimer</button>
+      <button class="btn btn-primary float-end" type="submit" name="passwd" value="submit">Generate passwords</button>
+    </form>
     <form action="" method="post" id="usersGO">
-      <div class="table-responsive-lg scroll" style="max-height : 600px">
+      <div class="table-responsive-lg scroll pt-5" style="max-height : 600px">
           <table id="myTable" class="table table-light table-striped">
             <tr>
               <th>Nom</th>
               <th>Prénom</th>
               <th>Nom Utilisateur</th>
-              <th>e-mail</th>
-              <th>Status</th>
+              <th>Classe</th>
+              <th>Password</th>
             </tr>
 
             <?php
-              $res = $bdd->allUsers();
-              //print_r($res);
-              // On utilise la variable $r
+              //$res = $bdd->studentsByClasse($);
               foreach ($res as $r) {
               ?>
                 <!-- On affiche depuis la BDD : Nom, Prénom, Nom utilisateur, email, status-->
@@ -146,7 +129,6 @@ if (isset($_POST["submit"])) {
               ?>
           </table> 
       </div>
-      <button type="submit" class="btn btn-danger float-end" value="submit">Supprimer</button>
     </form>
   </div>
 
