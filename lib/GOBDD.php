@@ -18,7 +18,7 @@
 			$this->debug = $debug;
 			try {
 				$this->bdd = new PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8',$user,$pswd);
-				if ($this->bdd && $this->debug) echo "Connexion réussie<br>";
+				if ($this->bdd && $this->debug) echo "Connexion à la base de données '$db' réussie<br>";
 			} catch (Exception $e) {
 				die('Erreur: ' . $e->getMessage());
 				if ($e) echo $e;
@@ -149,7 +149,8 @@
 		*/
 		function relatedForms($user) {
 			// TODO: switch status
-			return $this->goQuery("SELECT f.*, u.firstname, u.lastname, MAX(f.date) FROM form f, students s, users u WHERE s.ens1 = :self OR s.ens2 = :self GROUP BY f.username",$user,$user);
+
+			return $this->goQuery("SELECT f.*, u.firstname, u.lastname, MAX(f.date) FROM form f, users u WHERE u.ens1 = :self OR u.ens2 = :self GROUP BY f.username",$user,$user);
 		}
 
 		/**
@@ -163,17 +164,16 @@
 		*/
 		function createUser($user,$pswd,$firstname,$lastname,$status,$email) {
 			return $this->goQuery("INSERT INTO users (username,password,firstname,lastname,status,email) VALUES (LOWER(:user) , PASSWORD(:pswd) , :firstname , :lastname , :status , :email)",$user,$pswd,$firstname,$lastname,$status,$email);
-
 		}
 
 		// à voir en considérant les changements dans la base de données à cause des questions à double spé
-		/*function createStudent($user,) {
+		function createStudent($user,$ine,$class) {
 			//createUser doit être effectuée avant
 			if(!$this->userQuery($user)) {
-				return 0;
+				return false;
 			}
-			return $this->goQuery("INSERT INTO students (username)");
-		}*/
+			return $this->goQuery("INSERT INTO students (username,ine,class) VALUES (LOWER(:user),:ine,:class)",$user,$ine,$class);
+		}
 
 		/**
 		* @brief Modifie les données dans le formulaire actif d'un utilisateur (étudiant). Le formulaire actif est le formulaire le plus récent dans la base de données
@@ -182,8 +182,8 @@
 		* @param q2 - deuxième question
 		* @return - rowCount de stmt; 1 si succès, 0 si erreur, autre chose si grosse erreur
 		*/
-		function updateForm($user,$q1,$q2) {
-			return $this->goQuery("INSERT INTO form (`username`, `q1`, `q2`) VALUES (LOWER(:user), :q1, :q2)",$user,$q1,$q2);
+		function updateForm($user,$q1,$q2,$ens1,$ens2,$spec11,$spec12,$spec21,$spec22) {
+			return $this->goQuery("INSERT INTO form (`username`, `q1`, `q2`, `ens1`,`ens2`,`spec11`,`spec12`,`spec21`,`spec22`) VALUES (LOWER(:user), :q1, :q2, :ens1, :ens2, :spec11, :spec12, :spec21, :spec22)",$user,$q1,$q2,$ens1,$ens2,$spec11,$spec12,$spec21,$spec22);
 		}
 
 		/**
@@ -200,9 +200,19 @@
 			return $this->goQuery("SELECT f.* FROM form f, students s WHERE s.ine = :ine AND f.username = s.username ORDER BY f.date DESC LIMIT 1",$ine);
 		}
 
-		/*function validate($user,$stdt) {
-			// TODO: vérifier statut avant de valider
-		}*/
+		function validate($user,$stdt) {
+			$info = $this->userQuery($user);
+			$form = $this->formQuery($stdt);
+
+			switch ($info["status"]) {
+				case 2 :
+					return $this->goQuery("UPDATE `form` SET provalid = CURRENT_TIME() WHERE `form`.`username` = :stdt;",$stdt);
+				case 1 :
+					return $this->goQuery("UPDATE `form` SET ".($user == $form["ens1"] ? "`ens1valid`" : "`ens2valid`")." = CURRENT_TIME() WHERE `form`.`username` = :stdt;",$stdt);
+				default:
+					return false;
+			}
+		}
 
 		function homonyms($user) {
 			return $this->bdd->query("SELECT * FROM users WHERE username LIKE '".$user."%'")->rowCount();
