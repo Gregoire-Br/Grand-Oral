@@ -1,4 +1,8 @@
 <?php
+/**
+* @file GOBDD.php
+* @brief Fonctions liées à la base de données
+*/
 	class GOBDD {
 		private $bdd;
 		private $debug = 0;
@@ -44,7 +48,7 @@
 				for($i=0; $i<count($matches[0]); $i++) {
 					//echo $matches[0][$i];
 					if(!$stmt->bindParam($matches[0][$i], $params[$i])) {
-						if($debug) {
+						if($this->debug) {
 							var_dump($stmt->errorInfo());
 							echo "<br>";
 							var_dump($stmt);
@@ -60,24 +64,29 @@
 				}
 
 				if(strtoupper(explode(' ',trim($rq))[0]) == "SELECT") {
-					echo "rq: SELECT<br>";
-					if($stmt->rowCount() > 2){
-						echo "rowCount() > 2<br>";
-						//var_dump($stmt->errorInfo());
-						//var_dump($stmt);
-						return $stmt->fetchAll(PDO::FETCH_DEFAULT);
+					if($stmt->rowCount() >= 2){
+						if($this->debug) {
+							echo "$rq<br>rq: SELECT<br>rowCount() >= 2<br>";
+							var_dump($stmt->errorInfo());
+							var_dump($stmt);
+							echo "<br><br>";
+						}
+						return $stmt->fetchAll(PDO::FETCH_BOTH);
 					} else {
-						echo "rowCount() <= 2<br>";
-						//var_dump($stmt->errorInfo());
-						//var_dump($stmt);
+						if($this->debug) {
+							echo "$rq<br>rq: SELECT<br>rowCount() < 2<br>";
+							var_dump($stmt->errorInfo());
+							var_dump($stmt);
+							echo "<br><br>";
+						}
 						return $stmt->fetch(PDO::FETCH_ASSOC);
 					}
 				} else {
-					echo "rq: !SELECT<br>";
+					if($this->debug) echo "rq: !SELECT<br>";
 					return $stmt->rowCount();
 				}
 			} catch(Exception $e) {
-				if($debug) {
+				if($this->debug) {
 					var_dump($this->bdd);
 					echo "<br>";
 					var_dump($stmt);
@@ -94,11 +103,6 @@
 			}
 		}
 
-		/**
-		* @brief Cherche un utilisateur et retourne les informations sur lui
-		* @param user - Nom d'utilisateur à chercher
-		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : <ul><li>username: nom d'utilisateur</li><li>password: mot de passe hashé</li><li>firstname: prénom</li><li>lastname: nom de famille</li><li>status: grade de l'utilisateur; 0: étudiant; 1: enseignant; 2: proviseur adjoint; 3: secrétaire</li><li>email: adresse email</li></ul>
-		*/
 		function userQuery(string $user) {
 			return $this->goQuery("SELECT * FROM users WHERE username=LOWER(:user)",$user);
 		}
@@ -196,6 +200,12 @@
 			return $this->goQuery("SELECT f.* FROM form f, students s WHERE s.ine = :ine AND f.username = s.username ORDER BY f.date DESC LIMIT 1",$ine);
 		}
 
-		function validate($user,$stdt) {
+		/*function validate($user,$stdt) {
 			// TODO: vérifier statut avant de valider
+		}*/
+
+		function homonyms($user) {
+			return $this->bdd->query("SELECT * FROM users WHERE username LIKE '".$user."%'")->rowCount();
+		}
+	}
 ?>
