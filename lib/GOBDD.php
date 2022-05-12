@@ -212,8 +212,9 @@
 		* @brief Cherche les formulaires les plus récents de tous les enseignants
 		*/
 		function relatedForms(string $user) {
-			// TODO: switch status
-			return $this->goQuery("SELECT f.*, u.firstname, u.lastname, MAX(f.date) FROM form f, users u WHERE f.ens1 = :self OR f.ens2 = :self GROUP BY f.username",$user,$user);
+			$rslt = $this->goQuery("SELECT f.*, u.firstname, u.lastname, MAX(f.date) FROM form f, users u WHERE f.ens1 = :self OR f.ens2 = :self GROUP BY f.username",$user,$user);
+			return ($rslt[0] ? $rslt : array($rslt));
+			// Solution imparfaite; à voir comment changer goQuery() sans casser tout le reste du code
 		}
 
 		/**
@@ -237,7 +238,7 @@
 		}
 
 		/**
-		* @brief Renvoi la liste des étudiants de la classe : $classe
+		* @brief Renvoie la liste des étudiants de la classe : $classe
 		* @param classe - classe de l'étudiant (exemple 'T01')
 		*/
 		function studentsByClasseQuery($classe) {
