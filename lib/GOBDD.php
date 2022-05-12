@@ -200,7 +200,7 @@
 		}
 
 		/**
-		* @brief Renvoi la liste des spécialités
+		* @brief Renvoie la liste des spécialités
 		* @param Aucun
 		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : id, nom de spécialité
 		*/
@@ -247,7 +247,7 @@
 		}
 
 		/**
-		* @brief Renvoi la liste des profs de spé à l'aide de la table users et du statut
+		* @brief Renvoie la liste des profs de spé à l'aide de la table users et du statut
 		*/
 		function listProfsQuery() {
 			// TODO: switch status
