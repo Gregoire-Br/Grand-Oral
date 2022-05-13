@@ -36,7 +36,7 @@ $xml = simplexml_load_file("ElevesLTLV.xml") or die("Error: Cannot create object
         echo"<br>";
         echo $firstname. "\t" .$lastname. "\t" .$email;
         echo"<br>";
-    
+
         echo $status;
         echo"<br>";
 
@@ -45,7 +45,7 @@ $xml = simplexml_load_file("ElevesLTLV.xml") or die("Error: Cannot create object
                 homonys - Méthode GOBDD qui incrémente la fin du string $username +1 si déjà existant
         */
 
-        $username = substr($firstname, 0, 1). "." .$lastname;
+        $username = substr($firstname, 0, 1).$lastname;
 
         // SELECT * FROM users WHERE username LIKE "1(firstname).lastname%"
         $dupes = $bdd->homonyms($username);
