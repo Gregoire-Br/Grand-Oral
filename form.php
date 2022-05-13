@@ -86,7 +86,7 @@ debugPrintVariable(listProfsSpe);
                         ?>
                     </select>
                     <select name="spec1b" class="form-control col">
-                    <option  <?php if ($forminfo[0]["spec1b"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
+                    <option disabled <?php if ($forminfo[0]["spec1b"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
                         <?php 
                        foreach ($specinfo as $spe) {  
                             if ($forminfo[0]["spec1b"] == $spe["spec"]) echo '<option selected value='.$spe["spec"].'>'.$spe["spec"].'</option>';
@@ -136,7 +136,7 @@ debugPrintVariable(listProfsSpe);
                 </div>
                 <div class="row ps-2 pe-2">
                     <select name="spec2" class="form-control col" required>
-                        <option disabled <?php if ($studentinfo[0]["spec2"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
+                        <option disabled <?php if ($studentinfo[0]["spec2"] == "") echo "selected" ?> required value>Selectionnez une spécialité</option>
                         <?php 
                        foreach ($specinfo as $spe) {  
                             if ($studentinfo[0]["spec2"] == $spe["spec"]) echo '<option selected value="'.$spe["spec"].'">'.$spe["spec"].'</option>';
@@ -145,7 +145,7 @@ debugPrintVariable(listProfsSpe);
                         ?>
                     </select>
                     <select name="spec2b" class="form-control col">
-                    <option  <?php if ($forminfo[0]["spec2b"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
+                    <option disabled <?php if ($forminfo[0]["spec2b"] == "") echo "selected" ?> required value>Selectionnez une spécialité</option>
                         <?php 
                        foreach ($specinfo as $spe) {  
                             if ($forminfo[0]["spec2b"] == $spe["spec"]) echo '<option selected value="'.$spe["spec"].'">'.$spe["spec"].'</option>';
