@@ -336,5 +336,11 @@
 		function homonyms($user) {
 			return $this->bdd->query("SELECT * FROM users WHERE username LIKE '".$user."%'")->rowCount();
 		}
+
+		function INEquery($ine){
+			$stdt = $this->goQuery("SELECT * FROM students WHERE ine=:ine",$ine);
+			$user = $this->goQuery("SELECT firstname, lastname FROM users WHERE username=:user",$stdt["username"]);
+			$form = $this->formQuery($stdt["username"]);
+		}
 	}
 ?>
