@@ -11,7 +11,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 $erreur = '';
 
-if (isset($_POST["submit"])) {
+if ($_POST["submit"]) {
     if ($_POST["username"] && $_POST["password"]) {
 
         $username = $_POST["username"];
@@ -20,12 +20,13 @@ if (isset($_POST["submit"])) {
         $bdd = new GOBDD($sql_ip, $sql_db, $sql_login, $sql_password);
         if ($bdd->checkCredentials($username, $password)) {
             $res = $bdd->userQuery($username);
+
             session_start();
             $_SESSION["session"] = true;
-            $_SESSION["username"] = $res["username"];
-            $_SESSION["firstname"] = $res["firstname"];
-            $_SESSION["lastname"] = $res["lastname"];
-            $_SESSION["status"] = $res["status"];
+            $_SESSION["username"] = $res[0]["username"];
+            $_SESSION["firstname"] = $res[0]["firstname"];
+            $_SESSION["lastname"] = $res[0]["lastname"];
+            $_SESSION["status"] = $res[0]["status"];
             header('Location: session.php');
         } else {
             $erreur = 'Identifiant ou mot de passe incorrect';
@@ -34,6 +35,7 @@ if (isset($_POST["submit"])) {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -41,7 +43,7 @@ if (isset($_POST["submit"])) {
 <title>Connexion</title>
 
 <body>
-    <div class="container">
+    <div class="container p-5 border">
         <img id="logo" src="img/logo.png" class="img-fluid mx-auto d-block">
 
         <form id="go-form" class="form needs-validation" action="" method="post" novalidate>

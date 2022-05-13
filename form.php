@@ -4,22 +4,29 @@ if (!isset($_SESSION["session"]) || $_SESSION["status"] != 0) header("Location: 
 
 include 'var/sql.php';
 include 'lib/GOBDD.php';
+include 'lib/debug.php';
 
-$bdd = new GOBDD($sql_ip, $sql_db, $sql_login, $sql_password);
+$Debug=false;
+
+$bdd = new GOBDD($sql_ip, $sql_db, $sql_login, $sql_password,$Debug);
 
 error_reporting(E_ALL & ~E_NOTICE);
 
 if ($_POST["submit"]) {
+    debugPrintVariablePOST();   
     if ($_POST["ens1"] && $_POST["spec1"] && $_POST["q1"] && $_POST["ens2"] && $_POST["spec2"] && $_POST["q2"]) {
         echo "<script>window.onload = function() {alert('Le formulaire a bien été envoyé','success');};</script>";
-        $bdd->updateForm($_SESSION["username"], $_POST["q1"], $_POST["q2"]);
-        $bdd->updateStudent($_SESSION["username"], $_POST["spec1"], $_POST["spec2"]);
+        $bdd->updateForm($_SESSION["username"],  $_POST["ens1"], $_POST["ens2"], $_POST["q1"], $_POST["q2"], $_POST["spec1"], $_POST["spec1b"], $_POST["spec2"], $_POST["spec2b"]);
     }
 }
 
-
+$userinfo = $bdd->userQuery($_SESSION["username"]);
 $studentinfo = $bdd->studentQuery($_SESSION["username"]);
 $forminfo = $bdd->formQuery($_SESSION["username"]);
+$specinfo = $bdd->specQuery();
+$listProfsSpe = $bdd->listProfsQuery();
+
+debugPrintVariable(listProfsSpe);
 
 ?>
 
@@ -43,10 +50,20 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
 
             <div class="form-group">
                 <label for="ens1" class="text-info">Nom de l'enseignant n°1 :</label>
-                <input type="text" name="ens1" maxlength="100" class="form-control" value="<?php echo $studentinfo["ens1"] ?>" required />
+                <!-- ?php echo "<input type='text' name='ens1' maxlength='100' class='form-control' value='".$studentinfo[0]['ens1']."' required />"; ?> 
                 <div class="invalid-feedback">
                     Nom de l'enseignant requis
                 </div>
+                -->
+                <select name="ens1" class="form-control col" required>
+                        <option disabled <?php if ($studentinfo[0]["ens1"] == "") echo "selected" ?> value>Selectionnez l'enseignant de spécialité 1</option>
+                        <?php 
+                        foreach ($listProfsSpe as $lst) {  
+                            if ($studentinfo[0]["ens1"] == $lst["username"]) echo '<option selected value="'.$lst["username"].'">'.$lst["lastname"].'</option>';
+                            else echo '<option value="'.$lst["username"].'">'.$lst["lastname"].'</option>';
+                        }
+                        ?>
+                </select>
             </div>
 
             <div class="form-group">
@@ -54,31 +71,29 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
                     <div class="col">
                         <label for="spec1" class="text-info">Spécialité n°1 :</label>
                     </div>
-                  <div class="col">
-                        <label for="spec1" class="text-info">Spécialité secondaire :</label>
-                    </div> 
+                    <div class="col">
+                        <label for="spec1b" class="text-info">Spécialité secondaire :</label>
+                    </div>
                 </div>
                 <div class="row ps-2 pe-2">
-                    <select name="spec1a" class="form-control col" required>
-                        <option disabled <?php if ($studentinfo["spec1"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
-                        <option <?php if ($studentinfo["spec1"] == "math") echo "selected" ?> value="math">Mathématiques</option>
-                        <option <?php if ($studentinfo["spec1"] == "francais") echo "selected" ?> value="francais">Français </option>
-                        <option <?php if ($studentinfo["spec1"] == "espagnol") echo "selected" ?> value="espagnol">Espagnol</option>
-                        <option <?php if ($studentinfo["spec1"] == "anglais") echo "selected" ?> value="anglais">Anglais</option>
-                        <option <?php if ($studentinfo["spec1"] == "histoiregeo") echo "selected" ?> value="histoiregeo">Histoire-Géographie</option>
-                        <option <?php if ($studentinfo["spec1"] == "physique") echo "selected" ?> value="physique">Physique-Chimie</option>
-                        <option <?php if ($studentinfo["spec1"] == "svt") echo "selected" ?> value="svt">SVT</option>
+                    <select name="spec1" class="form-control col" required>
+                        <option disabled <?php if ($studentinfo[0]["spec1"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
+                        <?php 
+                        foreach ($specinfo as $spe) {  
+                            if ($studentinfo[0]["spec1"] == $spe["spec"]) echo '<option selected value="'.$spe["spec"].'">'.$spe["spec"].'</option>';
+                            else echo '<option value="'.$spe["spec"].'">'.$spe["spec"].'</option>';
+                        }
+                        ?>
                     </select>
-                    <!--    <select name="spec1b" class="form-control col">
-                        <option <?php //if ($studentinfo["spec1b"] == "") echo "selected" ?> value="">Aucun(e)</option>
-                        <option <?php //if ($studentinfo["spec1b"] == "math") echo "selected" ?> value="math">Mathématiques</option>
-                        <option <?php //if ($studentinfo["spec1b"] == "francais") echo "selected" ?> value="francais">Français </option>
-                        <option <?php //if ($studentinfo["spec1b"] == "espagnol") echo "selected" ?> value="espagnol">Espagnol</option>
-                        <option <?php //if ($studentinfo["spec1b"] == "anglais") echo "selected" ?> value="anglais">Anglais</option>
-                        <option <?php //if ($studentinfo["spec1b"] == "histoiregeo") echo "selected" ?> value="histoiregeo">Histoire-Géographie</option>
-                        <option <?php //if ($studentinfo["spec1b"] == "physique") echo "selected" ?> value="physique">Physique-Chimie</option>
-                        <option <?php //if ($studentinfo["spec1b"] == "svt") echo "selected" ?> value="svt">SVT</option>
-                    </select> -->
+                    <select name="spec1b" class="form-control col">
+                    <option  <?php if ($forminfo[0]["spec1b"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
+                        <?php 
+                       foreach ($specinfo as $spe) {  
+                            if ($forminfo[0]["spec1b"] == $spe["spec"]) echo '<option selected value='.$spe["spec"].'>'.$spe["spec"].'</option>';
+                            else echo '<option value="'.$spe["spec"].'">'.$spe["spec"].'</option>';
+                       }
+                        ?>
+                    </select>
                 </div>
 
                 <div class="invalid-feedback">
@@ -89,7 +104,7 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
 
             <div class="form-group">
                 <label for="q1" class="text-info">Question 1 :</label>
-                <textarea type="text" name="q1" maxlength="300" required class="form-control"><?php echo $forminfo["q1"] ?></textarea>
+                <textarea type="text" name="q1" maxlength="300" required class="form-control"><?php echo $forminfo[0]["q1"] ?></textarea>
                 <div class="invalid-feedback">
                     Question requise
                 </div>
@@ -99,10 +114,15 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
 
             <div class="form-group">
                 <label for="ens2" class="text-info">Nom de l'enseignant n°2 :</label>
-                <input type="text" name="ens2" maxlength="100" class="form-control" value="<?php echo $studentinfo["ens2"] ?>" required />
-                <div class="invalid-feedback">
-                    Nom de l'enseignant requis
-                </div>
+                <select name="ens2" class="form-control col" required>
+                        <option disabled <?php if ($studentinfo[0]["ens2"] == "") echo "selected" ?> value>Selectionnez l'enseignant de spécialité 2</option>
+                        <?php 
+                        foreach ($listProfsSpe as $lst) {  
+                            if ($studentinfo[0]["ens2"] == $lst["username"]) echo '<option selected value="'.$lst["username"].'">'.$lst["lastname"].'</option>';
+                            else echo '<option value="'.$lst["username"].'">'.$lst["lastname"].'</option>';
+                        }
+                        ?>
+                    </select>
             </div>
 
             <div class="form-group">
@@ -111,30 +131,28 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
                         <label for="spec2" class="text-info">Spécialité n°2 :</label>
                     </div>
                     <div class="col">
-                        <label for="spec2" class="text-info">Spécialité secondaire :</label>
+                        <label for="spec2b" class="text-info">Spécialité secondaire :</label>
                     </div>
                 </div>
                 <div class="row ps-2 pe-2">
-                    <select name="spec2a" class="form-control col" required>
-                        <option disabled <?php if ($studentinfo["spec2"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
-                        <option <?php if ($studentinfo["spec2"] == "math") echo "selected" ?> value="math">Mathématiques</option>
-                        <option <?php if ($studentinfo["spec2"] == "francais") echo "selected" ?> value="francais">Français </option>
-                        <option <?php if ($studentinfo["spec2"] == "espagnol") echo "selected" ?> value="espagnol">Espagnol</option>
-                        <option <?php if ($studentinfo["spec2"] == "anglais") echo "selected" ?> value="anglais">Anglais</option>
-                        <option <?php if ($studentinfo["spec2"] == "histoiregeo") echo "selected" ?> value="histoiregeo">Histoire-Géographie</option>
-                        <option <?php if ($studentinfo["spec2"] == "physique") echo "selected" ?> value="physique">Physique-Chimie</option>
-                        <option <?php if ($studentinfo["spec2"] == "svt") echo "selected" ?> value="svt">SVT</option>
+                    <select name="spec2" class="form-control col" required>
+                        <option disabled <?php if ($studentinfo[0]["spec2"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
+                        <?php 
+                       foreach ($specinfo as $spe) {  
+                            if ($studentinfo[0]["spec2"] == $spe["spec"]) echo '<option selected value="'.$spe["spec"].'">'.$spe["spec"].'</option>';
+                            else echo '<option value="'.$spe["spec"].'">'.$spe["spec"].'</option>';
+                       }
+                        ?>
                     </select>
-                   <!-- <select name="spec2b" class="form-control col">
-                        <option <?php //if ($studentinfo["spec2b"] == "") echo "selected" ?> value="">Aucun(e)</option>
-                        <option <?php //if ($studentinfo["spec2b"] == "math") echo "selected" ?> value="math">Mathématiques</option>
-                        <option <?php //if ($studentinfo["spec2b"] == "francais") echo "selected" ?> value="francais">Français </option>
-                        <option <?php //if ($studentinfo["spec2b"] == "espagnol") echo "selected" ?> value="espagnol">Espagnol</option>
-                        <option <?php //if ($studentinfo["spec2b"] == "anglais") echo "selected" ?> value="anglais">Anglais</option>
-                        <option <?php //if ($studentinfo["spec2b"] == "histoiregeo") echo "selected" ?> value="histoiregeo">Histoire-Géographie</option>
-                        <option <?php //if ($studentinfo["spec2b"] == "physique") echo "selected" ?> value="physique">Physique-Chimie</option>
-                        <option <?php //if ($studentinfo["spec2b"] == "svt") echo "selected" ?> value="svt">SVT</option>
-                    </select> -->
+                    <select name="spec2b" class="form-control col">
+                    <option  <?php if ($forminfo[0]["spec2b"] == "") echo "selected" ?> value>Selectionnez une spécialité</option>
+                        <?php 
+                       foreach ($specinfo as $spe) {  
+                            if ($forminfo[0]["spec2b"] == $spe["spec"]) echo '<option selected value="'.$spe["spec"].'">'.$spe["spec"].'</option>';
+                            else echo '<option value="'.$spe["spec"].'">'.$spe["spec"].'</option>';
+                       }
+                        ?>
+                    </select>
                 </div>
 
                 <div class="invalid-feedback">
@@ -144,7 +162,7 @@ $forminfo = $bdd->formQuery($_SESSION["username"]);
 
             <div class="form-group">
                 <label for="q2" class="text-info">Question 2 :</label>
-                <textarea type="text" name="q2" maxlength="300" required class="form-control"><?php echo $forminfo["q2"] ?></textarea>
+                <textarea type="text" name="q2" maxlength="300" required class="form-control"><?php echo $forminfo[0]["q2"] ?></textarea>
                 <div class="invalid-feedback">
                     Question requise
                 </div>

@@ -1,5 +1,5 @@
 <?php
 $sql_ip = '127.0.0.1';
-$sql_login = 'root';
-$sql_password = 'root';
-$sql_db = 'go';
+$sql_login = 'go1';
+$sql_password = 'Snir2020*';
+$sql_db = 'go1';

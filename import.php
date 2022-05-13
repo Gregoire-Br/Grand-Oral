@@ -20,21 +20,20 @@ $erreur = '';
 <body>
 	<?php include "var/navbar.html" ?>
     <div class="container d-flex flex-column">
-        <div class="mb-3">
-            <label for="formFileMultiple" class="form-label">Fichier XML :</label>
-            <input class="form-control" type="file" id="formFileMultiple" multiple>
-        </div>
-        <button type="submit" class="btn btn-primary" name="submit">UPLOAD</button>
-        <div class="mb-3">
-            <label for="formFileMultiple" class="form-label">Fichier CSV :</label>
-            <input class="form-control" type="file" id="formFileMultiple" multiple>
-        </div>
-        <button type="submit" class="btn btn-primary" name="submit">UPLOAD</button>
+        <form action="upload.php" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="formFileMultiple" class="form-label">Fichier XML :</label>
+                <input class="form-control" type="file" id="formFileMultiple" multiple>
+                <button type="submit" class="btn btn-primary float-end" name="submit">UPLOAD</button>
+            </div>
+
+            <div class="mb-3">
+                <label for="formFileMultiple" class="form-label">Fichier CSV :</label>
+                <input class="form-control" type="file" id="formFileMultiple" multiple>
+            </div>
+            <button type="submit" class="btn btn-primary" name="submit">UPLOAD</button>
+        </form>
     </div>
-
-<form action="upload.php" method="post" enctype="multipart/form-data">
-
-    </form>
         <?php include "var/js.html" ?>
 	</body>
 </html>

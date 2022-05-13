@@ -1,11 +1,10 @@
 <?php
-/**
-* @file GOBDD.php
-* @brief Fonctions liées à la base de données
-*/
+
+
 	class GOBDD {
 		private $bdd;
 		private $debug = 0;
+
 
 		/**
 		* @param host - domaine du SGBD
@@ -18,12 +17,13 @@
 			$this->debug = $debug;
 			try {
 				$this->bdd = new PDO('mysql:host='.$host.';dbname='.$db.';charset=utf8',$user,$pswd);
-				if ($this->bdd && $this->debug) echo "Connexion à la base de données '$db' réussie<br>";
+				if ($this->bdd && $this->debug) echo "Connexion réussie<br>";
 			} catch (Exception $e) {
 				die('Erreur: ' . $e->getMessage());
 				if ($e) echo $e;
 			}
 		}
+
 
 		/**
 		* @brief Prépare la requête $rq, lie les paramètres $params aux marqueurs, exécute et renvoie le résultat.
@@ -37,22 +37,17 @@
 			try {
 				//trouve ts les mots commencant par ':'
 				$regex = "/:\w+/i";
-
 				$stmt = $this->bdd->prepare($rq);
 				if(!$stmt) {
 					throw new Exception("Erreur requête",1);
 				}
 
 				preg_match_all($regex,$rq,$matches);
-				//var_dump($matches);
 				for($i=0; $i<count($matches[0]); $i++) {
-					//echo $matches[0][$i];
 					if(!$stmt->bindParam($matches[0][$i], $params[$i])) {
 						if($this->debug) {
-							var_dump($stmt->errorInfo());
-							echo "<br>";
-							var_dump($stmt);
-							echo "<br>";
+							var_dump($stmt->errorInfo()); echo "<br>";
+							var_dump($stmt); echo "<br>";
 						}
 						throw new Exception("Erreur bindParam",2);
 					}
@@ -64,26 +59,15 @@
 				}
 
 				if(strtoupper(explode(' ',trim($rq))[0]) == "SELECT") {
-					if($stmt->rowCount() >= 2){
-						if($this->debug) {
-							//echo "$rq<br>rq: SELECT<br>rowCount() >= 2<br>";
-							var_dump($stmt->errorInfo());
-							var_dump($stmt);
-							echo "<br><br>";
-						}
-						return $stmt->fetchAll(PDO::FETCH_BOTH);
-					} else {
-						if($this->debug) {
-							// TODO : DANGEREUX pour les requêtes où le nombre de résultats n'est pas sûr, comme relatedForms !! à voir si il faut l'enlever
-							//echo "$rq<br>rq: SELECT<br>rowCount() < 2<br>";
-							var_dump($stmt->errorInfo());
-							var_dump($stmt);
-							echo "<br><br>";
-						}
-						return $stmt->fetch(PDO::FETCH_ASSOC);
-					}
+					$ret=$stmt->fetchAll();
+					return $ret;
 				} else {
-					if($this->debug) echo "$rq<br>rq: !SELECT<br>";
+					if ($this->debug) {
+						if($stmt){
+							echo "<div class ='debug'><em>Pas SELECT : </em>";
+							 print_r($stmt);
+						}
+					}
 					return $stmt->rowCount();
 				}
 			} catch(Exception $e) {
@@ -104,59 +88,6 @@
 			}
 		}
 
-		//Crée une chaîne aléatoire pour les tests
-		function random($length = 8) {
-			$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&?";
-			$str = substr(str_shuffle($chars), 0, $length);
-			return $str;
-		}
-
-		// var_dump formaté
-		// Par M.MIOSSEC
-		// TODO : utiliser debug.php à la place et éviter la duplication
-		function debugPrintVariable($nomvariable) {
-			global $$nomvariable;
-			if (isset($$nomvariable)){
-				if(is_array($$nomvariable)){
-					echo "<div class = 'debug'><em>Valeur du tableau $".$nomvariable.": </em>";
-					if ($$nomvariable) {
-						echo "<ul>";
-						foreach ($$nomvariable as $cle => $valeur) {
-	                        if (is_array($valeur)) {
-	                            echo "<li>$".$nomvariable."[$cle] = ";
-	                            print_r($valeur);
-	                            echo "</li>";
-	                        }
-	                        else echo "<li>$".$nomvariable."[$cle] = $valeur</li>";
-						}
-						echo "</ul>";
-					}
-					echo "</div>";
-				}
-				else if(is_bool($$nomvariable)){
-					echo "<div class = 'debug'><em>Valeur du Booléen $".$nomvariable.": </em>";
-					if ($$nomvariable){
-						echo "true";
-					}
-					else{
-						echo "false";
-					}
-					echo "</div>";
-				}
-				else if(is_string($$nomvariable)){
-					echo "<div class = 'debug'><em>Valeur de la chaîne de caractères $".$nomvariable.": </em>".$$nomvariable."</div>";
-				}
-				else if(is_numeric($$nomvariable)){
-					echo "<div class = 'debug'><em>Valeur de la variable numrique $".$nomvariable.": </em>".$$nomvariable."</div>";
-				}
-				else{
-					echo "<div class = 'debug'><em>La variable $".$nomvariable." existe mais je ne suis pas sûr de l'afficher correctement. Sa valeur est </em>".$$nomvariable."</div>";
-				}
-			}
-			else{
-				echo "<div class = 'debug'><em>La variable $".$nomvariable." n'est pas définie!</em></div>";
-			}
-		}
 
 		function userQuery(string $user) {
 			return $this->goQuery("SELECT * FROM users WHERE username=LOWER(:user)",$user);
@@ -187,7 +118,7 @@
 		*/
 		function checkCredentials(string $user,string $pswd) {
 			$rslt = $this->goQuery("SELECT * FROM users WHERE username = LOWER(:user) AND password=PASSWORD(:pswd)",$user,$pswd);
-			return ($rslt["username"] ? 1 : 0);
+			return ($rslt[0]["username"] ? 1 : 0);
 		}
 
 		/**
@@ -200,7 +131,7 @@
 		}
 
 		/**
-		* @brief Renvoie la liste des spécialités
+		* @brief Renvoi la liste des spécialités
 		* @param Aucun
 		* @return rslt - tableau associatif contenant toutes les informations, avec ces paires : id, nom de spécialité
 		*/
@@ -212,9 +143,8 @@
 		* @brief Cherche les formulaires les plus récents de tous les enseignants
 		*/
 		function relatedForms(string $user) {
-			$rslt = $this->goQuery("SELECT f.*, u.firstname, u.lastname, MAX(f.date) FROM form f, users u WHERE f.ens1 = :self OR f.ens2 = :self GROUP BY f.username",$user,$user);
-			return ($rslt[0] ? $rslt : array($rslt));
-			// Solution imparfaite; à voir comment changer goQuery() sans casser tout le reste du code
+			// TODO: switch status
+			return $this->goQuery("SELECT f.*, u.firstname, u.lastname, MAX(f.date) FROM form f, students s, users u WHERE s.ens1 = :self OR s.ens2 = :self GROUP BY f.username",$user,$user);
 		}
 
 		/**
@@ -224,9 +154,8 @@
 			// TODO: switch status
 
 			//return $this->goQuery("SELECT F.* FROM form F WHERE date=(SELECT MAX(date) FROM form WHERE username=F.username);");
-			//return $this->goQuery("SELECT u.username, u.lastname, u.firstname, f.ens1, s.ens2, s.spec1, s.spec2, m.* FROM users u, students s, (SELECT * FROM form f WHERE date=(SELECT MAX(date) FROM form WHERE username=f.username)) m WHERE s.username=u.username AND m.username=u.username;");
+			return $this->goQuery("SELECT u.username, u.lastname, u.firstname, s.ens1, s.ens2, s.spec1, s.spec2, m.* FROM users u, students s, (SELECT * FROM form f WHERE date=(SELECT MAX(date) FROM form WHERE username=f.username)) m WHERE s.username=u.username AND m.username=u.username;");
 
-			return $this->goQuery("SELECT f.*, u.firstname, u.lastname, MAX(f.date) FROM form f, users u GROUP BY f.username");
 		}
 
 		/**
@@ -234,20 +163,20 @@
 		*/
 		function classesQuery() {
 			// TODO: switch status
-			return $this->goQuery("SELECT class FROM students GROUP BY class");
+			return $this->goQuery("SELECT Classe FROM students GROUP BY Classe");
 		}
 
 		/**
-		* @brief Renvoie la liste des étudiants de la classe : $classe
+		* @brief Renvoi la liste des étudiants de la classe : $classe
 		* @param classe - classe de l'étudiant (exemple 'T01')
 		*/
 		function studentsByClasseQuery($classe) {
 			// TODO: switch status
-			return $this->goQuery("SELECT u.username, u.lastname, u.firstname, u.password, s.ine, s.class FROM users u, students s WHERE u.username=s.username AND s.class=:classe",$classe);
+			return $this->goQuery("SELECT u.username, u.lastname, u.firstname, u.password, s.ine, s.Classe FROM users u, students s WHERE u.username=s.username AND s.Classe=:classe",$classe);
 		}
 
 		/**
-		* @brief Renvoie la liste des profs de spé à l'aide de la table users et du statut
+		* @brief Renvoi la liste des profs de spé à l'aide de la table users et du statut
 		*/
 		function listProfsQuery() {
 			// TODO: switch status
@@ -264,10 +193,8 @@
 		* @return - 1 si succès, 0 si erreur
 		*/
 		function createUser(string $user,string $pswd,string $firstname,string $lastname,int $status,string $email) {
-			if(!$pswd) {
-				$pswd = $this->random();
-			}
 			return $this->goQuery("INSERT INTO users (username,password,firstname,lastname,status,email) VALUES (LOWER(:user) , PASSWORD(:pswd) , :firstname , :lastname , :status , :email)",$user,$pswd,$firstname,$lastname,$status,$email);
+
 		}
 
 		/**
@@ -293,12 +220,12 @@
 		}
 
 		// à voir en considérant les changements dans la base de données à cause des questions à double spé
-		function createStudent($user,$ine,$class) {
+		function createStudent($user,$ine,$spec1,$spec2) {
 			//createUser doit être effectuée avant
 			if(!$this->userQuery($user)) {
-				return false;
+				return 0;
 			}
-			return $this->goQuery("INSERT INTO students (username,ine,class) VALUES (LOWER(:user),:ine,:class)",$user,$ine,$class);
+			return $this->goQuery("INSERT INTO students (username)");
 		}
 
 		/**
@@ -308,8 +235,30 @@
 		* @param q2 - deuxième question
 		* @return - rowCount de stmt; 1 si succès, 0 si erreur, autre chose si grosse erreur
 		*/
-		function updateForm($user,$q1,$q2,$ens1,$ens2,$spec11,$spec12,$spec21,$spec22) {
-			return $this->goQuery("INSERT INTO form (`username`, `q1`, `q2`, `ens1`,`ens2`,`spec11`,`spec12`,`spec21`,`spec22`) VALUES (LOWER(:user), :q1, :q2, :ens1, :ens2, :spec11, :spec12, :spec21, :spec22)",$user,$q1,$q2,$ens1,$ens2,$spec11,$spec12,$spec21,$spec22);
+		function updateForm($user,$ens1, $ens2, $q1, $q2, $spec1, $spec1b, $spec2, $spec2b) {
+
+			//Crée un ine aléatoire pour les tests (sera peuplé à terme par la fonction import())
+			function random_ine($length = 8)
+			{
+				$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&?";
+				$password = substr(str_shuffle($chars), 0, $length);
+				return $password;
+			}
+
+			if ($this->studentQuery($user))
+			{
+				if ($this->goQuery("UPDATE students SET `ens1`=:ens1, `ens2`=:ens2, `spec1`=:spec1, `spec2`=:spec2 WHERE `username`=:user",$ens1,$ens2,$spec1,$spec2,$user)){
+					return $this->goQuery("INSERT INTO form (`username`, `q1`, `q2`,`spec1b`,`spec2b`) VALUES (LOWER(:user), :q1, :q2, :spec1b, :spec2b)",$user,$q1,$q2,$spec1b,$spec2b);
+				}
+				else return 0;
+			}
+			else {
+				$ine=random_ine(8);
+				if ($this->goQuery("INSERT INTO students (`username`,`spec1`,`spec2`,`ine`) VALUES (LOWER(:user), :spec1, :spec2, :ine)",$user,$spec1,$spec2, $ine)){
+					return $this->goQuery("INSERT INTO form (`username`, `q1`, `q2`,`spec1b`,`spec2b`) VALUES (LOWER(:user), :q1, :q2, :spec1b, :spec2b)",$user,$q1,$q2,$spec1b,$spec2b);
+				}
+				else return 0;
+			}
 		}
 
 		/**
@@ -327,21 +276,7 @@
 		}
 
 		function validate($user,$stdt) {
-			$info = $this->userQuery($user);
-			$form = $this->formQuery($stdt);
-
-			switch ($info["status"]) {
-				case 2 :
-					return $this->goQuery("UPDATE `form` SET provalid = CURRENT_TIME() WHERE `form`.`username` = :stdt;",$stdt);
-				case 1 :
-					return $this->goQuery("UPDATE `form` SET ".($user == $form["ens1"] ? "`ens1valid`" : "`ens2valid`")." = CURRENT_TIME() WHERE `form`.`username` = :stdt;",$stdt);
-				default:
-					return false;
-			}
-		}
-
-		function homonyms($user) {
-			return $this->bdd->query("SELECT * FROM users WHERE username LIKE '".$user."%'")->rowCount();
+			// TODO: vérifier statut avant de valider
 		}
 	}
 ?>
