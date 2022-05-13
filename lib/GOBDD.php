@@ -278,5 +278,9 @@
 		function validate($user,$stdt) {
 			// TODO: vérifier statut avant de valider
 		}
+
+		function homonyms($user) {
+			return $this->bdd->query("SELECT * FROM users WHERE username LIKE '".$user."%'")->rowCount();
+		}
 	}
 ?>
