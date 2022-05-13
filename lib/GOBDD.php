@@ -341,6 +341,14 @@
 			$stdt = $this->goQuery("SELECT * FROM students WHERE ine=:ine",$ine);
 			$user = $this->goQuery("SELECT firstname, lastname FROM users WHERE username=:user",$stdt["username"]);
 			$form = $this->formQuery($stdt["username"]);
+
+			return array_merge(array(
+				$stdt["ine"],
+				$stdt["username"],
+				$user["firstname"],
+				$user["lastname"],
+				$stdt["class"],
+			),$form);
 		}
 	}
 ?>
