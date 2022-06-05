@@ -521,5 +521,15 @@
 				$this->deleteForm($history[$i]["id"]);
 			}
 		}
+
+		/**
+		* @brief Refuse le formulaire d'un utilisateur, enlevant les validations de tout les validateurs
+		* @param user - nom d'utilisateur du candidat
+		* @return - 1 si succès, 0 si erreur
+		*/
+		function deny($user) {
+			$form = $this->formQuery($user);
+			return $this->goQuery("UPDATE form SET ens1valid = NULL, ens2valid = NULL, provalid = NULL WHERE id = :id",$form[0]["id"]);
+		}
 	}
 ?>

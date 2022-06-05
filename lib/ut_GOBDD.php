@@ -48,6 +48,9 @@ echo "<h2>Enseignant, validation</h2><br>";
 	$bdd->ut('createUser','utens2','pswd','UT','Professeur',1,'email@protonmail.com'); // créer utilisateur (prof 2)
 	$bdd->ut('createUser','utprovi','pswd','UT','Proviseur',2,'provi@protonmail.com'); //créer utilisateur (proviseur)
 	$bdd->ut('validate','utens2','uteleve'); // validation du formulaire par le prof
+	$bdd->ut('deny','uteleve'); //refus du formulaire
+	$bdd->ut('formQuery','uteleve'); // infos formulaire
+	$bdd->ut('validate','utens2','uteleve'); // validation du formulaire par le prof
 	$bdd->ut('validate','utprovi','uteleve'); // validation du formulaire par le prof
 	$bdd->ut('formQuery','uteleve'); // infos formulaire
 
