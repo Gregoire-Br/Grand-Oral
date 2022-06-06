@@ -1,0 +1,122 @@
+@startuml
+/'
+' uncomment the line below if you're using computer with a retina display
+' skinparam dpi 300
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+' we use bold for primary key
+' green color for unique
+' and underscore for not_null
+!define primary_key(x) <b>x</b>
+!define unique(x) <color:green>x</color>
+!define not_null(x) <u>x</u>
+' other tags available:
+' <i></i>
+' <back:COLOR></color>, where color is a color name or html color code
+' (#FFAACC)
+' see: http://plantuml.com/classes.html#More
+hide methods
+hide stereotypes
+
+' entities
+
+Table(user, "user\n(User in our system)") {
+primary_key(id) INTEGER
+not_null(unique(username)) VARCHAR[32]
+not_null(password) VARCHAR[64]
+}
+
+Table(session, "session\n(session for user)") {
+primary_key(id) INTEGER
+not_null(user_id) INTEGER
+not_null(unique(session_id)) VARCHAR[64]
+}
+
+Table(user_profile, "user_profile\n(Some info of user)") {
+primary_key(user_id) INTEGER
+age SMALLINT
+gender SMALLINT
+birthday DATETIME
+}
+
+Table(group, "group\n(group of users)") {
+primary_key(id) INTEGER
+not_null(name) VARCHAR[32]
+}
+
+Table(user_group, "user_group\n(relationship of user and group)") {
+primary_key(user_id) INTEGER
+primary_key(group_id) INTEGER
+joined_at DATETIME
+}
+
+' relationships
+' one-to-one relationship
+user -- user_profile : "A user only \nhas one profile"
+' one to may relationship
+user --> session : "A user may have\n many sessions"
+' many to many relationship
+' Add mark if you like
+user "1" --> "*" user_group : "A user may be \nin many groups"
+group "1" --> "0..N" user_group : "A group may \ncontain many users"
+'/
+
+
+
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+' we use bold for primary key
+' green color for unique
+' and underscore for not_null
+!define primary_key(x) <u>x</u>
+!define foreign_key(x) <i>x</i>
+!define not_null(x) <b>x</b>
+' other tags available:
+' <i></i>
+' <back:COLOR></color>, where color is a color name or html color code
+' (#FFAACC)
+' see: http://plantuml.com/classes.html#More
+hide methods
+hide stereotypes
+
+
+Table(users, "users\n<i>(Utilisateur dans le système)</i>") {
+not_null(primary_key(username)) VARCHAR[20]
+not_null(status) TINYINT[4]
+not_null(password) VARCHAR[100]
+not_null(lastLog) TIMESTAMP
+firstName VARCHAR[100]
+lastName VARCHAR[100]
+email VARCHAR[254]
+}
+
+Table(students, "students\n<i>(Infos spécifiques aux étudiants)</i>") {
+not_null(foreign_key(username)) VARCHAR[20]
+not_null(ine) VARCHAR[11]
+not_null(class) VARCHAR[50]
+}
+
+Table(form, "form\n<i>(Versions de formulaire)</i>") {
+not_null(primary_key(id)) INT[11]
+not_null(foreign_key(username)) VARCHAR[20]
+not_null(date) TIMESTAMP
+q1 TEXT
+q2 TEXT
+not_null(ens1) VARCHAR[20]
+not_null(ens2) VARCHAR[20]
+ens1valid DATETIME
+ens2valid DATETIME
+provalid DATETIME
+not_null(spec11) INT[11]
+spec12 INT[11]
+not_null(spec21) INT[11]
+spec22 INT[11]
+}
+
+Table(specs, "specs\n<i>(Spécialités)</i>") {
+not_null(primary_key(id)) INT[11]
+spec VARCHAR[80]
+}
+
+users "1" -right- "1" students
+students "1" -right-> "*" form
+form "*" -right-> "2" specs
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+skinparam classAttributeIconSize 0
+class GOBDD {
+ -bdd : PDO
+ +GOBDD(in host : string, in db : string, in user : strong, in password : string, in debug : int = 0)
+ +~GOBDD()
+ -goQuery(in rq : string [1], in params : [*]) : array(array(string)) / bool(false)
+ +random(in length : int = 0) : string
+ +ut(in nomvariable : string)
+ +userQuery(in user : string) : array(string)
+ +allUsers() : array(array(string))
+ +formQuery(in user : string) : array(string)
+ +formHistoryQuery(in user : string) : array(string)
+ +checkCredentials(in user : string, in pswd : string) : bool
+ +studentQuery(in user : string) : array(string)
+ +specQuery(in id : int) : array(string)
+ +relatedForms(in user : string) : array(string)
+ +allLastForms() : array(string)
+ +classesQuery() : array(string)
+ +studentsByClasseQuery(in classe : string) : array(string)
+ +listProfsQuery() : array(string)
+ +createUser(in user : string, in pswd : string, in firstname : string, in lastname : string, in status : int, in email : string) : int
+ +updateUser(in user : string, in email : string, in status : string) : int
+ +deleteUser(in user : string) : int
+ +createStudent(in user : string, in ine : string, in class : string) : int
+ +updateForm(in user : string, in q1 : string, in q2 : string, in ens1 : string : in ens2 : string, in spec11 : int, in spec12 : int, in spec21 : int, in spec22 : int) : int
+ +changePassword(in user : string, in pswd : string) : int
+ +formByINE(in ine : string) : array(string)
+ +validate(in user : string, in stdt : string) : int
+ +INEquery (in ine : string) : int
+ +deny(in user : string) : int
+ +deleteForm(in id : int) : int
+ +cleanFormHistory(in user : string) : int
+ +allSpecs() : array(array(string))
+}
+@enduml
