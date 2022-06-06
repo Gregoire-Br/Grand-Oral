@@ -278,7 +278,7 @@
 		* <li>id : identifiant numérique unique pour la spécialité</li>
 		* <li>spec : nom de la spécialité</li>
 		*/
-		function specQuery() {
+		function allSpecs() {
 			return $this->goQuery("SELECT * FROM specs");
 		}
 
@@ -530,6 +530,10 @@
 		function deny($user) {
 			$form = $this->formQuery($user);
 			return $this->goQuery("UPDATE form SET ens1valid = NULL, ens2valid = NULL, provalid = NULL WHERE id = :id",$form[0]["id"]);
+		}
+
+		function specQuery($id) {
+			return $this->goQuery("SELECT * FROM specs WHERE id = :id",$id);
 		}
 	}
 ?>
