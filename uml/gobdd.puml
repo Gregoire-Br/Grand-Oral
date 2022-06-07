@@ -5,32 +5,37 @@ class GOBDD {
  +GOBDD(in host : string, in db : string, in user : strong, in password : string, in debug : int = 0)
  +~GOBDD()
  -goQuery(in rq : string [1], in params : [*]) : array(array(string)) / bool(false)
- +random(in length : int = 0) : string
  +ut(in nomvariable : string)
+ +random(in length : int = 0) : string
+.. Gestion d'utilisateurs ..
  +userQuery(in user : string) : array(string)
  +allUsers() : array(array(string))
- +formQuery(in user : string) : array(string)
- +formHistoryQuery(in user : string) : array(string)
- +checkCredentials(in user : string, in pswd : string) : bool
- +studentQuery(in user : string) : array(string)
- +specQuery(in id : int) : array(string)
- +relatedForms(in user : string) : array(string)
- +allLastForms() : array(string)
- +classesQuery() : array(string)
- +studentsByClasseQuery(in classe : string) : array(string)
- +listProfsQuery() : array(string)
- +createUser(in user : string, in pswd : string, in firstname : string, in lastname : string, in status : int, in email : string) : int
+ +createUser(in user : string, in pswd : string, in firstname : string, in lastname : string,
+	 ... in status : int, in email : string) : int
  +updateUser(in user : string, in email : string, in status : string) : int
  +deleteUser(in user : string) : int
- +createStudent(in user : string, in ine : string, in class : string) : int
- +updateForm(in user : string, in q1 : string, in q2 : string, in ens1 : string : in ens2 : string, in spec11 : int, in spec12 : int, in spec21 : int, in spec22 : int) : int
+ +checkCredentials(in user : string, in pswd : string) : bool
  +changePassword(in user : string, in pswd : string) : int
- +formByINE(in ine : string) : array(string)
- +validate(in user : string, in stdt : string) : int
+.. Etudiants & professeurs ..
+ +studentQuery(in user : string) : array(string)
  +INEquery (in ine : string) : int
- +deny(in user : string) : int
+ +studentsByClasseQuery(in classe : string) : array(string)
+ +classesQuery() : array(string)
+ +createStudent(in user : string, in ine : string, in class : string) : int
+ +specQuery(in id : int) : array(string)
+ +allSpecs() : array(array(string))
+ +listProfsQuery() : array(string)
+.. Formulaires ..
+ +formQuery(in user : string) : array(string)
+ +allLastForms() : array(string)
+ +formHistoryQuery(in user : string) : array(string)
+ +relatedForms(in user : string) : array(string)
+ +formByINE(in ine : string) : array(string)
+ +updateForm(in user : string, in q1 : string, in q2 : string, in ens1 : string : in ens2 : string,
+	 ... in spec11 : int, in spec12 : int, in spec21 : int, in spec22 : int) : int
  +deleteForm(in id : int) : int
  +cleanFormHistory(in user : string) : int
- +allSpecs() : array(array(string))
+ +validate(in user : string, in stdt : string) : int
+ +deny(in user : string) : int
 }
 @enduml
