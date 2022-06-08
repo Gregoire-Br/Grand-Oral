@@ -4,3 +4,4 @@ sql.php
 GOBDD_old.php
 sftp.json
 .ftpconfig
+.DS_Store
