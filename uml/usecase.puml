@@ -1,0 +1,32 @@
+@startuml
+left to right direction
+
+actor cnd as "Candidat"
+rectangle PersonnelEtab {
+    actor ens as "Enseignants"
+    actor prov as "ProviseurAdjoint"
+}
+actor jury as "Jury"
+actor secr as "Secrétaire"
+
+package Grand-Oral {
+    usecase "Se connecter" as connect
+    usecase "Remplir son formulaire" as form
+    usecase "Imprimer une fiche en PDF" as pdf
+    usecase "Valider un formulaire" as valid
+    usecase "Rejeter un formulaire" as rejet
+    usecase "Scanner un QR code" as qr
+    usecase "Consulter un formulaire" as verif
+}
+cnd -- form
+form ..> connect : <<include>>
+PersonnelEtab -- valid
+valid ..> connect : <<include>>
+PersonnelEtab -- rejet
+rejet ..> connect : <<include>>
+secr -- pdf
+pdf ..> connect : <<include>>
+jury -- verif
+verif ..> qr : <<include>>
+verif ..> connect : <<include>>
+@enduml
