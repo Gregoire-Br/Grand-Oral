@@ -279,7 +279,7 @@
 		* <li>spec : nom de la spécialité</li>
 		*/
 		function allSpecs() {
-			return $this->goQuery("SELECT * FROM specs");
+			return $this->goQuery("SELECT * FROM specs ORDER BY id ASC");
 		}
 
 		/**
@@ -532,8 +532,37 @@
 			return $this->goQuery("UPDATE form SET ens1valid = NULL, ens2valid = NULL, provalid = NULL WHERE id = :id",$form[0]["id"]);
 		}
 
+		/**
+		* @brief Renvoie une spécialité à partir d'un ID donné
+		* @param TODO
+		* @return TODO
+		*/
 		function specQuery($id) {
 			return $this->goQuery("SELECT * FROM specs WHERE id = :id",$id);
+		}
+
+		function cleanOrphanForms() {
+			$rc = 0;
+			foreach($this->goQuery("SELECT * FROM form") as $form){
+				$user = $this->userQuery($form["username"]);
+				if(!$user[0] || $user[0]["status"] != 0) {
+					$this->deleteForm($form["id"]);
+					$rc++;
+				}
+			}
+			return $rc;
+		}
+
+		function cleanOrphanStudents() {
+			$rc = 0;
+			foreach($this->allStudents() as $stdt){
+				$user = $this->userQuery($stdt["username"]);
+				if(!$user[0] || $user[0]["status"] != 0) {
+					$this->goQuery("DELETE FROM students WHERE username = :user",$stdt["username"]);
+					$rc++;
+				}
+			}
+			return $rc;
 		}
 	}
 ?>
